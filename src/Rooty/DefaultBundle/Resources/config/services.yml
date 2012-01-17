@@ -1,0 +1,7 @@
+parameters:
+#    rooty_default.example.class: Rooty\DefaultBundle\Example
+
+services:
+#    rooty_default.example:
+#        class: %rooty_default.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
