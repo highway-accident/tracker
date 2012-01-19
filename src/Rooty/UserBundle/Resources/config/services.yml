@@ -1,0 +1,7 @@
+parameters:
+#    rooty_user.example.class: Rooty\UserBundle\Example
+
+services:
+#    rooty_user.example:
+#        class: %rooty_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

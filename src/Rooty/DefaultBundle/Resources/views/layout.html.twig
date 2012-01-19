@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+               '@RootyDefaultBundle/Resources/public/css/reset.css'
+               '@RootyDefaultBundle/Resources/public/css/style.css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div id="header-wrap">
+            <div id="header">
+                <div class="header__logo">[Rooty]$</div>
+                <div class="header__user_info clearfix">
+                    <div class="header__user_info__avatar">
+                    </div>
+                    <div class="header__user_info__account">
+                        <a class="header__user_info__account__username" href="#">paranoid</a> 
+                        <a class="header__user_info__account__logout" href="#">[выход]</a>
+                    </div>
+                </div>
+                {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenu') }}
+            </div>
+        </div>
+        
+        <div id="content">
+        {% block body %}{% endblock %}
+        </div>
+
+        <div id="footer">
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

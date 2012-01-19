@@ -1,0 +1,3 @@
+RootyUserBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: RootyUserBundle:Default:index }

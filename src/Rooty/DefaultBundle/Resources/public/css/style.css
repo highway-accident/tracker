@@ -1,0 +1,110 @@
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
+html {
+    background: #EEEEEE;
+}
+
+#header-wrap {
+    width: 100%;
+    background: black;
+}
+
+#header, #content, #footer {
+    margin: 0 auto;
+    width: 960px;
+}
+
+#header {
+    position: relative;
+    height: 100px;
+}
+    .header__logo {
+        position: absolute;
+        top: 20px;
+        color: #FF9200;
+        font-size: 18px;
+    }
+    
+    .header__user_info {
+        position: absolute;
+        right: 0;
+        background: #333333;
+        text-align: right;
+    }
+    
+        .header__user_info__avatar {
+            float: right;
+            width: 50px;
+            height: 50px;
+            background: #FAFAFA;
+        }
+        
+        .header__user_info__account {
+            float: right;
+            clear: both;
+        }
+
+        .header__user_info__account__username {
+            clear: both;
+            color: white;
+        }
+
+        .header__user_info__account__logout {
+            color: white;
+        }
+
+    .header__menu {
+        position: absolute;
+        bottom: 0;
+    }
+
+        .header__menu li {
+            float: left;
+            padding: 0 10px;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            background: #333333;
+        }
+
+        .header__menu li.current {
+            background: #FFAD40;
+        }
+
+        .header__menu a {
+            color: white;
+        }
+        
+        .header__menu li:hover {
+            background: #FF9200;
+            color: white;
+        }
+        
+#content {
+    height: 600px;
+    background: white;
+}
+
+#footer {
+    height: 100px;
+    background: black;
+}

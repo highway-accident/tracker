@@ -7,6 +7,10 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <div class="header">
+            <div class="header__logo"></div>
+            {{ knp_menu_render('RootyDefaultBundle::Builder::mainMenu') }}
+        </div>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
