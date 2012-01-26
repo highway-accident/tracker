@@ -134,26 +134,6 @@ html {
     color: #1d1d1d;
 }
 
-.form_table_type_registration td {
-    padding: 5px 0;
-}
-
-.form_table_type_registration td:first-child {
-    padding-right: 20px;
-    width: 200px;
-    text-align: right;
-}
-
-/*.form_row label {
-    display: inline-block;
-    width: 200px;
-    text-align: right;
-}
-
-.form_row input {
-    margin-left: 10px;
-}*/
-
 #footer {
     height: 100px;
     background: black;
@@ -166,21 +146,41 @@ html {
 }
 
 .block_type_registration {
-    width: 500px;
+    width: 400px;
 }
 
-.block_type_login {
+.block_type_login, .block_type_resetting {
     width: 350px;
 }
 
-    .block_type_login .form_row {
-        margin-bottom: 15px;
-        text-align: right;
-    }
+.block_type_login, .block_type_resetting_reset {
+    width: 400px;
+}
+
+.fos_user_registration_register {
+    margin: 0 auto;
+    width: 358px;
+    text-align: right;
+}
+
+.fos_user_security_login, .fos_user_resetting_request {
+    margin: 0 auto;
+    width: 300px;
+    text-align: right;
+}
+
+.fos_user_resetting_reset {
+    text-align: right;
+}
+
+.form_row {
+    margin-bottom: 15px;
+    text-align: right;
+}
     
-        .block_type_login .form_row label {
-            margin-right: 10px;
-        }
+.form_row label {
+    margin-right: 10px;
+}
 
 .block__head {
     padding: 5px;
@@ -193,6 +193,13 @@ html {
 .block__content {
     padding: 20px 10px 20px 10px;
     background: #FAFAFA;
+}
+
+.block__content__errors {
+    margin-bottom: 20px;
+    padding: 5px;
+    background: #FFA1A1;
+    border: solid 1px #FF5757;
 }
 
 input[type="text"], input[type="password"] {
@@ -230,18 +237,6 @@ input[type="button"], input[type="submit"] {
 input[type="button"]:hover, input[type="submit"]:hover {
     background: #009DFF;
     color: white;
-}
-
-.fos_user_registration_register {
-    margin: 0 auto;
-    width: 432px;
-    text-align: right;
-}
-
-.fos_user_security_login {
-    margin: 0 auto;
-    width: 300px;
-    text-align: right;
 }
 
 .header__user_panel__register {

@@ -1,0 +1,21 @@
+{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
+
+<div class="block block_type_resetting_reset">
+    <div class="block__head">
+        Восстановление пароля
+    </div>
+
+    <div class="block__content">
+        {% if errors|length > 0 %}
+        <div class="block__content__errors">{{ form_errors(form) }}</div>
+        {% endif %}
+        <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+            {{ form_row(form.new.first, { 'label': 'Новый пароль:' }) }}
+            {{ form_row(form.new.second, { 'label': 'Повторите пароль:' }) }}
+            {{ form_rest(form) }}
+            <div>
+                <input type="submit" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+            </div>
+        </form>
+    </div>
+</div>

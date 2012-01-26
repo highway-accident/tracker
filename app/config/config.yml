@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     charset:         UTF-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -68,3 +68,6 @@ fos_user:
           enabled: false
         form:
             type: rooty_user_registration
+    resetting:
+        form:
+            type: rooty_user_resetting

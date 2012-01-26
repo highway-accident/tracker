@@ -7,16 +7,14 @@
 
     <div class="block__content">
         {% if errors|length > 0 %}
-            {{ form_errors(form) }}
+        <div class="block__content__errors">{{ form_errors(form) }}</div>
         {% endif %}
         <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
             
-            <table class="form_table form_table_type_registration">
-            {{ form_row(form.username, { 'label': 'Имя пользователя' }) }}
-            {{ form_row(form.email, { 'label': 'E-mail' }) }}
-            {{ form_row(form.plainPassword.first, { 'label': 'Пароль' }) }}
-            {{ form_row(form.plainPassword.second, { 'label': 'Повторите пароль' }) }}
-            </table>
+            {{ form_row(form.username, { 'label': 'Логин:' }) }}
+            {{ form_row(form.email, { 'label': 'E-mail:' }) }}
+            {{ form_row(form.plainPassword.first, { 'label': 'Пароль:' }) }}
+            {{ form_row(form.plainPassword.second, { 'label': 'Повторите пароль:' }) }}
             {{ form_rest(form) }}
 
             <div>

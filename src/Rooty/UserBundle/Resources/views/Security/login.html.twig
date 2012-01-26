@@ -1,15 +1,15 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-{% if error %}
-    <div>{{ error }}</div>
-{% endif %}
 <div class="block block_type_login">
     <div class="block__head">
         Вход
     </div>
 
     <div class="block__content">
+        {% if error %}
+        <div class="block__content__errors">{{ error }}</div>
+        {% endif %}
         <form class="fos_user_security_login"action="{{ path("fos_user_security_check") }}" method="post">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
