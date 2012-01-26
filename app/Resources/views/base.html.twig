@@ -3,15 +3,53 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% stylesheets
+               '@RootyDefaultBundle/Resources/public/css/reset.css'
+               '@RootyDefaultBundle/Resources/public/css/style.css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="header">
-            <div class="header__logo"></div>
-            {{ knp_menu_render('RootyDefaultBundle::Builder::mainMenu') }}
+        <div id="header-wrap">
+            <div id="header">
+                <div class="header__logo">[Rooty]$</div>
+                <div class="header__user_panel clearfix">
+                    {% if app.user %}
+                    <div class="header__user_panel__avatar">
+                    </div>
+                    <div class="header__user_panel__info">
+                        <a class="header__user_panel__info__username" href="#">{{ app.user.username }}</a> 
+                        <a class="header__user_panel__info__logout" href="{{ path('fos_user_security_logout') }}">[выход]</a><br />
+                        Upload: 45.4Tb<br />
+                        Download: 342Mb<br />
+                        Ratio: 1.35
+                    </div>
+                    {% else %}
+                    <div class="header__user_panel__authorization">
+                        <a class="header__user_panel__register" href="{{ path('fos_user_security_login') }}">Войти</a>
+                        <span>или</span>
+                        <a class="header__user_panel__register" href="{{ path('fos_user_registration_register') }}">Зарегистрироваться</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if app.user %}
+                    {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenuUser') }}
+                {% else %}
+                    {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenuAnonymous') }}
+                {% endif %}
+            </div>
         </div>
-        {% block body %}{% endblock %}
+        
+        <div id="content">
+        {% block content %}{% endblock %}
+        </div>
+
+        <div id="footer">
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

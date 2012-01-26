@@ -1,0 +1,17 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="block">
+		<div class="block__head">
+		    Регистрация завершена
+		</div>
+
+		<div class="block__content">
+		    Поздравляем, вы успешно зарегистрировались. Вы можете заполнить в личном кабинете дополнительную информацию о себе или сразу начать пользоваться трекером.
+		</div>
+	</div>
+    {% if app.session is not empty %}
+        {% set targetUrl = app.session.get('_security.target_path') %}
+        {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a></p>{% endif %}
+    {% endif %}
+{% endblock fos_user_content %}

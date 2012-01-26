@@ -18,37 +18,42 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length="255", nullable="true")
      */
     protected $name;
     
     /**
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length="255", nullable="true")
      */
     protected $surname;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length="1", nullable="true")
+     */
+    protected $gender;
+    
+    /**
+     * @ORM\Column(type="date", nullable="true")
      */
     protected $birthday;
 
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $avatar;
     
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $icq;
     
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $skype;
     
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $jabber;
     
@@ -116,7 +121,6 @@ class User extends BaseUser
     public function setEmail($email)
     {
         parent::setEmail($email);
-        $this->setUsername($email);
     }
     
     /**
@@ -157,6 +161,26 @@ class User extends BaseUser
     public function getBirthday()
     {
         return $this->birthday;
+    }
+    
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string 
+     */
+    public function getGender()
+    {
+        return $this->gender;
     }
     
     /**

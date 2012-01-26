@@ -63,3 +63,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Rooty\UserBundle\Entity\User
+    registration:
+        confirmation:
+          enabled: false
+        form:
+            type: rooty_user_registration

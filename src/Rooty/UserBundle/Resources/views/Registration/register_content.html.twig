@@ -1,0 +1,27 @@
+{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
+
+<div class="block block_type_registration">
+    <div class="block__head">
+        Регистрация
+    </div>
+
+    <div class="block__content">
+        {% if errors|length > 0 %}
+            {{ form_errors(form) }}
+        {% endif %}
+        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+            
+            <table class="form_table form_table_type_registration">
+            {{ form_row(form.username, { 'label': 'Имя пользователя' }) }}
+            {{ form_row(form.email, { 'label': 'E-mail' }) }}
+            {{ form_row(form.plainPassword.first, { 'label': 'Пароль' }) }}
+            {{ form_row(form.plainPassword.second, { 'label': 'Повторите пароль' }) }}
+            </table>
+            {{ form_rest(form) }}
+
+            <div>
+                <input type="submit" value="{{ 'Зарегистрироваться'|trans({}, 'FOSUserBundle') }}" />
+            </div>
+        </form>
+    </div>
+</div>

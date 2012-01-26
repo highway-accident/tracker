@@ -6,7 +6,7 @@
 	line-height: 0;
 	height: 0;
 }
- 
+
 .clearfix {
 	display: inline-block;
 }
@@ -21,6 +21,8 @@ html[xmlns] .clearfix {
 
 html {
     background: #EEEEEE;
+    font-family: "Tahoma", sans-serif;
+    font-size: 14px;
 }
 
 #header-wrap {
@@ -44,33 +46,52 @@ html {
         font-size: 18px;
     }
     
-    .header__user_info {
+    .header__user_panel {
         position: absolute;
         right: 0;
+        padding: 5px;
+        width: 390px;
+        height: 90px;
         background: #333333;
-        text-align: right;
+        z-index: 0; /* For that fancy register button */
     }
     
-        .header__user_info__avatar {
-            float: right;
-            width: 50px;
-            height: 50px;
+        .header__user_panel__avatar {
+            float: left;
+            width: 90px;
+            height: 90px;
             background: #FAFAFA;
         }
         
-        .header__user_info__account {
+        .header__user_panel__info {
             float: right;
-            clear: both;
-        }
-
-        .header__user_info__account__username {
-            clear: both;
+            padding: 0 10px;
+            width: 280px;
             color: white;
+            font-size: 12px;
         }
+        
+            .header__user_panel__info__username {
+                color: white;
+                font-size: 16px;
+            }
 
-        .header__user_info__account__logout {
-            color: white;
+            .header__user_panel__info__logout {
+                color: white;
+                font-size: 12px;
+            }
+            
+        .header__user_panel__authorization {
+            position:absolute;
+            top: 35px;
+            left: 50px;
         }
+            .header__user_panel__authorization span {
+                position: relative;
+                top: 5px;
+                margin: 0 10px;
+                color: white;
+            }
 
     .header__menu {
         position: absolute;
@@ -100,11 +121,186 @@ html {
         }
         
 #content {
-    height: 600px;
+    padding: 30px 20px;
+    width: 920px;
     background: white;
+    color: #1d1d1d;
 }
+
+.form_table_type_registration td {
+    padding: 5px 0;
+}
+
+.form_table_type_registration td:first-child {
+    padding-right: 20px;
+    width: 200px;
+    text-align: right;
+}
+
+/*.form_row label {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}
+
+.form_row input {
+    margin-left: 10px;
+}*/
 
 #footer {
     height: 100px;
     background: black;
+}
+
+.block {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid #AAAAAA;
+}
+
+.block_type_registration {
+    width: 500px;
+}
+
+.block_type_login {
+    width: 350px;
+}
+
+    .block_type_login .form_row {
+        margin-bottom: 15px;
+        text-align: right;
+    }
+    
+        .block_type_login .form_row label {
+            margin-right: 10px;
+        }
+
+.block__head {
+    padding: 5px;
+    background: #009DFF;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+}
+
+.block__content {
+    padding: 20px 10px 20px 10px;
+    background: #FAFAFA;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 2px 5px;
+    height: 20px;
+    width: 200px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
+    -moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
+}
+
+input[type="text"]:hover, input[type="password"]:hover {
+    border: 1px solid #AAAAAA;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 1px solid #FFAB57;
+    background: white;
+}
+
+input[type="button"], input[type="submit"] {
+    padding: 3px 10px;
+    min-height: 30px;
+    background: black;
+    border: 1px solid #FAFAFA;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover {
+    background: #009DFF;
+    color: white;
+}
+
+.fos_user_registration_register {
+    margin: 0 auto;
+    width: 432px;
+    text-align: right;
+}
+
+.fos_user_security_login {
+    margin: 0 auto;
+    width: 300px;
+    text-align: right;
+}
+
+.header__user_panel__register {
+	background-color:#3bb3e0;
+	padding:10px;
+	position:relative;
+	font-family: 'Open Sans', sans-serif;
+	font-size:12px;
+	text-decoration:none;
+	color:#fff;
+	background-image: linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+	background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0, rgb(44,160,202)),
+	color-stop(1, rgb(62,184,229))
+	);
+	-webkit-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 6px 0px #156785;
+	-moz-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 6px 0px #156785;
+	-o-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 6px 0px #156785;
+	box-shadow: inset 0px 1px 0px #7fd2f1, 0px 6px 0px #156785;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.header__user_panel__register::before {
+	background-color:#072239;
+	content:"";
+	display:block;
+	position:absolute;
+	width:100%;
+	height:100%;
+	padding-left:2px;
+	padding-right:2px;
+	padding-bottom:4px;
+	left:-2px;
+	top:5px;
+	z-index:-1;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0px 1px 0px #fff;
+	-moz-box-shadow: 0px 1px 0px #fff;
+	-o-box-shadow: 0px 1px 0px #fff;
+	box-shadow: 0px 1px 0px #fff;
+}
+
+.header__user_panel__register:active {
+	color:#156785;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.3);
+	background:rgb(44,160,202);
+	-webkit-box-shadow: inset 0px 1px 0px #7fd2f1, inset 0px -1px 0px #156785;
+	-moz-box-shadow: inset 0px 1px 0px #7fd2f1, inset 0px -1px 0px #156785;
+	-o-box-shadow: inset 0px 1px 0px #7fd2f1, inset 0px -1px 0px #156785;
+	box-shadow: inset 0px 1px 0px #7fd2f1, inset 0px -1px 0px #156785;
+	top:7px;
+}
+
+.header__user_panel__register:active::before {
+	top:-2px;
 }
