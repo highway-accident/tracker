@@ -24,9 +24,11 @@
                     <div class="header__user_panel__info">
                         <a class="header__user_panel__info__username" href="#">{{ app.user.username }}</a> 
                         <a class="header__user_panel__info__logout" href="{{ path('fos_user_security_logout') }}">[выход]</a><br />
-                        Upload: 45.4Tb<br />
-                        Download: 342Mb<br />
-                        Ratio: 1.35
+                        <div class="header__user_panel__info__stats">
+                            Upload: 45.4Tb<br />
+                            Download: 342Mb<br />
+                            Ratio: 1.35
+                        </div>
                     </div>
                     {% else %}
                     <div class="header__user_panel__authorization">

@@ -81,6 +81,10 @@ html {
                 font-size: 12px;
             }
             
+            .header__user_panel__info__stats {
+                margin-top: 5px;
+            }
+            
         .header__user_panel__authorization {
             position:absolute;
             top: 35px;
@@ -96,6 +100,8 @@ html {
     .header__menu {
         position: absolute;
         bottom: 0;
+        font-family: "Helvetica", sans-serif;
+        font-weight: bold;
     }
 
         .header__menu li {
@@ -103,7 +109,7 @@ html {
             padding: 0 10px;
             height: 30px;
             line-height: 30px;
-            color: white;
+            color: #cccccc;
             background: #333333;
         }
 
@@ -113,6 +119,7 @@ html {
 
         .header__menu a {
             color: white;
+            text-decoration: none;
         }
         
         .header__menu li:hover {
