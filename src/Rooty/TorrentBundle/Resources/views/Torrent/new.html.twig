@@ -13,7 +13,8 @@
             <table class="form_holder">
                 {{ form_row(form.title, { 'label': 'Название:' }) }}
                 {{ form_row(form.title_original, { 'label': 'Оригинальное название:' }) }}
-                {{ form_row(form.file, { 'label': 'Торрент-файл:' }) }} 
+                {{ form_row(form.torrent_file, { 'label': 'Торрент-файл:' }) }}
+                {{ form_row(form.poster_file, { 'label': 'Постер:' }) }}
                 {{ form_rest(form) }}
             </table>
 

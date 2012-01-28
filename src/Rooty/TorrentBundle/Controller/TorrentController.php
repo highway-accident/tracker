@@ -44,7 +44,7 @@ class TorrentController extends Controller
         }
         
         $entity = new Torrent();
-        $form = $this->createForm(new TorrentFormType('game'), $entity);
+        $form = $this->createForm(new TorrentFormType('game', null), $entity);
         
         return array(
             'entity' => $entity,
@@ -65,7 +65,7 @@ class TorrentController extends Controller
         $request = $this->getRequest();
         $postData = $request->get('rooty_torrentbundle_torrentformtype');
         $type = $postData['type'];
-        $form = $this->createForm(new TorrentFormType($type), $entity);
+        $form = $this->createForm(new TorrentFormType($type, null), $entity);
         $form->bindRequest($request);
         
         if ($form->isValid()) {
@@ -161,7 +161,7 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
         
-        $editForm = $this->createForm(new TorrentFormType($type, array()), $entity->getTorrent());
+        $editForm = $this->createForm(new TorrentFormType($type, null), $entity->getTorrent());
         $deleteForm = $this->createDeleteForm($id);
         
         $request = $this->getRequest();

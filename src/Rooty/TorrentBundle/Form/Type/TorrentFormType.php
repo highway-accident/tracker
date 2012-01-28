@@ -21,7 +21,8 @@ class TorrentFormType extends AbstractType
         $builder
             ->add('title')
             ->add('title_original')
-            ->add('file')
+            ->add('torrent_file')
+            ->add('poster_file')
             ->add('type', 'hidden', array('data' => $this->type, 'property_path' => false));
         
         switch ($this->type) {

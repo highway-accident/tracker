@@ -12,5 +12,14 @@ Rooty\TorrentBundle\Entity\Torrent:
       - NotBlank: ~
       - MaxLength: 100000
       
-    file:
+    torrent_file:
       - NotBlank: ~
+      - File:
+          maxSize: 1M
+          mimeTypes: [application/x-bittorrent]
+          mimeTypesMessage: Пожалуйста, укажите корректный torrent-файл
+      
+    poster_file:
+      - NotBlank: ~
+      - Image:
+          maxSize: 5M

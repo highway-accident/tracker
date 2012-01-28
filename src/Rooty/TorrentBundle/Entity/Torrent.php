@@ -78,16 +78,28 @@ class Torrent
     private $date_updated;
 
     /**
-     * @var string $torrent_file
+     * @var string $poster_url
      *
-     * @ORM\Column(name="torrent_file", type="string", length=255)
+     * @ORM\Column(name="poster_url", type="string", length=255)
      */
-    private $torrent_file;
+    private $poster_url;
 
     /**
     * @Assert\File(maxSize="6000000")
     */
-    private $file;
+    private $poster_file;
+    
+    /**
+     * @var string $torrent_url
+     *
+     * @ORM\Column(name="torrent_url", type="string", length=255)
+     */
+    private $torrent_url;
+
+    /**
+    * @Assert\File(maxSize="6000000")
+    */
+    private $torrent_file;
 
     /**
      * @var integer $views
@@ -260,43 +272,83 @@ class Torrent
     }
 
     /**
-     * Set torrent_file
+     * Set torrent_url
      *
-     * @param string $torrentFile
+     * @param string $torrentUrl
      */
-    public function setTorrentFile($torrentFile)
+    public function setTorrentUrl($torrentUrl)
     {
-        $this->torrent_file = $torrentFile;
+        $this->torrent_url = $torrentUrl;
     }
 
     /**
-     * Get torrent_file
+     * Get torrent_url
      *
      * @return string 
      */
-    public function getTorrentFile()
+    public function getTorrentUrl()
     {
-        return $this->torrent_file;
+        return $this->torrent_url;
     }
 
-    public function getAbsolutePath()
+    public function getTorrentAbsolutePath()
     {
-        return null === $this->torrent_file ? null : $this->getUploadRootDir().'/'.$this->torrent_file;
+        return null === $this->torrent_url ? null : $this->getTorrentsUploadRootDir().'/'.$this->torrent_url;
     }
 
-    public function getWebPath()
+    public function getTorrentWebPath()
     {
-        return null === $this->torrent_file ? null : $this->getUploadDir().'/'.$this->torrent_file;
+        return null === $this->torrent_url ? null : $this->getTorrentUploadDir().'/'.$this->torrent_url;
     }
 
-    protected function getUploadRootDir()
+    protected function getTorrentUploadRootDir()
     {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getTorrentUploadDir();
     }
 
-    protected function getUploadDir()
+    protected function getTorrentUploadDir()
     {
         return 'uploads/torrents';
+    }
+    
+    /**
+     * Set poster_url
+     *
+     * @param string $posterUrl
+     */
+    public function setPosterUrl($posterUrl)
+    {
+        $this->poster_url = $posterUrl;
+    }
+
+    /**
+     * Get poster_url
+     *
+     * @return string 
+     */
+    public function getPosterUrl()
+    {
+        return $this->poster_url;
+    }
+    
+    public function getPosterAbsolutePath()
+    {
+        return null === $this->poster_url ? null : $this->getPosterUploadRootDir().'/'.$this->poster_url;
+    }
+
+    public function getPosterWebPath()
+    {
+        return null === $this->poster_url ? null : $this->getPosterUploadDir().'/'.$this->poster_url;
+    }
+
+    protected function getPosterUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getPosterUploadDir();
+    }
+
+    protected function getPosterUploadDir()
+    {
+        return 'uploads/posters';
     }
 
 
@@ -306,11 +358,17 @@ class Torrent
     */
     public function preUpload()
     {
-        if (null !== $this->file) {
-            $this->torrent_file = uniqid().'.'.$this->file->guessExtension();
+        //@todo filetype validation
+        if (null !== $this->torrent_file) {
+            $this->torrent_url = uniqid().'.'.$this->torrent_file->guessExtension();
             
-            // set file size
-            $this->size = filesize($this->file);
+            // set torrent file size
+            $this->size = filesize($this->torrent_file);
+        }
+        
+        if (null !== $this->poster_file) {
+            $this->poster_url = uniqid().'.'.$this->poster_file->guessExtension();
+            
         }
     }
 
@@ -320,16 +378,27 @@ class Torrent
      */
     public function upload()
     {
-        if (null === $this->file) {
+        if (null === $this->torrent_file) {
             return;
         }
 
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->file->move($this->getUploadRootDir(), $this->torrent_file);
+        $this->torrent_file->move($this->getTorrentUploadRootDir(), $this->torrent_url);
         
-        unset($this->file);
+        unset($this->torrent_file);
+        
+        if (null === $this->poster_file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->poster_file->move($this->getPosterUploadRootDir(), $this->poster_url);
+        
+        unset($this->poster_file);
     }
 
     /**
@@ -337,8 +406,12 @@ class Torrent
      */
     public function removeUpload()
     {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
+        if ($torrent_file = $this->getTorrentAbsolutePath()) {
+            unlink($torrent_file);
+        }
+        
+        if ($poster_file = $this->getPosterAbsolutePath()) {
+            unlink($poster_file);
         }
     }
     
@@ -502,13 +575,23 @@ class Torrent
         return $this->moderated_by;
     }
     
-    public function setFile($file)
+    public function setTorrentFile($torrentFile)
     {
-        $this->file = $file;
+        $this->torrent_file = $torrentFile;
     }
     
-    public function getFile()
+    public function getTorrentFile()
     {
-        return $this->file;
+        return $this->torrent_file;
+    }
+    
+    public function setPosterFile($posterFile)
+    {
+        $this->poster_file = $posterFile;
+    }
+    
+    public function getPosterFile()
+    {
+        return $this->poster_file;
     }
 }
