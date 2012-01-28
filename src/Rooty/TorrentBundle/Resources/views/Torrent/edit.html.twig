@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme edit_form 'RootyUserBundle:Form:fields.html.twig' %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Редактирование раздачи
+    </div>
+
+    <div class="block__content">
+        <div class="block__content__errors">{{ form_errors(edit_form) }}</div>
+        <form action="{{ path('torrent_update', { 'id': entity.id }) }}" {{ form_enctype(edit_form) }} method="POST" class="torrent_new">
+            <table class="form_holder">
+                {{ form_row(edit_form.title, { 'label': 'Название:' }) }}
+                {{ form_row(edit_form.title_original, { 'label': 'Оригинальное название:' }) }}
+                {{ form_row(edit_form.file, { 'label': 'Торрент-файл:' }) }} 
+                {{ form_rest(edit_form) }}
+            </table>
+
+            <div>
+                <input type="submit" value="Сохранить" />
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

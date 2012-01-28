@@ -1,4 +1,4 @@
-<div class="block block_type_resetting">
+<div class="block">
     <div class="block__head">
         Восстановление пароля
     </div>
@@ -9,10 +9,11 @@
         {% endif %}
 
         <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-            <div class="form_row">
-                <label for="username">Логин:</label>
-                <input type="text" id="username" name="username" />
-            </div>
+            <table class="form_holder">
+                <tr>
+                    <td><label for="username">Логин:</label></td>
+                    <td><input type="text" id="username" name="username" /></td>
+            </table>
 
             <div>
                 <input type="submit" value="Восстановить" />

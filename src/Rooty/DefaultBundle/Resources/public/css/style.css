@@ -20,7 +20,6 @@ html[xmlns] .clearfix {
 }
 
 html {
-    background: #EEEEEE;
     font-family: "Tahoma", sans-serif;
     font-size: 14px;
 }
@@ -139,60 +138,49 @@ html {
     background: black;
 }
 
+form {
+    display: inline-block;
+    text-align: right;
+}
+
+form.torrent_new input[type="text"] {
+    width: 500px;
+}
+
+form.torrent_new textarea {
+    width: 500px;
+    min-height: 200px;
+}
+    
+.form_holder td {
+    padding-bottom: 15px;
+    vertical-align: top;
+}
+
+.form_holder td:first-child {
+    padding-top: 4px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.form_holder td:last-child {
+    text-align: left;
+}
+
 .block {
     margin: 0 auto;
     margin-bottom: 20px;
-    border: 1px solid #AAAAAA;
-}
-
-.block_type_registration {
-    width: 400px;
-}
-
-.block_type_login, .block_type_resetting {
-    width: 350px;
-}
-
-.block_type_login, .block_type_resetting_reset {
-    width: 400px;
-}
-
-.fos_user_registration_register {
-    margin: 0 auto;
-    width: 358px;
-    text-align: right;
-}
-
-.fos_user_security_login, .fos_user_resetting_request {
-    margin: 0 auto;
-    width: 300px;
-    text-align: right;
-}
-
-.fos_user_resetting_reset {
-    text-align: right;
-}
-
-.form_row {
-    margin-bottom: 15px;
-    text-align: right;
-}
-    
-.form_row label {
-    margin-right: 10px;
 }
 
 .block__head {
     padding: 5px;
-    background: #009DFF;
-    color: white;
-    text-align: center;
-    font-size: 16px;
+    background: #FAFAFA;
+    font-family: "Georgia", serif;
+    font-size: 20px;
 }
 
 .block__content {
     padding: 20px 10px 20px 10px;
-    background: #FAFAFA;
 }
 
 .block__content__errors {
@@ -222,6 +210,18 @@ input[type="text"]:hover, input[type="password"]:hover {
 input[type="text"]:focus, input[type="password"]:focus {
     border: 1px solid #FFAB57;
     background: white;
+}
+
+textarea {
+    padding: 5px 5px;
+    width: 200px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
+    -moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
 }
 
 input[type="button"], input[type="submit"] {

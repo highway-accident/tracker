@@ -1,0 +1,7 @@
+parameters:
+#    rooty_torrent.example.class: Rooty\TorrentBundle\Example
+
+services:
+#    rooty_torrent.example:
+#        class: %rooty_torrent.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

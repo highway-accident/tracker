@@ -1,0 +1,16 @@
+Rooty\TorrentBundle\Entity\Torrent:
+  properties:
+    title:
+      - NotBlank: ~
+      - MaxLength: 255
+      
+    title_original:
+      - NotBlank: ~
+      - MaxLength: 255
+      
+    description:
+      - NotBlank: ~
+      - MaxLength: 100000
+      
+    file:
+      - NotBlank: ~

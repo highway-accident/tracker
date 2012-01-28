@@ -1,0 +1,42 @@
+<?php
+
+namespace Rooty\TorrentBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+* Torrents controller
+*
+* @Route("/torrents")
+*/
+class TorrentController extends Controller
+{
+    /**
+	* Lists all Torrent entities
+	* @Route("/", name="torrents")
+	* @Template()
+	*/
+    public function indexAction()
+    {
+        return $this->render('RootyTorrentBundle:Torrent:index.html.twig');
+    }
+
+	/**
+	* Displays a form to create a new Torrent entity
+	* @Route("/upload", name="torrents_new")
+	* @Template()
+	*/
+	public function uploadAction()
+	{
+		$request = Request::createFromGlobals();
+
+		if ($request->query->get('category')) {
+			echo $request->query->get('category');
+		} else {
+			echo 'no category';
+		}
+	}
+}

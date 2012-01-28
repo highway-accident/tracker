@@ -13,21 +13,20 @@
         <form class="fos_user_security_login"action="{{ path("fos_user_security_check") }}" method="post">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-            <div class="form_row">
-                <label for="username">Логин:</label>
-                <input type="text" id="username" name="_username" value="{{ last_username }}" />
-            </div>
+            <table class="form_holder">
+                <tr>
+                    <td><label for="username">Логин:</label></td>
+                    <td><input type="text" id="username" name="_username" value="{{ last_username }}" /></td>
+                </tr>
 
-            <div class="form_row">
-                <label for="password">Пароль:</label>
-                <input type="password" id="password" name="_password" />
-            </div>
-
-            <div class="form_row">
+                <tr>
+                    <td><label for="password">Пароль:</label></td>
+                    <td><input type="password" id="password" name="_password" /></td>
+                </tr>
+            </table>
                 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label for="remember_me">Запомнить меня</label>
-            </div>
-            
+                <label for="remember_me">Запомнить меня</label><br />
+
             <a href="{{ path('fos_user_resetting_request') }}">Забыли пароль?</a>
             <input type="submit" id="_submit" name="_submit" value="Войти" />
         </form>

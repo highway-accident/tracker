@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Добавление раздачи
+    </div>
+
+    <div class="block__content">
+        <form action="{{ path('torrent_create') }}" {{ form_enctype(form) }} method="POST" class="torrent_new">
+            <table class="form_holder">
+                {{ form_row(form.title, { 'label': 'Название:' }) }}
+                {{ form_row(form.title_original, { 'label': 'Оригинальное название:' }) }}
+                {{ form_row(form.file, { 'label': 'Торрент-файл:' }) }} 
+                {{ form_rest(form) }}
+            </table>
+
+            <div>
+                <input type="submit" value="Загрузить" />
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
