@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Rooty\DefaultBundle\RootyDefaultBundle(),
             new Rooty\UserBundle\RootyUserBundle(),
             new Rooty\TorrentBundle\RootyTorrentBundle(),
