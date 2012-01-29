@@ -27,6 +27,32 @@ class TorrentController extends Controller
     {
         return $this->render('RootyTorrentBundle:Torrent:index.html.twig');
     }
+    
+    /**
+     * Finds and displays a Torrent entity
+     * 
+     * @Route("/{id}/show", name="torrent_show")
+     * @Template()
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $type = $this->getTorrentType($id);
+        switch ($type) {
+            case 'game':
+                $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
+                break;
+        }
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Torrent entity.');
+        }
+        
+        return array(
+            'entity' => $entity,
+        );
+    }
 
     /**
     * Displays a form to create a new Torrent entity.
@@ -93,7 +119,7 @@ class TorrentController extends Controller
                     throw new \Exception('Wrong torrent type!');
                     break;
             }
-            return $this->redirect($this->generateUrl('torrents'));
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getId())));
         }
         
         return array(
@@ -172,7 +198,7 @@ class TorrentController extends Controller
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('torrents'));
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrentId())));
         }
         
         return array (

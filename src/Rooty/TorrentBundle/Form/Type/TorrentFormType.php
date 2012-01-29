@@ -33,8 +33,6 @@ class TorrentFormType extends AbstractType
                 throw new \Exception('Wrong torrent type!');
                 break;
         }
-        
-        
     }
     
     private function addGameFields(FormBuilder $builder)

@@ -7,17 +7,11 @@
 	height: 0;
 }
 
-.clearfix {
-	display: inline-block;
-}
- 
-html[xmlns] .clearfix {
-	display: block;
-}
- 
-* html .clearfix {
-	height: 1%;
-}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
 
 html {
     font-family: "Tahoma", sans-serif;
@@ -165,6 +159,30 @@ form.torrent_new textarea {
 
 .form_holder td:last-child {
     text-align: left;
+}
+
+.torrent__description {
+    margin-bottom: 10px;
+}
+
+.torrent__description__key {
+    font-weight: bold;
+}
+
+.torrent__poster {
+    float: right;
+    margin: 0 0 20px 20px;
+}
+
+.torrent__download {
+    margin: 0 auto;
+    padding: 10px 20px;
+    width: 200px;
+    background: #EEEEEE;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    text-align: center;
 }
 
 .block {

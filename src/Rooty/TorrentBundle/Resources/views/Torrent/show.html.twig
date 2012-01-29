@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        {{ entity.torrent.title }} ({{ entity.torrent.titleOriginal }})
+    </div>
+
+    <div class="block__content clearfix">
+        <div class="torrent__poster">
+            <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Название:</span>
+            <span class="torrent__description__value">{{ entity.torrent.title }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Оригинальное название:</span>
+            <span class="torrent__description__value">{{ entity.torrent.titleOriginal }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Жанр:</span>
+            <span class="torrent__description__value">{{ entity.genre }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Разработчик:</span>
+            <span class="torrent__description__value">{{ entity.developer }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Издатель:</span>
+            <span class="torrent__description__value">{{ entity.publisher }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Описание:</span>
+            <span class="torrent__description__value">{{ entity.torrent.description }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Системные требования:</span>
+            <span class="torrent__description__value">{{ entity.systemRequirements }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Ссылка на крэк:</span>
+            <span class="torrent__description__value">{{ entity.crackUrl }}</span>
+        </div>
+
+        <div class="torrent__description">
+            <span class="torrent__description__key">Запуск:</span>
+            <span class="torrent__description__value">{{ entity.howToRun }}</span>
+        </div>
+        
+        <div class="torrent__download">
+            <a href="{{ entity.torrent.torrentWebPath }}">Скачать</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

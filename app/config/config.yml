@@ -71,3 +71,9 @@ fos_user:
     resetting:
         form:
             type: rooty_user_resetting
+
+avalanche_imagine:
+    filters:
+        poster:
+            type:    thumbnail
+            options: { size: [300, 500], mode: inset }

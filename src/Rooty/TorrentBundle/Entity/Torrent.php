@@ -360,7 +360,7 @@ class Torrent
     {
         //@todo filetype validation
         if (null !== $this->torrent_file) {
-            $this->torrent_url = uniqid().'.'.$this->torrent_file->guessExtension();
+            $this->torrent_url = uniqid().'.torrent';
             
             // set torrent file size
             $this->size = filesize($this->torrent_file);
