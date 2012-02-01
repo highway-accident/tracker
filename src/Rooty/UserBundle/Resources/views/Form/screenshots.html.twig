@@ -1,0 +1,19 @@
+{% block form_widget %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        {{ block('field_rows') }}
+        {{ form_rest(form) }}
+        <a class="remove_screenshot" href="#">удалить</a>
+    </div>
+{% endspaceless %}
+{% endblock form_widget %}
+
+{% block field_row %}
+{% spaceless %}
+    <div>
+        {{ form_label(form, label|default(null)) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock field_row %}

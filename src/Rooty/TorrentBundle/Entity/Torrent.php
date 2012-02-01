@@ -3,6 +3,7 @@
 namespace Rooty\TorrentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -100,6 +101,12 @@ class Torrent
     * @Assert\File(maxSize="6000000")
     */
     private $torrent_file;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Screenshot", mappedBy="torrent", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $screenshots;
 
     /**
      * @var integer $views
@@ -141,6 +148,11 @@ class Torrent
      */
     private $moderated_by;
 
+    public function __construct()
+    {
+        $this->screenshots = new ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -293,7 +305,7 @@ class Torrent
 
     public function getTorrentAbsolutePath()
     {
-        return null === $this->torrent_url ? null : $this->getTorrentsUploadRootDir().'/'.$this->torrent_url;
+        return null === $this->torrent_url ? null : $this->getTorrentUploadRootDir().'/'.$this->torrent_url;
     }
 
     public function getTorrentWebPath()
@@ -593,5 +605,44 @@ class Torrent
     public function getPosterFile()
     {
         return $this->poster_file;
+    }
+
+    /**
+     * Add screenshots
+     *
+     * @param Rooty\TorrentBundle\Entity\Screenshot $screenshots
+     */
+    public function addScreenshot(\Rooty\TorrentBundle\Entity\Screenshot $screenshots)
+    {
+        $this->screenshots[] = $screenshots;
+        $screenshots->setTorrent($this);
+    }
+    
+    /**
+     * Remove screenshots
+     *
+     * @param Rooty\TorrentBundle\Entity\Screenshot $screenshots
+     */
+    public function removeScreenshot(\Rooty\TorrentBundle\Entity\Screenshot $screenshots)
+    {
+        $this->screenshots->removeElement($screenshots);
+    }
+    
+    public function setScreenshots($screenshots)
+    {
+        $this->screenshots = new ArrayCollection();
+        foreach ($screenshots as $screenshot) {
+            $this->addScreenshot($screenshot);
+        }
+    }
+
+    /**
+     * Get screenshots
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getScreenshots()
+    {
+        return $this->screenshots;
     }
 }

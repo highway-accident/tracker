@@ -1,0 +1,111 @@
+
+@import "toucan-0.1.9";
+@import "css3-please";
+
+// ---------------------------------------------------------------------------
+
+body {
+    width: 940px;
+    margin: 20px auto;
+}
+
+.nav ul {
+    list-style: none;
+    li {
+        margin-left: 0;
+        display: inline-block;
+        margin-right: 20px;
+    }
+}
+
+form .error ul {
+    border: 2px solid #FBC2C4;
+    background-color: #FBE3E4;
+    color: #8A1F11;
+}
+
+// ---------------------------------------------------------------------------
+
+@mixin indent($i) {
+    $step: 40px;
+    padding-left: $i * $step;
+    width: (4 * $step) - ($i * $step);
+}
+
+form {
+    @include border-radius(10px);
+    border: 1px solid black;
+    padding: 20px;
+    background: rgba(gray, 0.25);
+
+    div {
+        label {
+            @include indent(0);
+            font-weight: bold;
+            display: inline-block;
+        }
+    }
+
+    div div {
+        label {
+            @include indent(1);
+        }
+    }
+
+    div div div {
+        label {
+            @include indent(2);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+
+table ul {
+    list-style: none;
+    margin-bottom: 0;
+    li {
+        margin-left: 0;
+        display: inline-block;
+
+        &:not(:last-child):after {
+            content: " | ";
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+
+.error, .alert, .notice, .success, .info {
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border: 2px solid #ddd;
+}
+.error, .alert {
+    background: #fbe3e4;
+    color: #8a1f11;
+    border-color: #fbc2c4;
+    a {
+        color:#8a1f11; }
+}
+.notice {
+    background: #fff6bf;
+    color: #514721;
+    border-color: #ffd324;
+    a {
+        color:#514721; }
+}
+.success {
+    background: #e6efc2;
+    color: #264409;
+    border-color: #c6d880;
+    a {
+        color:#264409; }
+}
+.info {
+    background: #d5edf8;
+    color: #205791;
+    border-color: #92cae4;
+    a {
+        color:#205791; }
+}

@@ -21,8 +21,8 @@ class TorrentFormType extends AbstractType
         $builder
             ->add('title')
             ->add('title_original')
-            ->add('torrent_file')
-            ->add('poster_file')
+            ->add('torrent_file', null, array('required' => false))
+            ->add('poster_file', null, array('required' => false))
             ->add('type', 'hidden', array('data' => $this->type, 'property_path' => false));
         
         switch ($this->type) {
@@ -33,6 +33,16 @@ class TorrentFormType extends AbstractType
                 throw new \Exception('Wrong torrent type!');
                 break;
         }
+        
+        $builder
+            ->add('screenshots', 'collection', array(
+                'type' => new ScreenshotFormType(),
+                'label' => 'Скриншоты:',
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+            ));
     }
     
     private function addGameFields(FormBuilder $builder)

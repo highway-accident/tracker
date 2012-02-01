@@ -3,11 +3,13 @@
 namespace Rooty\TorrentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Rooty\TorrentBundle\Entity\Torrent
  *
- * @ORM\Table()
+ * @ORM\Table(name="torrents")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
@@ -44,12 +46,14 @@ class Torrent
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="Category")
+     * @var string $type
+     *
+     * @ORM\Column(name="type", type="string", length=255)
      */
-    private $category;
+    private $type;
 
      /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="\Rooty\UserBundle\Entity\User")
      */
     private $added_by;
 
@@ -75,58 +79,80 @@ class Torrent
     private $date_updated;
 
     /**
-     * @var string $torrent_file
+     * @var string $poster_url
      *
-     * @ORM\Column(name="torrent_file", type="string", length=255)
+     * @ORM\Column(name="poster_url", type="string", length=255)
      */
-    private $torrent_file;
+    private $poster_url;
 
     /**
     * @Assert\File(maxSize="6000000")
     */
-    private $file;
+    private $poster_file;
+    
+    /**
+     * @var string $torrent_url
+     *
+     * @ORM\Column(name="torrent_url", type="string", length=255)
+     */
+    private $torrent_url;
+
+    /**
+    * @Assert\File(maxSize="6000000")
+    */
+    private $torrent_file;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Screenshot", mappedBy="torrent")
+     */
+    private $screenshots;
 
     /**
      * @var integer $views
      *
      * @ORM\Column(name="views", type="integer")
      */
-    private $views;
+    private $views = 0;
 
     /**
      * @var integer $hits
      *
      * @ORM\Column(name="hits", type="integer")
      */
-    private $hits;
+    private $hits = 0;
 
     /**
      * @var integer $times_completed
      *
      * @ORM\Column(name="times_completed", type="integer")
      */
-    private $times_completed;
+    private $times_completed = 0;
 
     /**
      * @var boolean $is_visible
      *
      * @ORM\Column(name="is_visible", type="boolean")
      */
-    private $is_visible;
+    private $is_visible = false;
 
     /**
      * @var boolean $is_blocked
      *
      * @ORM\Column(name="is_blocked", type="boolean")
      */
-    private $is_blocked;
+    private $is_blocked = false;
 
      /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="\Rooty\UserBundle\Entity\User")
      */
     private $moderated_by;
 
-
+    public function __construct()
+    {
+        $this->screenshots = new ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -258,43 +284,83 @@ class Torrent
     }
 
     /**
-     * Set torrent_file
+     * Set torrent_url
      *
-     * @param string $torrentFile
+     * @param string $torrentUrl
      */
-    public function setTorrentFile($torrentFile)
+    public function setTorrentUrl($torrentUrl)
     {
-        $this->torrent_file = $torrentFile;
+        $this->torrent_url = $torrentUrl;
     }
 
     /**
-     * Get torrent_file
+     * Get torrent_url
      *
      * @return string 
      */
-    public function getTorrentFile()
+    public function getTorrentUrl()
     {
-        return $this->torrent_file;
+        return $this->torrent_url;
     }
 
-    public function getAbsolutePath()
+    public function getTorrentAbsolutePath()
     {
-        return null === $this->torrent_file ? null : $this->getUploadRootDir().'/'.$this->torrent_file;
+        return null === $this->torrent_url ? null : $this->getTorrentUploadRootDir().'/'.$this->torrent_url;
     }
 
-    public function getWebPath()
+    public function getTorrentWebPath()
     {
-        return null === $this->torrent_file ? null : $this->getUploadDir().'/'.$this->torrent_file;
+        return null === $this->torrent_url ? null : $this->getTorrentUploadDir().'/'.$this->torrent_url;
     }
 
-    protected function getUploadRootDir()
+    protected function getTorrentUploadRootDir()
     {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getTorrentUploadDir();
     }
 
-    protected function getUploadDir()
+    protected function getTorrentUploadDir()
     {
         return 'uploads/torrents';
+    }
+    
+    /**
+     * Set poster_url
+     *
+     * @param string $posterUrl
+     */
+    public function setPosterUrl($posterUrl)
+    {
+        $this->poster_url = $posterUrl;
+    }
+
+    /**
+     * Get poster_url
+     *
+     * @return string 
+     */
+    public function getPosterUrl()
+    {
+        return $this->poster_url;
+    }
+    
+    public function getPosterAbsolutePath()
+    {
+        return null === $this->poster_url ? null : $this->getPosterUploadRootDir().'/'.$this->poster_url;
+    }
+
+    public function getPosterWebPath()
+    {
+        return null === $this->poster_url ? null : $this->getPosterUploadDir().'/'.$this->poster_url;
+    }
+
+    protected function getPosterUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getPosterUploadDir();
+    }
+
+    protected function getPosterUploadDir()
+    {
+        return 'uploads/posters';
     }
 
 
@@ -304,8 +370,17 @@ class Torrent
     */
     public function preUpload()
     {
-        if (null !== $this->file) {
-            $this->torrent_file = uniqid().'.'.$this->file->guessExtension();
+        //@todo filetype validation
+        if (null !== $this->torrent_file) {
+            $this->torrent_url = uniqid().'.torrent';
+            
+            // set torrent file size
+            $this->size = filesize($this->torrent_file);
+        }
+        
+        if (null !== $this->poster_file) {
+            $this->poster_url = uniqid().'.'.$this->poster_file->guessExtension();
+            
         }
     }
 
@@ -315,18 +390,43 @@ class Torrent
      */
     public function upload()
     {
-        if (null === $this->file) {
+        if (null === $this->torrent_file) {
             return;
         }
 
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->file->move($this->getUploadRootDir(), $this->torrent_file);
+        $this->torrent_file->move($this->getTorrentUploadRootDir(), $this->torrent_url);
+        
+        unset($this->torrent_file);
+        
+        if (null === $this->poster_file) {
+            return;
+        }
 
-        unset($this->file);
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->poster_file->move($this->getPosterUploadRootDir(), $this->poster_url);
+        
+        unset($this->poster_file);
     }
 
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($torrent_file = $this->getTorrentAbsolutePath()) {
+            unlink($torrent_file);
+        }
+        
+        if ($poster_file = $this->getPosterAbsolutePath()) {
+            unlink($poster_file);
+        }
+    }
+    
     /**
      * Set views
      *
@@ -428,31 +528,31 @@ class Torrent
     }
 
     /**
-     * Set category
+     * Set type
      *
-     * @param Rooty\TorrentBundle\Entity\Category $category
+     * @param string $type
      */
-    public function setCategory(\Rooty\TorrentBundle\Entity\Category $category)
+    public function setType($type)
     {
-        $this->category = $category;
+        $this->type = $type;
     }
 
     /**
-     * Get category
+     * Get type
      *
-     * @return Rooty\TorrentBundle\Entity\Category 
+     * @return string
      */
-    public function getCategory()
+    public function getType()
     {
-        return $this->category;
+        return $this->type;
     }
 
     /**
      * Set added_by
      *
-     * @param Rooty\TorrentBundle\Entity\User $addedBy
+     * @param Rooty\UserBundle\Entity\User $addedBy
      */
-    public function setAddedBy(\Rooty\TorrentBundle\Entity\User $addedBy)
+    public function setAddedBy(\Rooty\UserBundle\Entity\User $addedBy)
     {
         $this->added_by = $addedBy;
     }
@@ -460,7 +560,7 @@ class Torrent
     /**
      * Get added_by
      *
-     * @return Rooty\TorrentBundle\Entity\User 
+     * @return Rooty\UserBundle\Entity\User 
      */
     public function getAddedBy()
     {
@@ -470,9 +570,9 @@ class Torrent
     /**
      * Set moderated_by
      *
-     * @param Rooty\TorrentBundle\Entity\User $moderatedBy
+     * @param Rooty\UserBundle\Entity\User $moderatedBy
      */
-    public function setModeratedBy(\Rooty\TorrentBundle\Entity\User $moderatedBy)
+    public function setModeratedBy(\Rooty\UserBundle\Entity\User $moderatedBy)
     {
         $this->moderated_by = $moderatedBy;
     }
@@ -480,10 +580,30 @@ class Torrent
     /**
      * Get moderated_by
      *
-     * @return Rooty\TorrentBundle\Entity\User 
+     * @return Rooty\UserBundle\Entity\User 
      */
     public function getModeratedBy()
     {
         return $this->moderated_by;
+    }
+    
+    public function setTorrentFile($torrentFile)
+    {
+        $this->torrent_file = $torrentFile;
+    }
+    
+    public function getTorrentFile()
+    {
+        return $this->torrent_file;
+    }
+    
+    public function setPosterFile($posterFile)
+    {
+        $this->poster_file = $posterFile;
+    }
+    
+    public function getPosterFile()
+    {
+        return $this->poster_file;
     }
 }

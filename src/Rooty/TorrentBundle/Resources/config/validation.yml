@@ -13,13 +13,13 @@ Rooty\TorrentBundle\Entity\Torrent:
       - MaxLength: 100000
       
     torrent_file:
-      - NotBlank: ~
+      - NotBlank: {groups: [create]}
       - File:
-          maxSize: 1M
+          maxSize: {limit: '1M', groups: [create]}
           mimeTypes: [application/x-bittorrent]
           mimeTypesMessage: Пожалуйста, укажите корректный torrent-файл
       
     poster_file:
-      - NotBlank: ~
+      - NotBlank: {groups: [create]}
       - Image:
-          maxSize: 5M
+          maxSize: {limit: '5M', groups: [create]}

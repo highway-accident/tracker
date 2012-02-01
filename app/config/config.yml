@@ -75,5 +75,8 @@ fos_user:
 avalanche_imagine:
     filters:
         poster:
-            type:    thumbnail
+            type: thumbnail
             options: { size: [300, 500], mode: inset }
+        screenshot:
+            type: thumbnail
+            options: { size: [160, 90], mode: outline }

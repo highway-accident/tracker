@@ -1,0 +1,18 @@
+{% extends "AcmePizzaBundle::layout.html.twig" %}
+
+{% block title parent() ~ " - Pizza - Create/Update" %}
+
+{% block content %}
+
+{% if pizza.id %}
+    <h2>Updating "{{ pizza.name }}"</h2>
+{% else %}
+    <h2>Creating new pizza</h2>
+{% endif %}
+
+<form method="post" action="{{ app.request.requestUri }}" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" />
+</form>
+
+{% endblock %}

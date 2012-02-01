@@ -1,0 +1,31 @@
+{% extends "AcmePizzaBundle::layout.html.twig" %}
+
+{% block title parent() ~ " - Pizza - List" %}
+
+{% block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Pizza</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for pizza in pizzas %}
+        <tr>
+            <td>{{ pizza.name }}</td>
+            <td>{{ "%0.2f" | format(pizza.price) }}</td>
+            <td>
+                <ul>
+                    <li><a href="{{ path("acme_pizza_pizza_update", {"id": pizza.id}) }}">Update</a></li>
+                    <li><a href="{{ path("acme_pizza_pizza_delete", {"id": pizza.id}) }}">Delete</a></li>
+                </ul>
+            </td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

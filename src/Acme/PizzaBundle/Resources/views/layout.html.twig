@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/acmepizza/css/main.css') }}" />
+        <title>{% block title "Acme Pizza" %}</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div class="header">
+            <div class="hgroup">
+                <h1>Acme Pizza</h1>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="{{ path("acme_pizza_order_index"  ) }}">   Order - Create</a></li>
+                    <li><a href="{{ path("acme_pizza_order_list"   ) }}">   Order - List  </a></li>
+                    <li><a href="{{ path("acme_pizza_pizza_create" ) }}">   Pizza - Create</a></li>
+                    <li><a href="{{ path("acme_pizza_pizza_list"   ) }}">   Pizza - List  </a></li>
+                    <li><a href="{{ path("acme_pizza_customer_list") }}">Customer - List  </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+
+        {% if app.session.hasFlash('success') %}
+        <div class="success">
+            {{ app.session.flash('success') }}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>

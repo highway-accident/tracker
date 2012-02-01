@@ -98,6 +98,7 @@ class TorrentController extends Controller
             $entity->setType($type);
             $entity->setAddedBy($user);
             $entity->setDateAdded(new \DateTime('now'));
+            
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             //$em->flush();
@@ -190,15 +191,34 @@ class TorrentController extends Controller
         $editForm = $this->createForm(new TorrentFormType($type, null), $entity->getTorrent());
         $deleteForm = $this->createDeleteForm($id);
         
+        //var_dump($entity->getTorrent()->getScreenshots());
+        
         $request = $this->getRequest();
         
         $editForm->bindRequest($request);
         
+        //var_dump($entity->getTorrent()->getScreenshots());
+       
+        $postData = $request->get('rooty_torrentbundle_torrentformtype');
+        $type = $postData['type'];
+        
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            switch ($type) {
+                case 'game':
+                    $entity->setGenre($postData['genre']);
+                    $entity->setDeveloper($postData['developer']);
+                    $entity->setPublisher($postData['publisher']);
+                    $entity->setSystemRequirements($postData['system_requirements']);
+                    $entity->setCrackUrl($postData['crack_url']);
+                    $entity->setHowToRun($postData['how_to_run']);
+                    break;
+                default:
+                    throw new \Exception('Wrong torrent type!');
+                    break;
+            }
             $em->flush();
             
-            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrentId())));
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
         }
         
         return array (

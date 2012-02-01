@@ -55,9 +55,22 @@
             <span class="torrent__description__key">Запуск:</span>
             <span class="torrent__description__value">{{ entity.howToRun }}</span>
         </div>
+
+        <!-- Screenshots -->
+        <div class="torrent__screenshots clearfix">
+            <ul id="torrent__screenshots__carousel" class="jcarousel-skin-tango">
+                {% for screenshot in entity.torrent.screenshots %}
+                    <li>
+                        <a class="group1" href="{{ asset(screenshot.screenshotWebPath) }}" title="{{ screenshot.title }}">
+                            <img src="{{ screenshot.screenshotWebPath | apply_filter('screenshot') }}" />
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         
         <div class="torrent__download">
-            <a href="{{ entity.torrent.torrentWebPath }}">Скачать</a>
+            <a href="{{ asset(entity.torrent.torrentWebPath) }}">Скачать</a>
         </div>
     </div>
 </div>

@@ -161,6 +161,66 @@ form.torrent_new textarea {
     text-align: left;
 }
 
+.file_input {
+    display: none;
+}
+
+.file_update {
+    margin-top: 4px;
+    height: 20px;
+}
+
+#rooty_torrentbundle_torrentformtype_screenshots {
+    margin-top: 4px;
+}
+
+#rooty_torrentbundle_torrentformtype_screenshots > div { /* One screenshot entity */
+    margin-bottom: 20px;
+    padding: 20px 30px;
+    background: #EEEEEE;
+/*    border-bottom: 1px dashed #AAAAAA;*/
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    text-align: right;
+}
+
+#rooty_torrentbundle_torrentformtype_screenshots > div > div { /* Screenshot entity field*/
+    margin-bottom: 10px;
+}
+
+#rooty_torrentbundle_torrentformtype_screenshots label {
+    margin-right: 15px;
+}
+
+#rooty_torrentbundle_torrentformtype_screenshots .screenshot_file {
+    display: none;
+}
+
+#rooty_torrentbundle_torrentformtype_screenshots input[type="text"] {
+    width: 350px;
+}
+
+a.add_screenshot {
+    color: #0000EE;
+    border-bottom: 1px dotted;
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
+a.remove_screenshot {
+    color: #0000EE;
+    border-bottom: 1px dotted;
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
+a.ajaxLink {
+    border-bottom: 1px dotted;
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
 .torrent__description {
     margin-bottom: 10px;
 }
@@ -172,6 +232,12 @@ form.torrent_new textarea {
 .torrent__poster {
     float: right;
     margin: 0 0 20px 20px;
+}
+
+.torrent__screenshots {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 10px 30px;
 }
 
 .torrent__download {
@@ -228,6 +294,10 @@ input[type="text"]:hover, input[type="password"]:hover {
 input[type="text"]:focus, input[type="password"]:focus {
     border: 1px solid #FFAB57;
     background: white;
+}
+
+input[type="file"] {
+    height: 24px;
 }
 
 textarea {
