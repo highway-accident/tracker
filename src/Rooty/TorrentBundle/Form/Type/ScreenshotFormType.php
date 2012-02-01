@@ -12,7 +12,7 @@ class ScreenshotFormType extends AbstractType
     {
         $builder
             ->add('title', null, array('label' => 'Название:'))
-            ->add('screenshot_file', 'file', array('label' => 'Файл:', 'required' => false));
+            ->add('screenshot_file', 'file', array('label' => 'Файл:'));
     }
     
     public function getName()

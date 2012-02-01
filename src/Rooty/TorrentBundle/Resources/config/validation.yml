@@ -1,25 +1,35 @@
 Rooty\TorrentBundle\Entity\Torrent:
   properties:
     title:
-      - NotBlank: ~
-      - MaxLength: 255
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
       
     title_original:
-      - NotBlank: ~
-      - MaxLength: 255
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
       
     description:
-      - NotBlank: ~
-      - MaxLength: 100000
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 100000, groups: [new, edit]}
       
     torrent_file:
-      - NotBlank: {groups: [create]}
+      - NotBlank: {groups: [new]}
       - File:
-          maxSize: {limit: '1M', groups: [create]}
+          maxSize: {limit: '1M', groups: [new, edit]}
           mimeTypes: [application/x-bittorrent]
           mimeTypesMessage: Пожалуйста, укажите корректный torrent-файл
       
     poster_file:
-      - NotBlank: {groups: [create]}
+      - NotBlank: {groups: [new]}
       - Image:
-          maxSize: {limit: '5M', groups: [create]}
+          maxSize: {limit: '5M', groups: [new, edit]}
+          
+    screenshots:
+      - Collection:
+          fields:
+            screenshot_file:
+              - NotBlank: {groups: [new, edit]}
+              - Image:
+                  maxSize: {limit: '5M', groups: [new, edit]}
+          allowExtraFields: true
+          allowMissingFields: true

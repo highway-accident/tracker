@@ -8,10 +8,12 @@ use Rooty\TrackerBundle\Entity\Torrent;
 
 class TorrentFormType extends AbstractType
 {
+    private $mode; //are we creating a new entity or editing existing
     private $type; //torrent type
     private $data; //custom field values
     
-    public function __construct($type, $data) {
+    public function __construct($mode, $type, $data) {
+        $this->mode = $mode;
         $this->type = $type;
         $this->data = $data;
     }
@@ -60,5 +62,14 @@ class TorrentFormType extends AbstractType
     public function getName()
     {
         return 'rooty_torrentbundle_torrentformtype';
+    }
+    
+    public function getDefaultOptions(array $options)
+    {
+        if($this->mode == 'new') {
+            return array('validation_groups' => array('new'));
+        } else {
+            return array('validation_groups' => array('edit'));
+        }
     }
 }

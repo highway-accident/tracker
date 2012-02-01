@@ -1,15 +1,17 @@
 $(function() {
     $('a.update_file').click(function() {
+        $('a.update_file_undo').click(function() {
+            $(this).parent().hide();
+            $(this).parent().siblings('.file_update').show();
+            $(this).parent().html($(this).parent().html());
+            return false;
+        });
+        
         $(this).parent().hide();
         $(this).parent().siblings('.file_input').show();
         return false;
     });
     
-    $('a.update_file_undo').click(function() {
-        $(this).parent().hide();
-        $(this).parent().siblings('.file_update').show();
-        return false;
-    })
     
     /* TorrentBundle screenshot adding */
     var addScreenshot = $('<a class="add_screenshot" href="#">Добавить</a>').click(function() {

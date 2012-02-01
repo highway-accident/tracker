@@ -9,7 +9,10 @@
     </div>
 
     <div class="block__content">
-        <div class="block__content__errors">{{ form_errors(edit_form) }}</div>
+        {% if errors|length > 0 %}
+            <div class="block__content__errors">{{ form_errors(edit_form) }}</div>
+        {% endif %}
+
         <form action="{{ path('torrent_update', { 'id': entity.torrent.id }) }}" {{ form_enctype(edit_form) }} method="POST" class="torrent_new">
             <table class="form_holder">
                 {{ form_row(edit_form.title, { 'label': 'Название:' }) }}
@@ -46,7 +49,7 @@
 
                 {% form_theme edit_form 'RootyUserBundle:Form:screenshots.html.twig' %}
                 <tr>
-                    <td>Скрины:</td>
+                    <td>Скриншоты:</td>
                     <td>
                         <div id="rooty_torrentbundle_torrentformtype_screenshots" data-prototype="{{ form_widget(edit_form.screenshots.get('prototype'))|e }}">
                         {% for screenshot in edit_form.screenshots %}
@@ -57,20 +60,21 @@
                                     {{ form_widget(screenshot.title) }}
                                 </div>
 
-                                <div class="screenshot_file">
+                                {# <div class="screenshot_file">
                                     <label>Файл:</label>
                                     {{ form_errors(screenshot.screenshot_file) }}
                                     {{ form_widget(screenshot.screenshot_file) }}
-                                </div>
+                                </div> #}
                                 <a class="remove_screenshot" href="#">удалить</a>
                             </div>
                         {% endfor %}
                         </div>
                     </td>
                 </tr>
-
-                {{ form_rest(edit_form) }}
             </table>
+
+            {{ form_widget(edit_form.type) }}
+            {{ form_widget(edit_form._token) }}
 
             <div>
                 <input type="submit" value="Сохранить" />

@@ -54,7 +54,7 @@ class RegistrationController extends ContainerAware
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
             'theme' => $this->container->getParameter('fos_user.template.theme'),
-			'errors' => $form->getErrors(),
+            'errors' => $form->getErrors(),
         ));
     }
 
