@@ -38,6 +38,11 @@ class User extends BaseUser
     protected $birthday;
 
     /**
+     * @ORM\Column(type="string", length="32")
+     */
+    protected $passkey;
+    
+    /**
      * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $avatar;
@@ -261,5 +266,25 @@ class User extends BaseUser
     public function getJabber()
     {
         return $this->jaber;
+    }
+
+    /**
+     * Set passkey
+     *
+     * @param string $passkey
+     */
+    public function setPasskey($passkey)
+    {
+        $this->passkey = $passkey;
+    }
+
+    /**
+     * Get passkey
+     *
+     * @return string 
+     */
+    public function getPasskey()
+    {
+        return $this->passkey;
     }
 }

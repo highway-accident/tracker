@@ -11,9 +11,15 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: rooty_user_registration }
-
+           
     rooty_user.resetting.form.type:
         class: Rooty\UserBundle\Form\Type\ResettingFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: rooty_user_resetting }
+            
+    rooty_user.form.handler.registration:
+        class: Rooty\UserBundle\Form\Handler\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
+        scope: request
+        public: false

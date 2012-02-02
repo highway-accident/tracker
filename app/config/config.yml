@@ -68,6 +68,7 @@ fos_user:
           enabled: false
         form:
             type: rooty_user_registration
+            handler: rooty_user.form.handler.registration
     resetting:
         form:
             type: rooty_user_resetting

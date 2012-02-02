@@ -53,6 +53,26 @@ class TorrentController extends Controller
             'entity' => $entity,
         );
     }
+    
+    
+    /**
+     * Sends torrent file with current user passkey
+     * 
+     * @Route("/{id}/download", name="torrent_download")
+     * @Template()
+     */
+    public function downloadAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        /* Set the announce url and user passkey */
+        $announce_url = $this->container->getParameter('announce_url') . '?passkey=' . $user->getPasskey();
+        $torrent = new \Torrent_Torrent($entity->getTorrentAbsolutePath());
+        $torrent->announce($announce_url);
+        $torrent->send();
+    }
 
     /**
     * Displays a form to create a new Torrent entity.

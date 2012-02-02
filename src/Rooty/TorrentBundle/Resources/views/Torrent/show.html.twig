@@ -70,7 +70,7 @@
         </div>
         
         <div class="torrent__download">
-            <a href="{{ asset(entity.torrent.torrentWebPath) }}">Скачать</a>
+            <a href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
         </div>
     </div>
 </div>

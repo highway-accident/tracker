@@ -18,42 +18,47 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\Column(type="string", length="64")
-     */
-    protected $username;
-    
-    /**
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length="255", nullable="true")
      */
     protected $name;
     
     /**
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length="255", nullable="true")
      */
     protected $surname;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length="1", nullable="true")
+     */
+    protected $gender;
+    
+    /**
+     * @ORM\Column(type="date", nullable="true")
      */
     protected $birthday;
 
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="32")
+     */
+    protected $passkey;
+    
+    /**
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $avatar;
     
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $icq;
     
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $skype;
     
     /**
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $jabber;
     
@@ -121,7 +126,66 @@ class User extends BaseUser
     public function setEmail($email)
     {
         parent::setEmail($email);
-        $this->setUsername($email);
+    }
+    
+    /**
+     * Set username
+     *
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param date $birthday
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return date 
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+    
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string 
+     */
+    public function getGender()
+    {
+        return $this->gender;
     }
     
     /**
@@ -203,6 +267,4 @@ class User extends BaseUser
     {
         return $this->jaber;
     }
-
 }
-?>
