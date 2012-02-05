@@ -21,8 +21,8 @@ class Game
      */
     private $id;
 
-	/**
-     * @ORM\OneToOne(targetEntity="Torrent")
+    /**
+     * @ORM\OneToOne(targetEntity="Torrent", cascade={"persist", "remove"})
      */
     private $torrent;
 
@@ -46,7 +46,7 @@ class Game
      * @ORM\Column(name="publisher", type="string", length=255)
      */
     private $publisher;
-
+    
     /**
      * @var text $system_requirements
      *

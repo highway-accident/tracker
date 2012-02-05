@@ -15,12 +15,18 @@
 
         <form action="{{ path('torrent_create') }}" {{ form_enctype(form) }} method="POST" class="torrent_new">
             <table class="form_holder">
-                {{ form_row(form.title, { 'label': 'Название:' }) }}
-                {{ form_row(form.title_original, { 'label': 'Оригинальное название:' }) }}
-                {{ form_row(form.torrent_file, { 'label': 'Торрент-файл:' }) }}
-                {{ form_row(form.poster_file, { 'label': 'Постер:' }) }}
-                {{ form_rest(form) }}
+                {{ form_row(form.torrent.title, { 'label': 'Название:' }) }}
+                {{ form_row(form.torrent.title_original, { 'label': 'Оригинальное название:' }) }}
+                {{ form_row(form.torrent.torrent_file, { 'label': 'Торрент-файл:' }) }}
+                {{ form_row(form.torrent.poster_file, { 'label': 'Постер:' }) }}
+                
+                {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
+                
+                {{ form_row(form.torrent.screenshots, { 'label': 'Скриншоты:' }) }}
             </table>
+
+            {{ form_widget(form.type) }}
+            {{ form_widget(form._token) }}
 
             <div>
                 <input type="submit" value="Загрузить" />

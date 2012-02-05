@@ -81,3 +81,9 @@ avalanche_imagine:
         screenshot:
             type: thumbnail
             options: { size: [160, 90], mode: outline }
+
+services:
+  Rooty.twig.extension:
+    class: Rooty\DefaultBundle\Extension\FilesizeExtension
+    tags:
+      - {name: twig.extension }

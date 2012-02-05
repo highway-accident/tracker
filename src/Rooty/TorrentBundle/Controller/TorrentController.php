@@ -9,7 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Rooty\TorrentBundle\Entity\Torrent;
 use Rooty\TorrentBundle\Entity\Game;
-use Rooty\TorrentBundle\Form\Type\TorrentFormType;
+use Rooty\TorrentBundle\Entity\Movie;
+use Rooty\TorrentBundle\Form\Type\GameFormType;
+use Rooty\TorrentBundle\Form\Type\MovieFormType;
+use Rooty\TorrentBundle\Form\Filter\TorrentFilterType;
+use Rooty\TorrentBundle\Form\Filter\TorrentAdvancedFilterType;
 
 /**
 * Torrents controller
@@ -25,7 +29,31 @@ class TorrentController extends Controller
     */
     public function indexAction()
     {
-        return $this->render('RootyTorrentBundle:Torrent:index.html.twig');
+        $filterForm = $this->createForm(new TorrentFilterType());
+        $advancedFilterForm = $this->createForm(new TorrentAdvancedFilterType());
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $request = $this->getRequest();
+        if ($request->query->has('rooty_torrentbundle_torrentadvancedfiltertype')) {
+            $currFilter = $advancedFilterForm;
+        } else if ($request->query->has('rooty_torrentbundle_torrentfiltertype')) {
+            $currFilter = $filterForm;
+        }
+          
+        if (isset($currFilter)) {
+            $currFilter->bindRequest($this->getRequest());
+            $query = $em->getRepository('RootyTorrentBundle:Torrent')->getListQuery($currFilter->getData());
+            $entity = $query->getResult();
+        } else {
+            $entity = $em->getRepository('RootyTorrentBundle:Torrent')->findAll();
+        }
+        
+        
+        return array(
+            'entities' => $entity,
+            'filter_form' => $filterForm->createView(),
+            'advanced_filter_form' => $advancedFilterForm->createView(),
+        );
     }
     
     /**
@@ -40,8 +68,11 @@ class TorrentController extends Controller
         
         $type = $this->getTorrentType($id);
         switch ($type) {
-            case 'game':
+            case 'games':
                 $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
+                break;
+            case 'movies':
+                $entity = $em->getRepository('RootyTorrentBundle:Movie')->findOneByTorrent($id);
                 break;
         }
         
@@ -89,8 +120,11 @@ class TorrentController extends Controller
             
         }
         
-        $entity = new Torrent();
-        $form = $this->createForm(new TorrentFormType('new', 'game', null), $entity);
+        $entity = new Movie();
+        $torrent = new Torrent();
+        $entity->setTorrent($torrent);
+        
+        $form = $this->createForm(new MovieFormType('new'), $entity);
         
         return array(
             'entity' => $entity,
@@ -107,41 +141,44 @@ class TorrentController extends Controller
      * @Template("RootyTorrentBundle:Torrent:new.html.twig")
      */
     public function createAction() {
+        $em = $this->getDoctrine()->getEntityManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $entity = new Torrent();
-        $request = $this->getRequest();
-        $postData = $request->get('rooty_torrentbundle_torrentformtype');
-        $type = $postData['type'];
-        $form = $this->createForm(new TorrentFormType('new', $type, null), $entity);
-        $form->bindRequest($request);
         
+        $request = $this->getRequest();
+        $postData = $request->get('rooty_torrentbundle_typeformtype');
+        $type = $postData['type'];
+        switch ($type) {
+            case 'games':
+                $entity = new Game();
+                $torrent = new Torrent();
+                $entity->setTorrent($torrent);
+                $form = $this->createForm(new GameFormType('new'), $entity);
+                break;
+            case 'movies':
+                $entity = new Movie();
+                $torrent = new Torrent();
+                $entity->setTorrent($torrent);
+                $form = $this->createForm(new MovieFormType('new'), $entity);
+                break;
+        }
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+
+        $form->bindRequest($request);        
         if ($form->isValid()) {
-            $entity->setType($type);
-            $entity->setAddedBy($user);
-            $entity->setDateAdded(new \DateTime('now'));
+            echo $type;
+            $typeEntity = $em->getRepository('RootyTorrentBundle:Type')->findOneBySlug($type);
+            $entity->getTorrent()->setType($typeEntity);
+            $entity->getTorrent()->setAddedBy($user);
+            $entity->getTorrent()->setDateAdded(new \DateTime('now'));
             
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
-            //$em->flush();
+            $em->flush();
             
-            switch ($type) {
-                case 'game':
-                    $entity2 = new Game();
-                    $entity2->setTorrent($entity);
-                    $entity2->setGenre($postData['genre']);
-                    $entity2->setDeveloper($postData['developer']);
-                    $entity2->setPublisher($postData['publisher']);
-                    $entity2->setSystemRequirements($postData['system_requirements']);
-                    $entity2->setCrackUrl($postData['crack_url']);
-                    $entity2->setHowToRun($postData['how_to_run']);
-                    $em->persist($entity2);
-                    $em->flush();
-                    break;
-                default:
-                    throw new \Exception('Wrong torrent type!');
-                    break;
-            }
-            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
         }
         
         return array(
@@ -161,17 +198,11 @@ class TorrentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-        $data = array(); //custom type fields values
         $type = $this->getTorrentType($id);
         switch ($type) {
             case 'game':
                 $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
-                $data['genre'] = $entity->getGenre();
-                $data['developer'] = $entity->getDeveloper();
-                $data['publisher'] = $entity->getPublisher();
-                $data['system_requirements'] = $entity->getSystemRequirements();
-                $data['crack_url'] = $entity->getCrackUrl();
-                $data['how_to_run'] = $entity->getHowToRun();
+                $editForm = $this->createForm(new GameFormType('edit'), $entity);
                 break;
         }
         
@@ -179,12 +210,11 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
         
-        $editForm = $this->createForm(new TorrentFormType('edit', $type, $data), $entity->getTorrent());
         $deleteForm = $this->createDeleteForm($id);
         
         return array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'errors' => $editForm->getErrors(),
         );
@@ -204,6 +234,7 @@ class TorrentController extends Controller
         switch ($type) {
             case 'game':
                 $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
+                $editForm = $this->createForm(new GameFormType('edit'), $entity);
                 break;
         }
         
@@ -211,34 +242,12 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
         
-        $editForm = $this->createForm(new TorrentFormType('edit', $type, null), $entity->getTorrent());
         $deleteForm = $this->createDeleteForm($id);
         
-        //var_dump($entity->getTorrent()->getScreenshots());
-        
         $request = $this->getRequest();
-        
         $editForm->bindRequest($request);
         
-        //var_dump($entity->getTorrent()->getScreenshots());
-       
-        $postData = $request->get('rooty_torrentbundle_torrentformtype');
-        $type = $postData['type'];
-        
         if ($editForm->isValid()) {
-            switch ($type) {
-                case 'game':
-                    $entity->setGenre($postData['genre']);
-                    $entity->setDeveloper($postData['developer']);
-                    $entity->setPublisher($postData['publisher']);
-                    $entity->setSystemRequirements($postData['system_requirements']);
-                    $entity->setCrackUrl($postData['crack_url']);
-                    $entity->setHowToRun($postData['how_to_run']);
-                    break;
-                default:
-                    throw new \Exception('Wrong torrent type!');
-                    break;
-            }
             $em->flush();
             
             return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
@@ -246,7 +255,7 @@ class TorrentController extends Controller
         
         return array (
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'errors' => $editForm->getErrors(),
         );
@@ -256,11 +265,12 @@ class TorrentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-        $query = $em->createQuery('SELECT t.type FROM RootyTorrentBundle:Torrent t WHERE t.id = :id');
+        $query = $em->createQuery('SELECT type.slug FROM RootyTorrentBundle:Torrent t JOIN t.type type WHERE t.id = :id');
+           
         $query->setParameter('id', $id);
         $result = $query->getSingleResult();
         
-        return $result['type'];
+        return $result['slug'];
     }
     
     private function createDeleteForm($id)

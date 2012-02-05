@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% form_theme edit_form 'RootyUserBundle:Form:fields.html.twig' %}
+{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
 
 {% block content %}
 <div class="block">
@@ -10,13 +10,13 @@
 
     <div class="block__content">
         {% if errors|length > 0 %}
-            <div class="block__content__errors">{{ form_errors(edit_form) }}</div>
+            <div class="block__content__errors">{{ form_errors(form) }}</div>
         {% endif %}
 
-        <form action="{{ path('torrent_update', { 'id': entity.torrent.id }) }}" {{ form_enctype(edit_form) }} method="POST" class="torrent_new">
+        <form action="{{ path('torrent_update', { 'id': entity.torrent.id }) }}" {{ form_enctype(form) }} method="POST" class="torrent_new">
             <table class="form_holder">
-                {{ form_row(edit_form.title, { 'label': 'Название:' }) }}
-                {{ form_row(edit_form.title_original, { 'label': 'Оригинальное название:' }) }}
+                {{ form_row(form.torrent.title, { 'label': 'Название:' }) }}
+                {{ form_row(form.torrent.title_original, { 'label': 'Оригинальное название:' }) }}
                 <tr>
                     <td>Торрент-файл:</td>
                     <td>
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="file_input">
-                            {{ form_widget(edit_form.torrent_file) }}
+                            {{ form_widget(form.torrent.torrent_file) }}
                             <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
                         </div>
                     </td>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="file_input">
-                            {{ form_widget(edit_form.poster_file) }}
+                            {{ form_widget(form.torrent.poster_file) }}
                             <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
                         </div>
                     </td>
@@ -47,12 +47,12 @@
                 
                 {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
 
-                {% form_theme edit_form 'RootyUserBundle:Form:screenshots.html.twig' %}
+                {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}
                 <tr>
                     <td>Скриншоты:</td>
                     <td>
-                        <div id="rooty_torrentbundle_torrentformtype_screenshots" data-prototype="{{ form_widget(edit_form.screenshots.get('prototype'))|e }}">
-                        {% for screenshot in edit_form.screenshots %}
+                        <div id="rooty_torrentbundle_typeformtype_torrent_screenshots" data-prototype="{{ form_widget(form.torrent.screenshots.get('prototype'))|e }}">
+                        {% for screenshot in form.torrent.screenshots %}
                             <div>
                                 <div>
                                     <label>Название:</label>
@@ -73,8 +73,8 @@
                 </tr>
             </table>
 
-            {{ form_widget(edit_form.type) }}
-            {{ form_widget(edit_form._token) }}
+            {{ form_widget(form.type) }}
+            {{ form_widget(form._token) }}
 
             <div>
                 <input type="submit" value="Сохранить" />

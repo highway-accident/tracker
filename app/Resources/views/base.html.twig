@@ -8,6 +8,8 @@
                 'bundles/rootydefault/css/reset.css'
                 'bundles/rootydefault/css/colorbox.css'
                 'bundles/rootydefault/css/skin.css'
+                'bundles/rootydefault/css/bootstrap.min.css'
+                'bundles/rootydefault/css/jquery.ui.all.css'
                 'bundles/rootydefault/css/style.css'
             %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
@@ -16,35 +18,17 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div id="header-wrap">
-            <div id="header">
-                <div class="header__logo">[Rooty]$</div>
-                <div class="header__user_panel clearfix">
-                    {% if app.user %}
-                    <div class="header__user_panel__avatar">
+        <div id="header">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        {% if app.user %}
+                            {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenuUser') }}
+                        {% else %}
+                            {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenuAnonymous') }}
+                        {% endif %}
                     </div>
-                    <div class="header__user_panel__info">
-                        <a class="header__user_panel__info__username" href="#">{{ app.user.username }}</a> 
-                        <a class="header__user_panel__info__logout" href="{{ path('fos_user_security_logout') }}">[выход]</a><br />
-                        <div class="header__user_panel__info__stats">
-                            Upload: 0Mb<br />
-                            Download: 0Mb<br />
-                            Ratio: &#8734;
-                        </div>
-                    </div>
-                    {% else %}
-                    <div class="header__user_panel__authorization">
-                        <a class="header__user_panel__register" href="{{ path('fos_user_security_login') }}">Войти</a>
-                        <span>или</span>
-                        <a class="header__user_panel__register" href="{{ path('fos_user_registration_register') }}">Зарегистрироваться</a>
-                    </div>
-                    {% endif %}
                 </div>
-                {% if app.user %}
-                    {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenuUser') }}
-                {% else %}
-                    {{ knp_menu_render('RootyDefaultBundle:Builder:mainMenuAnonymous') }}
-                {% endif %}
             </div>
         </div>
         
@@ -60,6 +44,9 @@
                'bundles/rootydefault/js/jquery.colorbox-min.js'
                'bundles/rootydefault/js/jquery.jcarousel.min.js'
                'bundles/rootydefault/js/jquery.livequery.js'
+               'bundles/rootydefault/js/bootstrap.js'
+               'bundles/rootydefault/js/jquery-ui-1.8.17.custom.js'
+               'bundles/rootydefault/js/selectToUISlider.jQuery.js'
                'bundles/rootydefault/js/frontend.js'
             %}
             <script src="{{ asset_url }}"></script>

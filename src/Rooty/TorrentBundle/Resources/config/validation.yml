@@ -33,3 +33,7 @@ Rooty\TorrentBundle\Entity\Torrent:
                   maxSize: {limit: '5M', groups: [new, edit]}
           allowExtraFields: true
           allowMissingFields: true
+          
+Rooty\TorrentBundle\Entity\Game:
+    developer:
+      - NotBlank: ~

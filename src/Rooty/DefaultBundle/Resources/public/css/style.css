@@ -29,99 +29,11 @@ html {
 }
 
 #header {
-    position: relative;
-    height: 100px;
+    width: auto;
 }
-    .header__logo {
-        position: absolute;
-        top: 20px;
-        color: #FF9200;
-        font-size: 18px;
-    }
-    
-    .header__user_panel {
-        position: absolute;
-        right: 0;
-        padding: 5px;
-        width: 390px;
-        height: 90px;
-        background: #333333;
-        z-index: 0; /* For that fancy register button */
-    }
-    
-        .header__user_panel__avatar {
-            float: left;
-            width: 90px;
-            height: 90px;
-            background: #FAFAFA;
-        }
-        
-        .header__user_panel__info {
-            float: right;
-            padding: 0 10px;
-            width: 280px;
-            color: white;
-            font-size: 12px;
-        }
-        
-            .header__user_panel__info__username {
-                color: white;
-                font-size: 16px;
-            }
 
-            .header__user_panel__info__logout {
-                color: white;
-                font-size: 12px;
-            }
-            
-            .header__user_panel__info__stats {
-                margin-top: 5px;
-            }
-            
-        .header__user_panel__authorization {
-            position:absolute;
-            top: 35px;
-            left: 50px;
-        }
-            .header__user_panel__authorization span {
-                position: relative;
-                top: 5px;
-                margin: 0 10px;
-                color: white;
-            }
-
-    .header__menu {
-        position: absolute;
-        bottom: 0;
-        font-family: "Helvetica", sans-serif;
-        font-weight: bold;
-    }
-
-        .header__menu li {
-            float: left;
-            padding: 0 10px;
-            height: 30px;
-            line-height: 30px;
-            color: #cccccc;
-            background: #333333;
-        }
-
-        .header__menu li.current {
-            background: #FFAD40;
-        }
-
-        .header__menu a {
-            color: white;
-            text-decoration: none;
-        }
-        
-        .header__menu li:hover {
-            background: #FF9200;
-            color: white;
-        }
-        
 #content {
-    padding: 30px 20px;
+    padding: 0 20px 30px 20px;
     width: 920px;
     background: white;
     color: #1d1d1d;
@@ -133,8 +45,8 @@ html {
 }
 
 form {
-    display: inline-block;
-    text-align: right;
+/*    display: inline-block;
+    text-align: right;*/
 }
 
 form.torrent_new input[type="text"] {
@@ -274,7 +186,55 @@ a.ajaxLink {
     border: solid 1px #FF5757;
 }
 
-input[type="text"], input[type="password"] {
+.torrents__list__torrent > div {
+    float: left;
+}
+
+.torrents__list__torrent__type {
+    width: 32px;
+}
+
+.torrents__list__torrent__title {
+    width: 300px;
+}
+
+.torrents__list__torrent__download {
+    width: 64px;
+}
+
+.torrents__list__torrent__size {
+    width: 64px;
+}
+
+.torrents__list__torrent__times_completed {
+    width: 32px;
+}
+
+.torrents__list__torrent__added_by {
+    width: 64px;
+}
+
+.search {
+    margin-bottom: 15px;
+}
+
+.ui-slider.input-xlarge {
+    margin-top: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 262px;
+}
+
+select.input-xlarge {
+    width: 280px;
+}
+
+.advanced_search .control-group {
+    float: left;
+    height: 20px;
+}
+
+/*input[type="text"], input[type="password"] {
     padding: 2px 5px;
     height: 20px;
     width: 200px;
@@ -294,7 +254,7 @@ input[type="text"]:hover, input[type="password"]:hover {
 input[type="text"]:focus, input[type="password"]:focus {
     border: 1px solid #FFAB57;
     background: white;
-}
+}*/
 
 input[type="file"] {
     height: 24px;

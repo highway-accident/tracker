@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Rooty\TorrentBundle\Entity\Torrent
  *
  * @ORM\Table(name="torrents")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Rooty\TorrentBundle\Entity\Repository\TorrentRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Torrent
@@ -46,9 +46,7 @@ class Torrent
     private $description;
 
     /**
-     * @var string $type
-     *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="\Rooty\TorrentBundle\Entity\Type")
      */
     private $type;
 
@@ -528,26 +526,6 @@ class Torrent
     }
 
     /**
-     * Set type
-     *
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Set added_by
      *
      * @param Rooty\UserBundle\Entity\User $addedBy
@@ -644,5 +622,25 @@ class Torrent
     public function getScreenshots()
     {
         return $this->screenshots;
+    }
+
+    /**
+     * Set type
+     *
+     * @param Rooty\TorrentBundle\Entity\Type $type
+     */
+    public function setType(\Rooty\TorrentBundle\Entity\Type $type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * Get type
+     *
+     * @return Rooty\TorrentBundle\Entity\Type 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
