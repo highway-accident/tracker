@@ -200,9 +200,13 @@ class TorrentController extends Controller
         
         $type = $this->getTorrentType($id);
         switch ($type) {
-            case 'game':
+            case 'games':
                 $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
                 $editForm = $this->createForm(new GameFormType('edit'), $entity);
+                break;
+            case 'movies':
+                $entity = $em->getRepository('RootyTorrentBundle:Movie')->findOneByTorrent($id);
+                $editForm = $this->createForm(new MovieFormType('edit'), $entity);
                 break;
         }
         
@@ -232,9 +236,13 @@ class TorrentController extends Controller
         
         $type = $this->getTorrentType($id);
         switch ($type) {
-            case 'game':
+            case 'games':
                 $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
                 $editForm = $this->createForm(new GameFormType('edit'), $entity);
+                break;
+            case 'movies':
+                $entity = $em->getRepository('RootyTorrentBundle:Movie')->findOneByTorrent($id);
+                $editForm = $this->createForm(new MovieFormType('edit'), $entity);
                 break;
         }
         
