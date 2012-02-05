@@ -1,6 +1,27 @@
 $(function() {
-    $('.advanced_search__movie_fields').hide();
-    
+    $('.advanced_search__type_fields').hide();
+    switch ($('#rooty_torrentbundle_torrentadvancedfiltertype_type').val()) {
+        case '3':
+            $('#advanced_search__game_fields').fadeIn();
+            break;
+        case '4':
+            $('#advanced_search__movie_fields').fadeIn();
+            break;
+    }
+    $('.advanced_search__type_fields:hidden').val('');
+
+    $('#rooty_torrentbundle_torrentadvancedfiltertype_type').change(function() {
+        switch($(this).val()) {
+            case '3':
+                $('.advanced_search__type_fields:visible').fadeOut(function() {$('#advanced_search__game_fields').fadeIn()});
+                break;
+            case '4':
+                $('.advanced_search__type_fields:visible').fadeOut(function() {$('#advanced_search__movie_fields').fadeIn()});
+                break;
+        }
+        $('.advanced_search__type_fields:hidden :input').val('');
+    });
+
     $('a.update_file').click(function() {
         $('a.update_file_undo').click(function() {
             $(this).parent().hide();

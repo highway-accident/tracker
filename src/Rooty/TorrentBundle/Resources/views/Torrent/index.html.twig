@@ -57,7 +57,25 @@
                             </div>
                         </div>
 
-                        <div class="advanced_search__movie_fields">
+                        <div id="advanced_search__game_fields" class="advanced_search__type_fields">
+                            <div class="control-group">
+                                <label class="control-label" for="input01">Год выхода:</label>
+
+                                <div class="controls">
+                                    {{ form_widget(advanced_filter_form.year) }}
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="input01">Жанр:</label>
+
+                                <div class="controls">
+                                    {{ form_widget(advanced_filter_form.genre) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="advanced_search__movie_fields" class="advanced_search__type_fields">
                             <div class="control-group">
                                 <label class="control-label" for="input01">Режиссёр:</label>
 
@@ -80,6 +98,7 @@
                         <button type="submit" class="btn btn-primary">Искать</button>
                         <button type="reset" class="btn">Сброс</button>
                     </div>
+                    {{ form_widget(advanced_filter_form._token) }}
                 </form>
             </div>
         </div>
@@ -98,12 +117,12 @@
     {% for torrent in entities %}
         <tr>
             <td>Тип</td>
-            <td><a href="{{ path('torrent_show', {'id': torrent.torrent.id}) }}">{{ torrent.torrent.title }} / {{ torrent.torrent.titleOriginal }}</a></td>
-            <td><a href="{{ path('torrent_download', {'id': torrent.torrent.id}) }}"><i class="icon-download-alt"></i></a></td>
-            <td>{{ torrent.torrent.size|filesize }}</td>
+            <td><a href="{{ path('torrent_show', {'id': torrent.id}) }}">{{ torrent.title }} / {{ torrent.titleOriginal }}</a></td>
+            <td><a href="{{ path('torrent_download', {'id': torrent.id}) }}"><i class="icon-download-alt"></i></a></td>
+            <td>{{ torrent.size|filesize }}</td>
             <td>0</td>
             <td>0</td>
-            <td>{{ torrent.torrent.addedBy.username }}</td>
+            <td>{{ torrent.addedBy.username }}</td>
         </tr>
     {% endfor %}
     </table>

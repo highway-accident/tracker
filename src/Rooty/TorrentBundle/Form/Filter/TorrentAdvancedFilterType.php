@@ -12,6 +12,17 @@ class TorrentAdvancedFilterType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
+            ->add('type', 'entity', array (
+                'attr' => array(
+                    'class' => 'input-xlarge'
+                ),
+                'class' => 'RootyTorrentBundle:Type',
+                'property' => 'title',
+                'empty_value' => false,
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+            ))
             ->add('title', 'text', array (
                 'attr' => array(
                     'class' => 'input-xlarge',
@@ -27,17 +38,6 @@ class TorrentAdvancedFilterType extends AbstractType
                 'empty_value' => false,
                 'required' => false,
             ))
-            ->add('type', 'entity', array (
-                'attr' => array(
-                    'class' => 'input-xlarge'
-                ),
-                'class' => 'RootyTorrentBundle:Type',
-                'property' => 'title',
-                'empty_value' => false,
-                'expanded' => false,
-                'multiple' => false,
-                'required' => false,
-            ))
             ->add('size_min', 'text', array (
                 'data' => '0',
                 'required' => false,
@@ -46,25 +46,33 @@ class TorrentAdvancedFilterType extends AbstractType
                 'data' => '322122547200',
                 'required' => false,
             ))
-            ->add('movie', 'collection', array(
-                'type' => new MovieFilterType(),
-                'prototype' => true,
-                'by_reference' => false,
+              
+            //games
+            ->add('year', 'text', array (
+                'attr' => array (
+                    'class' => 'input-xlarge',
+                ),
+                'required' => false
             ))
-                
+            ->add('genre', 'text', array (
+                'attr' => array (
+                    'class' => 'input-xlarge',
+                ),
+                'required' => false
+            ))    
+            
+            //movies    
             ->add('director', 'text', array (
                 'attr' => array (
                     'class' => 'input-xlarge',
                 ),
-                'required' => false,
-                'property_path' => false,
+                'required' => false
             ))
             ->add('min_quality', 'text', array (
                 'attr' => array (
                     'class' => 'input-xlarge',
                 ),
-                'required' => false,
-                'property_path' => false,
+                'required' => false
             ));
     }
     

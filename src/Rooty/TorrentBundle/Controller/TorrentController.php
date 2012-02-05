@@ -41,14 +41,15 @@ class TorrentController extends Controller
         }
           
         if (isset($currFilter)) {
-            $currFilter->bindRequest($this->getRequest());
+            $currFilter->bindRequest($request);
+            var_dump($currFilter->getData());
             $query = $em->getRepository('RootyTorrentBundle:Torrent')->getListQuery($currFilter->getData());
             $entity = $query->getResult();
         } else {
             $entity = $em->getRepository('RootyTorrentBundle:Torrent')->findAll();
         }
         
-        
+        var_dump($entity);
         return array(
             'entities' => $entity,
             'filter_form' => $filterForm->createView(),
