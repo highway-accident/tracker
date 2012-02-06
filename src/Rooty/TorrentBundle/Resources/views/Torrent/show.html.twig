@@ -1,5 +1,12 @@
 {% extends '::base.html.twig' %}
 
+{% macro torrent__description(label, value) %}
+    <div class="torrent__description">
+        <span class="torrent__description__key">{{ label }}</span>
+        <span class="torrent__description__value">{{ value }}</span>
+    </div>
+{% endmacro %}
+
 {% block content %}
 <div class="block">
     <div class="block__head">
@@ -11,50 +18,14 @@
             <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
         </div>
 
-        <div class="torrent__description">
-            <span class="torrent__description__key">Название:</span>
-            <span class="torrent__description__value">{{ entity.torrent.title }}</span>
-        </div>
+        {{ _self.torrent__description('Название', entity.torrent.title) }}
+        {{ _self.torrent__description('Оригинальное название', entity.torrent.titleOriginal) }}
 
-        <div class="torrent__description">
-            <span class="torrent__description__key">Оригинальное название:</span>
-            <span class="torrent__description__value">{{ entity.torrent.titleOriginal }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Жанр:</span>
-            <span class="torrent__description__value">{{ entity.genre }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Разработчик:</span>
-            <span class="torrent__description__value">{{ entity.developer }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Издатель:</span>
-            <span class="torrent__description__value">{{ entity.publisher }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Описание:</span>
-            <span class="torrent__description__value">{{ entity.torrent.description }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Системные требования:</span>
-            <span class="torrent__description__value">{{ entity.systemRequirements }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Ссылка на крэк:</span>
-            <span class="torrent__description__value">{{ entity.crackUrl }}</span>
-        </div>
-
-        <div class="torrent__description">
-            <span class="torrent__description__key">Запуск:</span>
-            <span class="torrent__description__value">{{ entity.howToRun }}</span>
-        </div>
+        {% if entity.torrent.type.slug == 'games' %}
+            {% include "RootyTorrentBundle:Torrent:show/game_show.html.twig" %}
+        {% elseif entity.torrent.type.slug == 'movies' %}
+            {% include "RootyTorrentBundle:Torrent:show/movie_show.html.twig" %}
+        {% endif %}
 
         <!-- Screenshots -->
         <div class="torrent__screenshots clearfix">

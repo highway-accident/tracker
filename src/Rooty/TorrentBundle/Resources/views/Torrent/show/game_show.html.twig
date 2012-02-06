@@ -1,0 +1,40 @@
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description as torrent__description %}
+
+{{ torrent__description('Жанр:', entity.genre) }}
+
+{# @todo Output the rest fields through the macro #}
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Жанр:</span>
+    <span class="torrent__description__value">{{ entity.genre }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Разработчик:</span>
+    <span class="torrent__description__value">{{ entity.developer }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Издатель:</span>
+    <span class="torrent__description__value">{{ entity.publisher }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Описание:</span>
+    <span class="torrent__description__value">{{ entity.torrent.description }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Системные требования:</span>
+    <span class="torrent__description__value">{{ entity.systemRequirements }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Ссылка на крэк:</span>
+    <span class="torrent__description__value">{{ entity.crackUrl }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Запуск:</span>
+    <span class="torrent__description__value">{{ entity.howToRun }}</span>
+</div>

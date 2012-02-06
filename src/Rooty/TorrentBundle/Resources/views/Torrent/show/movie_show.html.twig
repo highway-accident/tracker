@@ -1,0 +1,46 @@
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description as torrent__description %}
+
+{{ torrent__description('Жанр:', entity.genre) }}
+{{ torrent__description('Режиссёр:', entity.director) }}
+{{ torrent__description('Список актёров:', entity.cast) }}
+{{ torrent__description('Страна:', entity.country) }}
+{{ torrent__description('Кинокомпания:', entity.studio) }}
+{{ torrent__description('Длительность:', entity.length) }}
+{{ torrent__description('Перевод:', entity.translation.title) }}
+
+{# @todo Output the rest fields through the macro #}
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Субтитры:</span>
+    <span class="torrent__description__value">{{ entity.subtitles }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Описание:</span>
+    <span class="torrent__description__value">{{ entity.torrent.description }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Формат:</span>
+    <span class="torrent__description__value">{{ entity.format.title }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Качество:</span>
+    <span class="torrent__description__value">{{ entity.quality.title }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Аудио:</span>
+    <span class="torrent__description__value">{{ entity.audio }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Видео:</span>
+    <span class="torrent__description__value">{{ entity.video }}</span>
+</div>
+
+<div class="torrent__description">
+    <span class="torrent__description__key">Сэмпл:</span>
+    <span class="torrent__description__value">{{ entity.sampleWebPath() }}</span>
+</div>
