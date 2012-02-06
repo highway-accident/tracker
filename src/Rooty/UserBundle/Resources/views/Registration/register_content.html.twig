@@ -1,4 +1,4 @@
-{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
+{% form_theme form 'RootyDefaultBundle:Form:fields_bootstrap.html.twig' %}
 
 <div class="block">
     <div class="block__head">
@@ -9,17 +9,15 @@
         {% if errors|length > 0 %}
         <div class="block__content__errors">{{ form_errors(form) }}</div>
         {% endif %}
-        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-            <table class="form_holder">
-                {{ form_row(form.username, { 'label': 'Логин:' }) }}
-                {{ form_row(form.email, { 'label': 'E-mail:' }) }}
-                {{ form_row(form.plainPassword.first, { 'label': 'Пароль:' }) }}
-                {{ form_row(form.plainPassword.second, { 'label': 'Повторите пароль:' }) }}
-                {{ form_rest(form) }}
-            </table>
+        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal fos_user_registration_register">
+            {{ form_row(form.username, { 'label': 'Логин:' }) }}
+            {{ form_row(form.email, { 'label': 'E-mail:' }) }}
+            {{ form_row(form.plainPassword.first, { 'label': 'Пароль:' }) }}
+            {{ form_row(form.plainPassword.second, { 'label': 'Повторите пароль:' }) }}
+            {{ form_rest(form) }}
 
-            <div>
-                <input type="submit" value="{{ 'Зарегистрироваться'|trans({}, 'FOSUserBundle') }}" />
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
             </div>
         </form>
     </div>

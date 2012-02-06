@@ -8,15 +8,17 @@
         <div class="block__content__errors">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</div>
         {% endif %}
 
-        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-            <table class="form_holder">
-                <tr>
-                    <td><label for="username">Логин:</label></td>
-                    <td><input type="text" id="username" name="username" /></td>
-            </table>
-
-            <div>
-                <input type="submit" value="Восстановить" />
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="form-horizontal fos_user_resetting_request">
+            <div class="control-group">
+                <label class="control-label required" for="username">Логин:</label>
+                <div class="controls">
+                    <input type="text" id="username" name="username" />
+                    <span class="help-inline"></span>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Восстановить</button>
             </div>
         </form>
     </div>

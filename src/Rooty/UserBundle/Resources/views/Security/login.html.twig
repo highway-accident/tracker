@@ -10,25 +10,46 @@
         {% if error %}
         <div class="block__content__errors">{{ error }}</div>
         {% endif %}
-        <form class="fos_user_security_login"action="{{ path("fos_user_security_check") }}" method="post">
+        <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal fos_user_security_login">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-            <table class="form_holder">
-                <tr>
-                    <td><label for="username">Логин:</label></td>
-                    <td><input type="text" id="username" name="_username" value="{{ last_username }}" /></td>
-                </tr>
+            <div class="control-group">
+                <label class="control-label required" for="username">Логин:</label>
+                <div class="controls">
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                    <span class="help-inline"></span>
+                </div>
+            </div>
 
-                <tr>
-                    <td><label for="password">Пароль:</label></td>
-                    <td><input type="password" id="password" name="_password" /></td>
-                </tr>
-            </table>
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label for="remember_me">Запомнить меня</label><br />
+            <div class="control-group">
+                <label class="control-label required" for="password">Пароль:</label>
+                <div class="controls">
+                    <input type="password" id="password" name="_password" />
+                    <span class="help-inline"></span>
+                </div>
+            </div>
 
-            <a href="{{ path('fos_user_resetting_request') }}">Забыли пароль?</a>
-            <input type="submit" id="_submit" name="_submit" value="Войти" />
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        Запомнить меня
+                    </label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <a href="{{ path('fos_user_resetting_request') }}">Забыли пароль?</a>
+                </div>
+            </div>
+
+
+            
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
         </form>
     </div>
 </div>
