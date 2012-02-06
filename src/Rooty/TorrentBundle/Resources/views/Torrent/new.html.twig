@@ -20,7 +20,11 @@
                 {{ form_row(form.torrent.torrent_file, { 'label': 'Торрент-файл:' }) }}
                 {{ form_row(form.torrent.poster_file, { 'label': 'Постер:' }) }}
                 
-                {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
+                {% if entity.torrent.type.slug == 'games' %}
+                    {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
+                {% elseif entity.torrent.type.slug == 'movies' %}
+                    {% include "RootyTorrentBundle:Torrent:movie_form.html.twig" %}
+                {% endif %}
                 
                 {{ form_row(form.torrent.screenshots, { 'label': 'Скриншоты:' }) }}
             </table>

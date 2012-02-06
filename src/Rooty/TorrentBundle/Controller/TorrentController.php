@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Rooty\TorrentBundle\Entity\Torrent;
 use Rooty\TorrentBundle\Entity\Game;
 use Rooty\TorrentBundle\Entity\Movie;
+use Rooty\TorrentBundle\Form\Type\TypeFormType;
 use Rooty\TorrentBundle\Form\Type\GameFormType;
 use Rooty\TorrentBundle\Form\Type\MovieFormType;
 use Rooty\TorrentBundle\Form\Filter\TorrentFilterType;
@@ -107,25 +108,50 @@ class TorrentController extends Controller
     }
 
     /**
+    * Displays a form to select a new Torrent entity type
+    * @Route("/chooseType", name="torrent_choose_type")
+    * @Template()
+    */
+    public function chooseTypeAction()
+    {
+        $form = $this->createForm(new TypeFormType());
+        return array(
+            'form' => $form->createView(),
+        );
+    }
+    
+    /**
     * Displays a form to create a new Torrent entity.
     * @Route("/new", name="torrent_new")
     * @Template()
     */
     public function newAction()
     {
-        $request = Request::createFromGlobals();
+        $request = $this->getRequest();
+        $postData = $request->get('rooty_torrentbundle_typeformtype');
+        $type = $postData['type'];
 
-        if ($request->request->get('category')) {
-            echo $request->request->get('category');
-        } else {
-            
+        if (!$type) {
+            return $this->redirect($this->generateUrl('torrent_choose_type'));
         }
         
-        $entity = new Game();
-        $torrent = new Torrent();
-        $entity->setTorrent($torrent);
+        $em = $this->getDoctrine()->getEntityManager();
+        $typeEntity = $em->getRepository('RootyTorrentBundle:Type')->findOneById($type);
         
-        $form = $this->createForm(new GameFormType('new'), $entity);
+        switch ($typeEntity->getSlug()) {
+            case 'games':
+                $entity = new Game();
+                $form = $this->createForm(new GameFormType('new'), $entity);
+                break;
+            case 'movies':
+                $entity = new Movie();
+                $form = $this->createForm(new MovieFormType('new'), $entity);
+                break;
+        }
+        
+        $torrent = new Torrent();
+        $torrent->setType($typeEntity);
+        $entity->setTorrent($torrent);
         
         return array(
             'entity' => $entity,
