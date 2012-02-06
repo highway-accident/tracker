@@ -133,11 +133,11 @@ a.ajaxLink {
     text-transform: lowercase;
 }
 
-.torrent__description {
+.torrent__description__row {
     margin-bottom: 10px;
 }
 
-.torrent__description__key {
+.torrent__description__row__key {
     font-weight: bold;
 }
 

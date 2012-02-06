@@ -121,11 +121,11 @@ class TorrentController extends Controller
             
         }
         
-        $entity = new Movie();
+        $entity = new Game();
         $torrent = new Torrent();
         $entity->setTorrent($torrent);
         
-        $form = $this->createForm(new MovieFormType('new'), $entity);
+        $form = $this->createForm(new GameFormType('new'), $entity);
         
         return array(
             'entity' => $entity,

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Rooty\TrackerBundle\Entity\Torrent;
 
-class MovieFormType extends AbstractType
+class GameFormType extends AbstractType
 {
     private $mode; //are we creating a new entity or editing existing
     

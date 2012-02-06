@@ -1,9 +1,9 @@
 {% extends '::base.html.twig' %}
 
-{% macro torrent__description(label, value) %}
-    <div class="torrent__description">
-        <span class="torrent__description__key">{{ label }}</span>
-        <span class="torrent__description__value">{{ value }}</span>
+{% macro torrent__description__row(label, value) %}
+    <div class="torrent__description__row">
+        <span class="torrent__description__row__key">{{ label }}</span>
+        <span class="torrent__description__row__value">{{ value }}</span>
     </div>
 {% endmacro %}
 
@@ -13,19 +13,21 @@
         {{ entity.torrent.title }} ({{ entity.torrent.titleOriginal }})
     </div>
 
-    <div class="block__content clearfix">
-        <div class="torrent__poster">
-            <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
+    <div class="block__content">
+        <div class="torrent__description clearfix">
+            <div class="torrent__poster">
+                <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
+            </div>
+
+            {{ _self.torrent__description__row('Название', entity.torrent.title) }}
+            {{ _self.torrent__description__row('Оригинальное название', entity.torrent.titleOriginal) }}
+
+            {% if entity.torrent.type.slug == 'games' %}
+                {% include "RootyTorrentBundle:Torrent:show/game_show.html.twig" %}
+            {% elseif entity.torrent.type.slug == 'movies' %}
+                {% include "RootyTorrentBundle:Torrent:show/movie_show.html.twig" %}
+            {% endif %}
         </div>
-
-        {{ _self.torrent__description('Название', entity.torrent.title) }}
-        {{ _self.torrent__description('Оригинальное название', entity.torrent.titleOriginal) }}
-
-        {% if entity.torrent.type.slug == 'games' %}
-            {% include "RootyTorrentBundle:Torrent:show/game_show.html.twig" %}
-        {% elseif entity.torrent.type.slug == 'movies' %}
-            {% include "RootyTorrentBundle:Torrent:show/movie_show.html.twig" %}
-        {% endif %}
 
         <!-- Screenshots -->
         <div class="torrent__screenshots clearfix">
