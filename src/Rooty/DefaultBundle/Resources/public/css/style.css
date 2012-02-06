@@ -57,20 +57,17 @@ form.torrent_new textarea {
     width: 500px;
     min-height: 200px;
 }
-    
-.form_holder td {
-    padding-bottom: 15px;
-    vertical-align: top;
+
+form.torrent_new .control-group > label {
+    width: 150px;
 }
 
-.form_holder td:first-child {
-    padding-top: 4px;
-    padding-right: 20px;
-    text-align: right;
+form.torrent_new .controls {
+    margin-left: 170px;
 }
 
-.form_holder td:last-child {
-    text-align: left;
+form.torrent_new .form-actions {
+    padding-left: 170px;
 }
 
 .file_input {
@@ -82,13 +79,14 @@ form.torrent_new textarea {
     height: 20px;
 }
 
-#rooty_torrentbundle_torrentformtype_screenshots {
+#rooty_torrentbundle_typeformtype_torrent_screenshots {
     margin-top: 4px;
 }
 
-#rooty_torrentbundle_torrentformtype_screenshots > div { /* One screenshot entity */
+#rooty_torrentbundle_typeformtype_torrent_screenshots > div { /* One screenshot entity */
     margin-bottom: 20px;
     padding: 20px 30px;
+    width: 450px;
     background: #EEEEEE;
 /*    border-bottom: 1px dashed #AAAAAA;*/
     border-radius: 20px;
@@ -97,19 +95,20 @@ form.torrent_new textarea {
     text-align: right;
 }
 
-#rooty_torrentbundle_torrentformtype_screenshots > div > div { /* Screenshot entity field*/
+#rooty_torrentbundle_typeformtype_torrent_screenshots > div > div { /* Screenshot entity field*/
     margin-bottom: 10px;
 }
 
-#rooty_torrentbundle_torrentformtype_screenshots label {
+#rooty_torrentbundle_typeformtype_torrent_screenshots label {
+    display: inline;
     margin-right: 15px;
 }
 
-#rooty_torrentbundle_torrentformtype_screenshots .screenshot_file {
+#rooty_torrentbundle_typeformtype_torrent_screenshots .screenshot_file {
     display: none;
 }
 
-#rooty_torrentbundle_torrentformtype_screenshots input[type="text"] {
+#rooty_torrentbundle_typeformtype_torrent_screenshots input[type="text"] {
     width: 350px;
 }
 
@@ -257,10 +256,11 @@ input[type="text"]:focus, input[type="password"]:focus {
 }*/
 
 input[type="file"] {
+    width: auto;
     height: 24px;
 }
 
-textarea {
+/*textarea {
     padding: 5px 5px;
     width: 200px;
     border: 1px solid #CCCCCC;
@@ -270,9 +270,9 @@ textarea {
     box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
     -moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
     -webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .15);
-}
+}*/
 
-input[type="button"], input[type="submit"] {
+/*input[type="button"], input[type="submit"] {
     padding: 3px 10px;
     min-height: 30px;
     background: black;
@@ -280,12 +280,12 @@ input[type="button"], input[type="submit"] {
     color: white;
     font-size: 14px;
     cursor: pointer;
-}
+}*/
 
-input[type="button"]:hover, input[type="submit"]:hover {
+/*input[type="button"]:hover, input[type="submit"]:hover {
     background: #009DFF;
     color: white;
-}
+}*/
 
 .header__user_panel__register {
 	background-color:#3bb3e0;

@@ -1,0 +1,31 @@
+{% block field_row %}
+        <tr>
+            <td>{{ form_label(form, label|default(null)) }}{{ form_errors(form) }}</td>
+            <td>{{ form_widget(form) }}</td>
+	</tr>
+{% endblock field_row %}
+
+{% block _rooty_torrentbundle_torrentformtype_screenshots_title_widget %}
+{% spaceless %}
+    <b>
+        {{ block('field_widget') }}
+    </b>
+{% endspaceless %}
+{% endblock _rooty_torrentbundle_torrentformtype_screenshots_title_widget %}
+
+{% block custom_row %}
+{% spaceless %}
+    {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}
+    {{ form_widget(prototype) }}
+{% endspaceless %}
+{% endblock custom_row %}
+
+{% block collection_widget %}
+{% spaceless %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': block('custom_row') }) %}
+    {% endif %}
+    {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}
+    {{ block('form_widget') }}
+{% endspaceless %}
+{% endblock collection_widget %}

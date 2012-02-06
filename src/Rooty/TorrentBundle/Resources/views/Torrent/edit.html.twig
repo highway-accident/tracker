@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
+{% form_theme form 'RootyDefaultBundle:Form:fields_bootstrap.html.twig' %}
 
 {% block content %}
 <div class="block">
@@ -13,71 +13,71 @@
             <div class="block__content__errors">{{ form_errors(form) }}</div>
         {% endif %}
 
-        <form action="{{ path('torrent_update', { 'id': entity.torrent.id }) }}" {{ form_enctype(form) }} method="POST" class="torrent_new">
-            <table class="form_holder">
-                {{ form_row(form.torrent.title, { 'label': 'Название:' }) }}
-                {{ form_row(form.torrent.title_original, { 'label': 'Оригинальное название:' }) }}
-                <tr>
-                    <td>Торрент-файл:</td>
-                    <td>
-                        <div class="file_update">
-                            <a class="update_file ajaxLink" href="#">обновить файл</a>
-                        </div>
+        <form action="{{ path('torrent_update', { 'id': entity.torrent.id }) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal torrent_new">
+            {{ form_row(form.torrent.title, { 'label': 'Название:' }) }}
+            {{ form_row(form.torrent.title_original, { 'label': 'Оригинальное название:' }) }}
 
-                        <div class="file_input">
-                            {{ form_widget(form.torrent.torrent_file) }}
-                            <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
-                        </div>
-                    </td>
-                </tr>
+            <div class="control-group">
+                <label class="control-label required" for="rooty_torrentbundle_typeformtype_torrent_torrent_file">Торрент-файл:</label>
+                <div class="controls">
+                    <div class="file_update">
+                        <a class="update_file ajaxLink" href="#">обновить файл</a>
+                    </div>
+                    <div class="file_input">
+                        {{ form_widget(form.torrent.torrent_file) }}
+                        <span class="help-inline"></span>
+                        <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
+                    </div>
+                </div>
+            </div>
 
-                <tr>
-                    <td>Постер:</td>
-                    <td>
-                        <div class="file_update">
-                            <a class="update_file ajaxLink" href="#">обновить файл</a>
-                        </div>
+            <div class="control-group">
+                <label class="control-label required" for="rooty_torrentbundle_typeformtype_torrent_poster_file">Постер:</label>
+                <div class="controls">
+                    <div class="file_update">
+                        <a class="update_file ajaxLink" href="#">обновить файл</a>
+                    </div>
+                    <div class="file_input">
+                        {{ form_widget(form.torrent.poster_file) }}
+                        <span class="help-inline"></span>
+                        <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="file_input">
-                            {{ form_widget(form.torrent.poster_file) }}
-                            <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
-                        </div>
-                    </td>
-                </tr>
-                
-                {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
+            {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
 
-                {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}
-                <tr>
-                    <td>Скриншоты:</td>
-                    <td>
-                        <div id="rooty_torrentbundle_typeformtype_torrent_screenshots" data-prototype="{{ form_widget(form.torrent.screenshots.get('prototype'))|e }}">
-                        {% for screenshot in form.torrent.screenshots %}
+            {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}
+            <div class="control-group">
+                <label class="control-label required">Скриншоты:</label>
+                <div class="controls">
+                    <div id="rooty_torrentbundle_typeformtype_torrent_screenshots" data-prototype="{{ form_widget(form.torrent.screenshots.get('prototype'))|e }}">
+                    {% for screenshot in form.torrent.screenshots %}
+                        <div>
                             <div>
-                                <div>
-                                    <label>Название:</label>
-                                    {{ form_errors(screenshot.title) }}
-                                    {{ form_widget(screenshot.title) }}
-                                </div>
-
-                                {# <div class="screenshot_file">
-                                    <label>Файл:</label>
-                                    {{ form_errors(screenshot.screenshot_file) }}
-                                    {{ form_widget(screenshot.screenshot_file) }}
-                                </div> #}
-                                <a class="remove_screenshot" href="#">удалить</a>
+                                <label>Название:</label>
+                                {{ form_errors(screenshot.title) }}
+                                {{ form_widget(screenshot.title) }}
                             </div>
-                        {% endfor %}
+
+                            {# <div class="screenshot_file">
+                                <label>Файл:</label>
+                                {{ form_errors(screenshot.screenshot_file) }}
+                                {{ form_widget(screenshot.screenshot_file) }}
+                            </div> #}
+                            <a class="remove_screenshot" href="#">удалить</a>
                         </div>
-                    </td>
-                </tr>
-            </table>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
 
             {{ form_widget(form.type) }}
             {{ form_widget(form._token) }}
 
-            <div>
-                <input type="submit" value="Сохранить" />
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Загрузить</button>
+                <button type="reset" class="btn">Сброс</button>
             </div>
         </form>
     </div>
