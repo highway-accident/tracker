@@ -164,7 +164,10 @@
         <tr>
             <td>Тип</td>
 
-            <td><a href="{{ path('torrent_show', {'id': torrent['id']}) }}">{{ torrent['title'] }} / {{ torrent['title_original'] }}</a></td>
+            <td>
+                <a href="{{ path('torrent_show', {'id': torrent['id']}) }}">{{ torrent['title'] }} / {{ torrent['title_original'] }}</a>
+                <a href="{{ path('torrent_edit', {'id': torrent['id']}) }}" title="Редактировать"><i class="icon-pencil"></i></a>
+            </td>
             <td><a href="{{ path('torrent_download', {'id': torrent['id']}) }}"><i class="icon-download-alt"></i></a></td>
             <td>{{ torrent['size']|filesize }}</td>
             <td>{{ torrent['seeders'] }}</td>
