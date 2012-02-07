@@ -1,6 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+    {{ order_by }}
+    {{ order_direction }}
     <div class="search tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#basic" data-toggle="tab">Поиск</a></li>
@@ -8,9 +10,11 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="basic">
-                <form action="{{ path('torrents') }}#tab#basic" method="GET" class="well form-search">
+                <form action="{{ path('torrents') }}#tab#basic" method="GET" class="well form-search torrent_search">
                         {{ form_widget(filter_form.title) }}
                         {{ form_widget(filter_form.status) }}
+                        {{ form_widget(filter_form.order_by) }}
+                        {{ form_widget(filter_form.order_direction) }}
                         <input type="hidden" name="type" value="basic" />
                         <button type="submit" class="btn btn-primary">Искать</button>
                         <button type="reset" class="btn">Сброс</button>
@@ -18,7 +22,7 @@
                 </form>
             </div>
             <div class="tab-pane" id="advanced">
-                <form action="{{ path('torrents') }}#tab#advanced" method="GET" class="form-horizontal advanced_search">
+                <form action="{{ path('torrents') }}#tab#advanced" method="GET" class="form-horizontal torrent_search advanced_search">
                     <div class="clearfix">
                         <div class="control-group">
                             <label class="control-label" for="input01">Название:</label>
@@ -98,31 +102,74 @@
                         <button type="submit" class="btn btn-primary">Искать</button>
                         <button type="reset" class="btn">Сброс</button>
                     </div>
+                    {{ form_widget(advanced_filter_form.order_by) }}
+                    {{ form_widget(advanced_filter_form.order_direction) }}
                     {{ form_widget(advanced_filter_form._token) }}
                 </form>
             </div>
         </div>
     </div>
 
-    <table class="table table-striped table-bordered">
+    <table class="search_result table table-striped table-bordered">
         <tr>
             <th>Тип</th>
-            <th>Название</th>
+            <th>
+                <a class="search_order" id="t.title" href="#">Название
+                    {% if order_by == 't.title' %}
+                        {% if order_direction == 'ASC' %}
+                            <i class="icon-chevron-up"></i>
+                        {% elseif order_direction == 'DESC' %}
+                            <i class="icon-chevron-down"></i>
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
             <th>Скачать</th>
-            <th>Размер</th>
-            <th>Сидеров</th>
-            <th>Личеров</th>
+            <th>
+                <a class="search_order" id="t.size" href="#">Размер
+                    {% if order_by == 't.size' %}
+                        {% if order_direction == 'ASC' %}
+                            <i class="icon-chevron-up"></i>
+                        {% elseif order_direction == 'DESC' %}
+                            <i class="icon-chevron-down"></i>
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a class="search_order" id="seeders" href="#">Сидеров
+                    {% if order_by == 'seeders' %}
+                        {% if order_direction == 'ASC' %}
+                            <i class="icon-chevron-up"></i>
+                        {% elseif order_direction == 'DESC' %}
+                            <i class="icon-chevron-down"></i>
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a class="search_order" id="leechers" href="#">Личеров
+                    {% if order_by == 'leechers' %}
+                        {% if order_direction == 'ASC' %}
+                            <i class="icon-chevron-up"></i>
+                        {% elseif order_direction == 'DESC' %}
+                            <i class="icon-chevron-down"></i>
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
             <th>Добавил</th>
         </tr>
     {% for torrent in entities %}
         <tr>
             <td>Тип</td>
-            <td><a href="{{ path('torrent_show', {'id': torrent.id}) }}">{{ torrent.title }} / {{ torrent.titleOriginal }}</a></td>
-            <td><a href="{{ path('torrent_download', {'id': torrent.id}) }}"><i class="icon-download-alt"></i></a></td>
-            <td>{{ torrent.size|filesize }}</td>
-            <td>0</td>
-            <td>0</td>
-            <td>{{ torrent.addedBy.username }}</td>
+
+            <td><a href="{{ path('torrent_show', {'id': torrent['id']}) }}">{{ torrent['title'] }} / {{ torrent['title_original'] }}</a></td>
+            <td><a href="{{ path('torrent_download', {'id': torrent['id']}) }}"><i class="icon-download-alt"></i></a></td>
+            <td>{{ torrent['size']|filesize }}</td>
+            <td>{{ torrent['seeders'] }}</td>
+            <td>{{ torrent['leechers'] }}</td>
+            <td><a href="#">{{ torrent['author_username'] }}</a></td>
         </tr>
     {% endfor %}
     </table>

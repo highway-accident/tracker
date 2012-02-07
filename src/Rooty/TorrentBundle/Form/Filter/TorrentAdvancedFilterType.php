@@ -73,11 +73,24 @@ class TorrentAdvancedFilterType extends AbstractType
                     'class' => 'input-xlarge',
                 ),
                 'required' => false
+            ))
+            ->add('order_by', 'hidden', array(
+                'attr' => array(
+                    'class' => 'order_by'
+                ),
+                'data' => 't.title',
+            ))
+            ->add('order_direction', 'hidden', array(
+                'attr' => array(
+                    'class' => 'order_direction'
+                ),
+                'data' => 'ASC',
             ));
     }
     
     public function getName()
     {
-        return 'rooty_torrentbundle_torrentadvancedfiltertype';
+        //return 'rooty_torrentbundle_torrentadvancedfiltertype';
+        return 'search_advanced';
     }
 }

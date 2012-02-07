@@ -1,4 +1,5 @@
 $(function() {
+    // Advanced search type fields loading
     $('.advanced_search__type_fields').hide();
     switch ($('#rooty_torrentbundle_torrentadvancedfiltertype_type').val()) {
         case '3':
@@ -20,6 +21,21 @@ $(function() {
                 break;
         }
         $('.advanced_search__type_fields:hidden :input').val('');
+    });
+    
+    // Filter ordering
+    $('.search_order').click(function() {
+        if ($('.torrent_search:visible .order_by').val() == $(this).attr('id')) {
+            // if already sorting by current row inverse direction
+            direction = ($('.torrent_search:visible .order_direction').val() == 'ASC') ? 'DESC' : 'ASC';
+            $('.torrent_search:visible .order_direction').val(direction)
+        } else {
+            $('.torrent_search:visible .order_by').val($(this).attr('id'));
+            direction = 'ASC';
+            $('.torrent_search:visible .order_direction').val(direction)
+        }
+        $('.torrent_search:visible').submit();
+        return false;
     });
 
     $('a.update_file').click(function() {
@@ -54,8 +70,8 @@ $(function() {
     
     $('#torrent__screenshots__carousel').jcarousel();
     
-    minval = parseInt($('#rooty_torrentbundle_torrentadvancedfiltertype_size_min').val());
-    maxval = parseInt($('#rooty_torrentbundle_torrentadvancedfiltertype_size_max').val());
+    minval = parseInt($('#search_advanced_size_min').val());
+    maxval = parseInt($('#search_advanced_size_max').val());
     from = 0.22756*Math.log(1+minval/4026531840);
     to = 0.22756*Math.log(1+maxval/4026531840);
     $("#size_slider").slider({
@@ -68,8 +84,8 @@ $(function() {
         slide: function( event, ui ) {
             from = 322122547200 * (Math.exp(ui.values[0]*4.39445)-1) / 80;
             to = 322122547200 * (Math.exp(ui.values[1]*4.39445)-1) / 80;
-            $('#rooty_torrentbundle_torrentadvancedfiltertype_size_min').val(from.toFixed(0));
-            $('#rooty_torrentbundle_torrentadvancedfiltertype_size_max').val(to.toFixed(0));
+            $('#search_advanced_size_min').val(from.toFixed(0));
+            $('#search_advanced_size_max').val(to.toFixed(0));
             $('#size_from').html(calcFileSize(from));
             $('#size_to').html(calcFileSize(to));
         },

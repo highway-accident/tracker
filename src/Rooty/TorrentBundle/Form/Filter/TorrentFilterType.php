@@ -25,11 +25,24 @@ class TorrentFilterType extends AbstractType
                 'choice_list' => new Status(),
                 'empty_value' => false,
                 'required' => false,
+            ))
+            ->add('order_by', 'hidden', array(
+                'attr' => array(
+                    'class' => 'order_by'
+                ),
+                'data' => 't.title',
+            ))
+            ->add('order_direction', 'hidden', array(
+                'attr' => array(
+                    'class' => 'order_direction'
+                ),
+                'data' => 'ASC',
             ));
     }
     
     public function getName()
     {
-        return 'rooty_torrentbundle_torrentfiltertype';
+        //return 'rooty_torrentbundle_torrentfiltertype';
+        return 'search';
     }
 }

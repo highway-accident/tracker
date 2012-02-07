@@ -185,6 +185,10 @@ a.ajaxLink {
     border: solid 1px #FF5757;
 }
 
+.search_result th {
+    white-space: nowrap;
+}
+
 .torrents__list__torrent > div {
     float: left;
 }

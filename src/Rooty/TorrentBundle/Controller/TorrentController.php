@@ -33,28 +33,34 @@ class TorrentController extends Controller
         $filterForm = $this->createForm(new TorrentFilterType());
         $advancedFilterForm = $this->createForm(new TorrentAdvancedFilterType());
         $em = $this->getDoctrine()->getEntityManager();
+        $orderBy = 't.title';
+        $orderDirection = 'ASC';
         
         $request = $this->getRequest();
-        if ($request->query->has('rooty_torrentbundle_torrentadvancedfiltertype')) {
-            $currFilter = $advancedFilterForm;
-        } else if ($request->query->has('rooty_torrentbundle_torrentfiltertype')) {
-            $currFilter = $filterForm;
-        }
-          
-        if (isset($currFilter)) {
-            $currFilter->bindRequest($request);
-            var_dump($currFilter->getData());
-            $query = $em->getRepository('RootyTorrentBundle:Torrent')->getListQuery($currFilter->getData());
-            $entity = $query->getResult();
+        if ($request->query->has('search') || $request->query->has('search_advanced')) {
+            if ($request->query->has('search')) {
+                $currForm = $filterForm;
+            } else if ($request->query->has('search_advanced')) {
+                $currForm = $advancedFilterForm;
+            }
+            $currForm->bindRequest($request);
+            $data = $currForm->getData();
+            $query = $em->getRepository('RootyTorrentBundle:Torrent')->getListQuery($data);
+            $orderBy = $data['order_by'];
+            $orderDirection = $data['order_direction'];
         } else {
-            $entity = $em->getRepository('RootyTorrentBundle:Torrent')->findAll();
+            $query = $em->getRepository('RootyTorrentBundle:Torrent')->getListQuery(array('order_by' => $orderBy, 'order_direction' => $orderDirection));
         }
+        $entity = $query->getScalarResult();
         
-        var_dump($entity);
+        //var_dump($entity);
+        
         return array(
             'entities' => $entity,
             'filter_form' => $filterForm->createView(),
             'advanced_filter_form' => $advancedFilterForm->createView(),
+            'order_by' => $orderBy,
+            'order_direction' => $orderDirection,
         );
     }
     
