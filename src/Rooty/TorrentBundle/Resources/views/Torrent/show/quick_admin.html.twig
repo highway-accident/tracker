@@ -1,25 +1,21 @@
-<div class="torrent__admin">
-    <h4>Администрирование</h4>
+<form action="{{ path('torrent_admin_update', {'id': entity.torrent.id}) }}" method="post" {{ form_enctype(admin_form) }} class="form-horizontal torrent_admin_form">
+{% form_theme admin_form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+    {{ form_widget(admin_form.discount) }}
 
-    <form action="{{ path('torrent_admin_update', {'id': entity.torrent.id}) }}" method="post" {{ form_enctype(admin_form) }} class="form-horizontal torrent__admin_form">
-    {% form_theme admin_form 'MopaBootstrapBundle:Form:fields.html.twig' %}
-        {{ form_widget(admin_form.discount) }}
-        
-        <div class="control-group">
-            <label class="control-label" for="input01">Проверен:</label>
+    <div class="control-group">
+        <label class="control-label" for="input01">Проверен:</label>
 
-            <div class="controls">
-                {{ form_widget(admin_form.is_checked) }}
-                <span class="help-inline">{% if entity.torrent.isChecked %}({{ entity.torrent.checkedBy.username }}){% endif %}</span>
-                <p class="help-block">Проверка гарантирует качество оформления раздачи</p>
-            </div>
+        <div class="controls">
+            {{ form_widget(admin_form.is_checked) }}
+            <span class="help-inline">{% if entity.torrent.isChecked %}({{ entity.torrent.checkedBy.username }}){% endif %}</span>
+            <p class="help-block">Проверка гарантирует качество оформления раздачи</p>
         </div>
-        
-        {{ form_rest(admin_form) }}
+    </div>
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <button type="reset" class="btn">Сброс</button>
-        </div>
-    </form>
-</div>
+    {{ form_rest(admin_form) }}
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="reset" class="btn">Сброс</button>
+    </div>
+</form>

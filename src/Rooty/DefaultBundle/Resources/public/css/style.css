@@ -162,11 +162,7 @@ a.ajaxLink {
     text-align: center;
 }
 
-.torrent__admin {
-    
-}
-
-.torrent__admin .torrent__admin_form .control-group {
+.torrent_admin_form .control-group {
     margin-bottom: 10px;
 }
 

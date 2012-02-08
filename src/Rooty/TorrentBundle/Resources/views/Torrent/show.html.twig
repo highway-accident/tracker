@@ -47,7 +47,13 @@
         <div class="torrent__download">
             <a href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
         </div>
+    </div>
+</div>
 
+<div class="block torrent_admin">
+    <div class="block__head">Администрирование</div>
+
+    <div class="block__content">
         {% include "RootyTorrentBundle:Torrent:show/quick_admin.html.twig" %}
     </div>
 </div>
