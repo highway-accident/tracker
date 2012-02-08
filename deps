@@ -87,3 +87,7 @@
 [AvalancheImagineBundle]
     git=http://github.com/avalanche123/AvalancheImagineBundle.git
     target=bundles/Avalanche/Bundle/ImagineBundle
+
+[MopaBootstrapBundle]
+    git=http://github.com/phiamo/MopaBootstrapBundle.git
+    target=/bundles/Mopa/BootstrapBundle

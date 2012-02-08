@@ -107,6 +107,13 @@ class Torrent
     private $screenshots;
 
     /**
+     * @var integer $discount
+     *
+     * @ORM\Column(name="discount", type="integer")
+     */
+    private $discount = 0;
+    
+    /**
      * @var integer $views
      *
      * @ORM\Column(name="views", type="integer")
@@ -140,11 +147,25 @@ class Torrent
      * @ORM\Column(name="is_blocked", type="boolean")
      */
     private $is_blocked = false;
+    
+    /**
+     * @var boolean $is_sticky
+     *
+     * @ORM\Column(name="is_sticky", type="boolean")
+     */
+    private $is_sticky = false;
+    
+    /**
+     * @var boolean $is_checked
+     *
+     * @ORM\Column(name="is_checked", type="boolean")
+     */
+    private $is_checked = false;
 
      /**
-     * @ORM\OneToOne(targetEntity="\Rooty\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="\Rooty\UserBundle\Entity\User")
      */
-    private $moderated_by;
+    private $checked_by;
 
     public function __construct()
     {
@@ -544,26 +565,6 @@ class Torrent
     {
         return $this->added_by;
     }
-
-    /**
-     * Set moderated_by
-     *
-     * @param Rooty\UserBundle\Entity\User $moderatedBy
-     */
-    public function setModeratedBy(\Rooty\UserBundle\Entity\User $moderatedBy)
-    {
-        $this->moderated_by = $moderatedBy;
-    }
-
-    /**
-     * Get moderated_by
-     *
-     * @return Rooty\UserBundle\Entity\User 
-     */
-    public function getModeratedBy()
-    {
-        return $this->moderated_by;
-    }
     
     public function setTorrentFile($torrentFile)
     {
@@ -642,5 +643,92 @@ class Torrent
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set is_sticky
+     *
+     * @param boolean $isSticky
+     */
+    public function setIsSticky($isSticky)
+    {
+        $this->is_sticky = $isSticky;
+    }
+
+    /**
+     * Get is_sticky
+     *
+     * @return boolean 
+     */
+    public function getIsSticky()
+    {
+        return $this->is_sticky;
+    }
+
+    /**
+     * Set is_checked
+     *
+     * @param boolean $isChecked
+     */
+    public function setIsChecked($isChecked)
+    {
+        $this->is_checked = $isChecked;
+        
+        if ($isChecked == false) {
+            $this->checked_by = null;
+        }
+    }
+
+    /**
+     * Get is_checked
+     *
+     * @return boolean 
+     */
+    public function getIsChecked()
+    {
+        return $this->is_checked;
+    }
+
+    /**
+     * Set checked_by
+     *
+     * @param Rooty\UserBundle\Entity\User $checkedBy
+     */
+    public function setCheckedBy(\Rooty\UserBundle\Entity\User $checkedBy)
+    {
+        /* If already checked do not override. Unset using setIsChecked */
+        if (!$this->checked_by) {
+            $this->checked_by = $checkedBy;
+        }
+    }
+
+    /**
+     * Get checked_by
+     *
+     * @return Rooty\UserBundle\Entity\User 
+     */
+    public function getCheckedBy()
+    {
+        return $this->checked_by;
+    }
+
+    /**
+     * Set discount
+     *
+     * @param integer $discount
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return integer 
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
     }
 }

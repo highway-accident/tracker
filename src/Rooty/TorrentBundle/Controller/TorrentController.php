@@ -15,6 +15,7 @@ use Rooty\TorrentBundle\Form\Type\GameFormType;
 use Rooty\TorrentBundle\Form\Type\MovieFormType;
 use Rooty\TorrentBundle\Form\Filter\TorrentFilterType;
 use Rooty\TorrentBundle\Form\Filter\TorrentAdvancedFilterType;
+use Rooty\TorrentBundle\Form\Type\QuickAdminFormType;
 
 /**
 * Torrents controller
@@ -60,7 +61,7 @@ class TorrentController extends Controller
             'filter_form' => $filterForm->createView(),
             'advanced_filter_form' => $advancedFilterForm->createView(),
             'order_by' => $orderBy,
-            'order_direction' => $orderDirection,
+            'order_direction' => $orderDirection
         );
     }
     
@@ -88,9 +89,35 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity.');
         }
         
+        $quickAdminForm = $this->createForm(new QuickAdminFormType(), $entity->getTorrent());
+        
         return array(
             'entity' => $entity,
+            'admin_form' => $quickAdminForm->createView(),
         );
+    }
+    
+    /**
+     *
+     * @Route("/{id}/adminUpdate", name="torrent_admin_update")
+     */
+    public function adminUpdateAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        $form = $this->createForm(new QuickAdminFormType(), $entity);
+        $request = $this->getRequest();
+        $form->bindRequest($request);
+        
+        if ($form->isValid()) {
+            $entity->setCheckedBy($user);
+            
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $id)));
+        }
     }
     
     

@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Rooty\DefaultBundle\RootyDefaultBundle(),
             new Rooty\UserBundle\RootyUserBundle(),
             new Rooty\TorrentBundle\RootyTorrentBundle(),
+            new Mopa\BootstrapBundle\MopaBootstrapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
