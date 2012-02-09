@@ -45,7 +45,11 @@
                 </div>
             </div>
 
-            {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
+            {% if entity.torrent.type.slug == 'games' %}
+                {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
+            {% elseif entity.torrent.type.slug == 'movies' %}
+                {% include "RootyTorrentBundle:Torrent:movie_form.html.twig" %}
+            {% endif %}
 
             {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}
             <div class="control-group">
