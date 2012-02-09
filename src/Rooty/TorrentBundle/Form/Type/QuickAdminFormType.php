@@ -12,19 +12,14 @@ class QuickAdminFormType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('is_checked', null, array (
-                'label' => 'Проверен:',
+            ->add('check_status', 'choice', array (
                 'help_block' => 'Ололо-ололо',
-                'required' => false,
-            ))
-            ->add('is_visible', null, array(
-                'label' => 'Видимый:',
-                'help_block' => 'Видимые торренты отображаются в списке раздач',
-                'required' => false,
-            ))
-            ->add('is_blocked', null, array(
-                'label' => 'Заблокирован:',
-                'help_block' => 'Заблокированные раздачи не отображаются в списке и не обрабатываются анонсером',
+                'choices' => array( 'unchecked' => 'Непроверенный', 
+                                    'approved' => 'Проверенный', 
+                                    'rejected' => 'В доработке', 
+                                    'blocked' => 'Запрещён', 
+                            ),
+                'empty_value' => false,
                 'required' => false,
             ))
             ->add('is_sticky', null, array(
@@ -35,6 +30,7 @@ class QuickAdminFormType extends AbstractType
             ->add('discount', 'choice', array(
                 'label' => 'Скидка:',
                 'choices' => array('0' => '0%',  '10' => '10%', '20' => '20%', '30' => '30%', '40' => '40%', '50' => '50%', '60' => '60%', '70' => '70%', '80' => '80%', '90' => '90%', '100' => '100%'),
+                'empty_value' => false,
                 'required' => false,
             ));
     }

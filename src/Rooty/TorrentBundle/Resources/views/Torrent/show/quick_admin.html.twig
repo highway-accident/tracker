@@ -1,13 +1,13 @@
 <form action="{{ path('torrent_admin_update', {'id': entity.torrent.id}) }}" method="post" {{ form_enctype(admin_form) }} class="form-horizontal torrent_admin_form">
 {% form_theme admin_form 'MopaBootstrapBundle:Form:fields.html.twig' %}
-    {{ form_widget(admin_form.discount) }}
+    {{ form_row(admin_form.discount) }}
 
     <div class="control-group">
-        <label class="control-label" for="input01">Проверен:</label>
+        <label class="control-label" for="input01">Статус проверки:</label>
 
         <div class="controls">
-            {{ form_widget(admin_form.is_checked) }}
-            <span class="help-inline">{% if entity.torrent.isChecked %}({{ entity.torrent.checkedBy.username }}){% endif %}</span>
+            {{ form_widget(admin_form.check_status) }}
+            <span class="help-inline">{% if entity.torrent.checkStatus != 'unchecked' %}({{ entity.torrent.checkedBy.username }}){% endif %}</span>
             <p class="help-block">Проверка гарантирует качество оформления раздачи</p>
         </div>
     </div>

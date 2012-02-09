@@ -126,20 +126,6 @@ class Torrent
      * @ORM\Column(name="downloads", type="integer")
      */
     private $downloads = 0;
-
-    /**
-     * @var boolean $is_visible
-     *
-     * @ORM\Column(name="is_visible", type="boolean")
-     */
-    private $is_visible = false;
-
-    /**
-     * @var boolean $is_blocked
-     *
-     * @ORM\Column(name="is_blocked", type="boolean")
-     */
-    private $is_blocked = false;
     
     /**
      * @var boolean $is_sticky
@@ -149,11 +135,11 @@ class Torrent
     private $is_sticky = false;
     
     /**
-     * @var boolean $is_checked
+     * @var string $check_status
      *
-     * @ORM\Column(name="is_checked", type="boolean")
+     * @ORM\Column(name="check_status", type="string", length=255)
      */
-    private $is_checked = false;
+    private $check_status;
 
      /**
      * @ORM\ManyToOne(targetEntity="\Rooty\UserBundle\Entity\User")
@@ -460,46 +446,6 @@ class Torrent
     }
 
     /**
-     * Set is_visible
-     *
-     * @param boolean $isVisible
-     */
-    public function setIsVisible($isVisible)
-    {
-        $this->is_visible = $isVisible;
-    }
-
-    /**
-     * Get is_visible
-     *
-     * @return boolean 
-     */
-    public function getIsVisible()
-    {
-        return $this->is_visible;
-    }
-
-    /**
-     * Set is_blocked
-     *
-     * @param boolean $isBlocked
-     */
-    public function setIsBlocked($isBlocked)
-    {
-        $this->is_blocked = $isBlocked;
-    }
-
-    /**
-     * Get is_blocked
-     *
-     * @return boolean 
-     */
-    public function getIsBlocked()
-    {
-        return $this->is_blocked;
-    }
-
-    /**
      * Set added_by
      *
      * @param Rooty\UserBundle\Entity\User $addedBy
@@ -619,30 +565,6 @@ class Torrent
     }
 
     /**
-     * Set is_checked
-     *
-     * @param boolean $isChecked
-     */
-    public function setIsChecked($isChecked)
-    {
-        $this->is_checked = $isChecked;
-        
-        if ($isChecked == false) {
-            $this->checked_by = null;
-        }
-    }
-
-    /**
-     * Get is_checked
-     *
-     * @return boolean 
-     */
-    public function getIsChecked()
-    {
-        return $this->is_checked;
-    }
-
-    /**
      * Set checked_by
      *
      * @param Rooty\UserBundle\Entity\User $checkedBy
@@ -683,5 +605,25 @@ class Torrent
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /**
+     * Set downloads
+     *
+     * @param integer $downloads
+     */
+    public function setDownloads($downloads)
+    {
+        $this->downloads = $downloads;
+    }
+
+    /**
+     * Get downloads
+     *
+     * @return integer 
+     */
+    public function getDownloads()
+    {
+        return $this->downloads;
     }
 }
