@@ -121,18 +121,11 @@ class Torrent
     private $views = 0;
 
     /**
-     * @var integer $hits
+     * @var integer $downloads
      *
-     * @ORM\Column(name="hits", type="integer")
+     * @ORM\Column(name="downloads", type="integer")
      */
-    private $hits = 0;
-
-    /**
-     * @var integer $times_completed
-     *
-     * @ORM\Column(name="times_completed", type="integer")
-     */
-    private $times_completed = 0;
+    private $downloads = 0;
 
     /**
      * @var boolean $is_visible
@@ -467,46 +460,6 @@ class Torrent
     }
 
     /**
-     * Set hits
-     *
-     * @param integer $hits
-     */
-    public function setHits($hits)
-    {
-        $this->hits = $hits;
-    }
-
-    /**
-     * Get hits
-     *
-     * @return integer 
-     */
-    public function getHits()
-    {
-        return $this->hits;
-    }
-
-    /**
-     * Set times_completed
-     *
-     * @param integer $timesCompleted
-     */
-    public function setTimesCompleted($timesCompleted)
-    {
-        $this->times_completed = $timesCompleted;
-    }
-
-    /**
-     * Get times_completed
-     *
-     * @return integer 
-     */
-    public function getTimesCompleted()
-    {
-        return $this->times_completed;
-    }
-
-    /**
      * Set is_visible
      *
      * @param boolean $isVisible
@@ -730,5 +683,25 @@ class Torrent
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /**
+     * Set downloads
+     *
+     * @param integer $downloads
+     */
+    public function setDownloads($downloads)
+    {
+        $this->downloads = $downloads;
+    }
+
+    /**
+     * Get downloads
+     *
+     * @return integer 
+     */
+    public function getDownloads()
+    {
+        return $this->downloads;
     }
 }

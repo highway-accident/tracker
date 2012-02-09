@@ -136,20 +136,35 @@ a.ajaxLink {
     margin-bottom: 10px;
 }
 
-.torrent__description__row__key {
-    font-weight: bold;
-}
+    .torrent__description__row__key {
+        font-weight: bold;
+    }
 
 .torrent__poster {
     float: right;
     margin: 0 0 20px 20px;
 }
 
-.torrent__screenshots {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    padding: 10px 30px;
+.torrent__extra {
+    margin: 25px 0;
+    padding: 10px 30px 30px 30px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #EEEEEE;
 }
+
+.torrent__tech_info {
+    
+}
+
+    .torrent__tech_info__row {
+        margin-left: 78px;
+    }
+
+        .torrent__tech_info__row__key {
+            font-weight: bold;
+        }
 
 .torrent__download {
     margin: 0 auto;

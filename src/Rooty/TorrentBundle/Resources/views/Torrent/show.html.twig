@@ -7,6 +7,13 @@
     </div>
 {% endmacro %}
 
+{% macro torrent__tech_info__row(label, value) %}
+    <div class="torrent__tech_info__row">
+        <span class="torrent__tech_info__row__key">{{ label }}</span>
+        <span class="torrent__tech_info__row__value">{{ value }}</span>
+    </div>
+{% endmacro %}
+
 {% block content %}
 <div class="block">
     <div class="block__head">
@@ -21,8 +28,10 @@
                 <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
             </div>
 
+        {#
             {{ _self.torrent__description__row('Название', entity.torrent.title) }}
             {{ _self.torrent__description__row('Оригинальное название', entity.torrent.titleOriginal) }}
+        #}
 
             {% if entity.torrent.type.slug == 'games' %}
                 {% include "RootyTorrentBundle:Torrent:show/game_show.html.twig" %}
@@ -31,19 +40,29 @@
             {% endif %}
         </div>
 
-        <!-- Screenshots -->
-        <div class="torrent__screenshots clearfix">
-            <ul id="torrent__screenshots__carousel" class="jcarousel-skin-tango">
-                {% for screenshot in entity.torrent.screenshots %}
-                    <li>
-                        <a class="group1" href="{{ asset(screenshot.screenshotWebPath) }}" title="{{ screenshot.title }}">
-                            <img src="{{ screenshot.screenshotWebPath | apply_filter('screenshot') }}" />
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+        <div class="torrent__extra">
+            <div class="torrent__screenshots clearfix">
+                <ul id="torrent__screenshots__carousel" class="jcarousel-skin-tango">
+                    {% for screenshot in entity.torrent.screenshots %}
+                        <li>
+                            <a class="group1" href="{{ asset(screenshot.screenshotWebPath) }}" title="{{ screenshot.title }}">
+                                <img src="{{ screenshot.screenshotWebPath | apply_filter('screenshot') }}" />
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="torrent__tech_info">
+                {{ _self.torrent__tech_info__row('Тип:', entity.torrent.type.title) }}
+                {{ _self.torrent__tech_info__row('Размер:', entity.torrent.size | filesize) }}
+                {{ _self.torrent__tech_info__row('Добавлен:', entity.torrent.dateAdded | date('j F Y в H:i')) }}
+                {{ _self.torrent__tech_info__row('Просмотров:', entity.torrent.views) }}
+                {{ _self.torrent__tech_info__row('Скачиваний:', entity.torrent.downloads) }}
+                {{ _self.torrent__tech_info__row('Список пиров:', 'развернуть') }}
+            </div>
         </div>
-        
+
         <div class="torrent__download">
             <a href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
         </div>

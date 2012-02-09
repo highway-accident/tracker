@@ -3,44 +3,13 @@
 {{ torrent__description__row('Жанр:', entity.genre) }}
 {{ torrent__description__row('Режиссёр:', entity.director) }}
 {{ torrent__description__row('Список актёров:', entity.cast) }}
-{{ torrent__description__row('Страна:', entity.country) }}
-{{ torrent__description__row('Кинокомпания:', entity.studio) }}
+{{ torrent__description__row('Выпущено:', entity.country ~ ', ' ~ entity.studio) }}
+{{ torrent__description__row('Описание:', entity.torrent.description) }}
 {{ torrent__description__row('Длительность:', entity.length) }}
 {{ torrent__description__row('Перевод:', entity.translation.title) }}
-
-{# @todo Output the rest fields through the macro #}
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Субтитры:</span>
-    <span class="torrent__description__row__value">{{ entity.subtitles }}</span>
-</div>
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Описание:</span>
-    <span class="torrent__description__row__value">{{ entity.torrent.description }}</span>
-</div>
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Формат:</span>
-    <span class="torrent__description__row__value">{{ entity.format.title }}</span>
-</div>
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Качество:</span>
-    <span class="torrent__description__row__value">{{ entity.quality.title }}</span>
-</div>
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Аудио:</span>
-    <span class="torrent__description__row__value">{{ entity.audio }}</span>
-</div>
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Видео:</span>
-    <span class="torrent__description__row__value">{{ entity.video }}</span>
-</div>
-
-<div class="torrent__description__row">
-    <span class="torrent__description__row__key">Сэмпл:</span>
-    <span class="torrent__description__row__value">{{ entity.sampleWebPath() }}</span>
-</div>
+{{ torrent__description__row('Субтитры:', entity.subtitles) }}
+{{ torrent__description__row('Формат:', entity.format.title) }}
+{{ torrent__description__row('Качество:', entity.quality.title) }}
+{{ torrent__description__row('Аудио:', entity.audio) }}
+{{ torrent__description__row('Видео:', entity.video) }}
+{{ torrent__description__row('Сэмпл:', entity.sampleWebPath()) }}
