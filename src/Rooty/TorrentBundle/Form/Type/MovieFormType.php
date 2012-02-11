@@ -17,7 +17,7 @@ class MovieFormType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('torrent', new TorrentFormType())
+            ->add('torrent', new TorrentFormType('new'))
             ->add('type', 'hidden', array('data' => 'movies', 'property_path' => false))
                 
             ->add('genre', 'text', array('label' => 'Жанр:'))
@@ -63,9 +63,15 @@ class MovieFormType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         if($this->mode == 'new') {
-            return array('validation_groups' => array('new'));
+            return array(
+                'data_class' => 'Rooty\TorrentBundle\Entity\Movie',
+                'validation_groups' => array('new')
+            );
         } else {
-            return array('validation_groups' => array('edit'));
+            return array(
+                'data_class' => 'Rooty\TorrentBundle\Entity\Movie',
+                'validation_groups' => array('edit'),
+            );
         }
     }
 }

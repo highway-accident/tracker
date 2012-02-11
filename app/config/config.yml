@@ -87,3 +87,8 @@ services:
     class: Rooty\DefaultBundle\Extension\FilesizeExtension
     tags:
       - {name: twig.extension }
+  
+  Rooty.twig.extension2:    
+    class: Rooty\DefaultBundle\Extension\UserlinkExtension
+    tags:
+      - {name: twig.extension }

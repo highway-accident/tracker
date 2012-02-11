@@ -377,3 +377,68 @@ input[type="file"] {
 .header__user_panel__register:active::before {
 	top:-2px;
 }
+
+/* User role colors */
+.user {
+    color: black;
+}
+
+    .user:hover {
+        color: #555555;
+    }
+
+.super_user {
+    color: #F1506C;
+}
+
+    .super_user:hover {
+        color: #F6889B;
+    }
+
+.uploader {
+    color: #F19950;
+}
+
+    .uploader:hover {
+        color: #F5BA89;
+    }
+
+.super_uploader {
+    color: #804C00;
+}
+
+    .super_uploader:hover {
+        color: #D37F03;
+    }
+
+.gold {
+    color:#FFD700;
+}
+
+    .gold:hover {
+        color:#FFE557;
+    }
+    
+.moderator {
+    color: #F15550;
+}
+
+    .moderator:hover {
+        color: #F47F7B;
+    }
+
+.super_moderator {
+    color: #C350F1;
+}
+
+    .super_moderator:hover {
+        color: #DB98F5;
+    }
+
+.administrator {
+    color: #5076F1;
+}
+
+    .administrator:hover {
+        color: #8AA3F4;
+    }

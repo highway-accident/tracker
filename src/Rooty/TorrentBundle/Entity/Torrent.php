@@ -4,7 +4,6 @@ namespace Rooty\TorrentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Rooty\TorrentBundle\Entity\Torrent
@@ -83,9 +82,6 @@ class Torrent
      */
     private $poster_url;
 
-    /**
-    * @Assert\File(maxSize="6000000")
-    */
     private $poster_file;
     
     /**
@@ -94,10 +90,7 @@ class Torrent
      * @ORM\Column(name="torrent_url", type="string", length=255)
      */
     private $torrent_url;
-
-    /**
-    * @Assert\File(maxSize="6000000")
-    */
+    
     private $torrent_file;
     
     /**

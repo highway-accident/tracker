@@ -12,10 +12,17 @@ class TypeFormType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('type', 'entity', array(
+//            ->add('type', 'entity', array(
+//                'label' => 'Тип:',
+//                'class' => 'RootyTorrentBundle:Type',
+//                'property' => 'title',
+//            ));
+            ->add('type', 'choice', array(
                 'label' => 'Тип:',
-                'class' => 'RootyTorrentBundle:Type',
-                'property' => 'title',
+                'choices' => array(
+                    'games' => 'Игры',
+                    'movies' => 'Фильмы',
+                )
             ));
     }
 

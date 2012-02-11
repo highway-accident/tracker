@@ -1,3 +1,10 @@
+Rooty\TorrentBundle\Entity\Game:
+  properties:
+    developer:
+      - NotBlank: {groups: [new, edit]}
+    torrent:
+      - Valid: {groups: [new, edit]}
+
 Rooty\TorrentBundle\Entity\Torrent:
   properties:
     title:
@@ -15,14 +22,14 @@ Rooty\TorrentBundle\Entity\Torrent:
     torrent_file:
       - NotBlank: {groups: [new]}
       - File:
-          maxSize: {limit: '1M', groups: [new, edit]}
-          mimeTypes: [application/x-bittorrent]
+          maxSize: 1M
+#          mimeTypes: [application/x-bittorrent]
           mimeTypesMessage: Пожалуйста, укажите корректный torrent-файл
       
     poster_file:
       - NotBlank: {groups: [new]}
       - Image:
-          maxSize: {limit: '5M', groups: [new, edit]}
+          maxSize: 5M
           
     screenshots:
       - Collection:
@@ -33,7 +40,3 @@ Rooty\TorrentBundle\Entity\Torrent:
                   maxSize: {limit: '5M', groups: [new, edit]}
           allowExtraFields: true
           allowMissingFields: true
-          
-Rooty\TorrentBundle\Entity\Game:
-    developer:
-      - NotBlank: ~

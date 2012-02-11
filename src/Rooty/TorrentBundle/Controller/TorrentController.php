@@ -163,13 +163,13 @@ class TorrentController extends Controller
         $request = $this->getRequest();
         $postData = $request->get('rooty_torrentbundle_typeformtype');
         $type = $postData['type'];
-
+        
         if (!$type) {
             return $this->redirect($this->generateUrl('torrent_choose_type'));
         }
         
         $em = $this->getDoctrine()->getEntityManager();
-        $typeEntity = $em->getRepository('RootyTorrentBundle:Type')->findOneById($type);
+        $typeEntity = $em->getRepository('RootyTorrentBundle:Type')->findOneBySlug($type);
         
         switch ($typeEntity->getSlug()) {
             case 'games':
@@ -207,6 +207,8 @@ class TorrentController extends Controller
         $request = $this->getRequest();
         $postData = $request->get('rooty_torrentbundle_typeformtype');
         $type = $postData['type'];
+        
+        $typeEntity = $em->getRepository('RootyTorrentBundle:Type')->findOneBySlug($type);
         switch ($type) {
             case 'games':
                 $entity = new Game();
@@ -226,9 +228,8 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
 
-        $form->bindRequest($request);        
+        $form->bindRequest($request);
         if ($form->isValid()) {
-            echo $type;
             $typeEntity = $em->getRepository('RootyTorrentBundle:Type')->findOneBySlug($type);
             $entity->getTorrent()->setType($typeEntity);
             $entity->getTorrent()->setAddedBy($user);
@@ -240,6 +241,8 @@ class TorrentController extends Controller
             
             return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
         }
+        
+        $torrent->setType($typeEntity);
         
         return array(
             'entity' => $entity,
