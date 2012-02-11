@@ -177,6 +177,14 @@ a.ajaxLink {
     text-align: center;
 }
 
+.torrent_admin {
+    margin: 0 !important;
+}
+
+.torrent_admin .block__content {    
+    padding-bottom: 0 !important;
+}
+
 .torrent_admin_form .control-group {
     margin-bottom: 10px;
 }

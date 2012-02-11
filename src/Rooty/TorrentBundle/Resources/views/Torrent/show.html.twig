@@ -20,6 +20,7 @@
         {{ entity.torrent.title }} ({{ entity.torrent.titleOriginal }})
         <a href="{{ path('torrent_edit', {'id': entity.torrent.id}) }}" title="Редактировать"><i class="icon-pencil"></i></a>
         <a href="{{ path('torrent_edit', {'id': entity.torrent.id}) }}" title="Удалить"><i class="icon-trash"></i></a>
+        <a href="#torrent_admin" class="colorbox inline" title="Администрирование"><i class="icon-eye-open"></i></a>
     </div>
 
     <div class="block__content">
@@ -78,11 +79,13 @@
     </div>
 </div>
 
-<div class="block torrent_admin">
-    <div class="block__head">Администрирование</div>
+<div style="display:none">
+    <div class="block torrent_admin" id="torrent_admin">
+        <div class="block__head">Администрирование</div>
 
-    <div class="block__content">
-        {% include "RootyTorrentBundle:Torrent:show/quick_admin.html.twig" %}
+        <div class="block__content">
+            {% include "RootyTorrentBundle:Torrent:show/quick_admin.html.twig" %}
+        </div>
     </div>
 </div>
 {% endblock %}

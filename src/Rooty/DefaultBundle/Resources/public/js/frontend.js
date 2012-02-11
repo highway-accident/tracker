@@ -66,6 +66,7 @@ $(function() {
         return false;
     });
     
+    $('a.colorbox.inline').colorbox({inline: true});
     $('.group1').colorbox({rel:'group1', maxWidth: '95%', maxHeight: '95%', scalePhotos: true});
     
     $('#torrent__screenshots__carousel').jcarousel();
