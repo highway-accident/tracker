@@ -21,11 +21,11 @@ class GameFormType extends AbstractType
             ->add('type', 'hidden', array('data' => 'games', 'property_path' => false))
                 
             ->add('genre', 'text', array('label' => 'Жанр:'))
-            ->add('developer', 'text', array('label' => 'Разработчик:', 'required' => false))
-            ->add('publisher', 'text', array('label' => 'Издатель:', 'required' => false))
+            ->add('developer', 'text', array('label' => 'Разработчик:'))
+            ->add('publisher', 'text', array('label' => 'Издатель:'))
             ->add('system_requirements', 'textarea', array('label' => 'Системные требования:'))
-            ->add('crack_url', 'text', array('label' => 'Ссылка на кряк:', 'required' => false))
-            ->add('how_to_run', 'textarea', array('label' => 'Запуск:'));
+            ->add('crack', 'text', array('label' => 'Крэк:', 'required' => false))
+            ->add('how_to_run', 'textarea', array('label' => 'Запуск:', 'required' => false));
     }
     
     

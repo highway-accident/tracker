@@ -55,11 +55,11 @@ class Game
     private $system_requirements;
 
     /**
-     * @var string $crack_url
+     * @var string $crack
      *
-     * @ORM\Column(name="crack_url", type="string", length=255)
+     * @ORM\Column(name="crack", type="string", length=255)
      */
-    private $crack_url;
+    private $crack;
 
     /**
      * @var text $how_to_run
@@ -157,26 +157,6 @@ class Game
     public function getSystemRequirements()
     {
         return $this->system_requirements;
-    }
-
-    /**
-     * Set crack_url
-     *
-     * @param string $crackUrl
-     */
-    public function setCrackUrl($crackUrl)
-    {
-        $this->crack_url = $crackUrl;
-    }
-
-    /**
-     * Get crack_url
-     *
-     * @return string 
-     */
-    public function getCrackUrl()
-    {
-        return $this->crack_url;
     }
 
     /**

@@ -26,14 +26,14 @@ class MovieFormType extends AbstractType
             ->add('country', 'text', array('label' => 'Страна:'))
             ->add('studio', 'text', array('label' => 'Кинокомпания:'))
             ->add('length', 'text', array('label' => 'Продолжительность:'))
-            ->add('imdb_id', 'text', array('label' => 'ID фильма на IMDB:'))
-            ->add('kinopoisk_id', 'text', array('label' => 'ID фильма на Кинопоиск.ру:'))
+            ->add('imdb_id', 'text', array('label' => 'ID фильма на IMDB:', 'required' => false))
+            ->add('kinopoisk_id', 'text', array('label' => 'ID фильма на Кинопоиск.ру:', 'required' => false))
             ->add('translation', 'entity', array(
                 'label' => 'Перевод:',
                 'class' => 'RootyTorrentBundle:MovieTranslation',
                 'property' => 'title',
             ))
-            ->add('subtitles', 'text', array('label' => 'Субтитры:'))
+            ->add('subtitles', 'text', array('label' => 'Субтитры:', 'required' => false))
             ->add('format', 'entity', array(
                 'label' => 'Формат:',
                 'class' => 'RootyTorrentBundle:MovieFormat',
@@ -46,14 +46,13 @@ class MovieFormType extends AbstractType
             ))
             ->add('video', null, array('label' => 'Видео:'))
             ->add('audio', null, array('label' => 'Аудио:'))
-            ->add('sample_file', null, array('label' => 'Семпл:'))
+            ->add('sample_file', null, array('label' => 'Семпл:', 'required' => false))
             ->add('release_group', 'entity', array(
                 'label' => 'Релиз-группа:',
                 'class' => 'RootyTorrentBundle:MovieReleaseGroup',
                 'property' => 'title',
             ));
     }
-    
     
     public function getName()
     {

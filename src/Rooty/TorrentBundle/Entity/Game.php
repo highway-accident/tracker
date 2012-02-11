@@ -55,11 +55,11 @@ class Game
     private $system_requirements;
 
     /**
-     * @var string $crack_url
+     * @var string $crack
      *
-     * @ORM\Column(name="crack_url", type="string", length=255)
+     * @ORM\Column(name="crack", type="string", length=255)
      */
-    private $crack_url;
+    private $crack;
 
     /**
      * @var text $how_to_run
@@ -160,26 +160,6 @@ class Game
     }
 
     /**
-     * Set crack_url
-     *
-     * @param string $crackUrl
-     */
-    public function setCrackUrl($crackUrl)
-    {
-        $this->crack_url = $crackUrl;
-    }
-
-    /**
-     * Get crack_url
-     *
-     * @return string 
-     */
-    public function getCrackUrl()
-    {
-        return $this->crack_url;
-    }
-
-    /**
      * Set how_to_run
      *
      * @param text $howToRun
@@ -217,5 +197,25 @@ class Game
     public function getTorrent()
     {
         return $this->torrent;
+    }
+
+    /**
+     * Set crack
+     *
+     * @param string $crack
+     */
+    public function setCrack($crack)
+    {
+        $this->crack = $crack;
+    }
+
+    /**
+     * Get crack
+     *
+     * @return string 
+     */
+    public function getCrack()
+    {
+        return $this->crack;
     }
 }

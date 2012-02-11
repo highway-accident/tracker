@@ -1,9 +1,61 @@
 Rooty\TorrentBundle\Entity\Game:
   properties:
-    developer:
-      - NotBlank: {groups: [new, edit]}
     torrent:
       - Valid: {groups: [new, edit]}
+    genre:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    developer:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    publisher:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    system_requirements:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 50000, groups: [new, edit]}
+    crack:
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    how_to_run:
+      - MaxLength: {limit: 50000, groups: [new, edit]}
+
+Rooty\TorrentBundle\Entity\Movie:
+  properties:
+    torrent:
+      - Valid: {groups: [new, edit]}
+    genre:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    director:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    cast:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    country:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    studio:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    length:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    imdb_id:
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    kinopoisk_id:
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    subtitles:
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    video:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    audio:
+      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+    sample_file:
+      - File:
+          maxSize: 1M
 
 Rooty\TorrentBundle\Entity\Torrent:
   properties:
