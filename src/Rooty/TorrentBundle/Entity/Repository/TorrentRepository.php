@@ -86,6 +86,8 @@ class TorrentRepository extends EntityRepository
         }
         
         // Ordering
+        $sql .= " ORDER BY t.is_sticky DESC";
+        
         if (isset($filterData['order_by'])) {
             $validColumns = '/t.title|t.size|t.seeders|t.leechers/';
             $validDirections = '/ASC|DESC/';
@@ -93,7 +95,7 @@ class TorrentRepository extends EntityRepository
             if (
             preg_match($validColumns, $filterData['order_by']) && 
             preg_match($validDirections, $filterData['order_direction'])) {
-                $sql .= " ORDER BY ".$filterData['order_by']." ".$filterData['order_direction'];
+                $sql .= ", ".$filterData['order_by']." ".$filterData['order_direction'];
             }
             echo $sql;
         }

@@ -30,10 +30,18 @@
                     </div>
                 </div>
             </div>
+
+            {% if app.session.hasFlash('notice') %}
+                <div class="flash-notice">
+                    <div class="container">
+                        {{ app.session.flash('notice') }}
+                    </div>
+                </div>
+            {% endif %}
         </div>
         
         <div id="content">
-        {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
         </div>
 
         <div id="footer">

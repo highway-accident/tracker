@@ -107,6 +107,10 @@ class TorrentController extends Controller
         $entity = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
         $user = $this->get('security.context')->getToken()->getUser();
         
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
         $form = $this->createForm(new QuickAdminFormType(), $entity);
         $request = $this->getRequest();
         $form->bindRequest($request);
@@ -116,10 +120,31 @@ class TorrentController extends Controller
             
             $em->flush();
             
+            $this->get('session')->setFlash('notice', 'Ваши изменения успешно сохранены!');
+            
             return $this->redirect($this->generateUrl('torrent_show', array('id' => $id)));
         }
     }
     
+    /**
+     *
+     * @Route("/{id}/requestCheck", name="torrent_request_check")
+     */
+    public function requestCheckAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        $entity->setCheckStatus('unchecked');
+        
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('torrent_show', array('id' => $id)));
+    }
     
     /**
      * Sends torrent file with current user passkey
@@ -132,6 +157,10 @@ class TorrentController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
         $user = $this->get('security.context')->getToken()->getUser();
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
         
         /* Set the announce url and user passkey */
         $announce_url = $this->container->getParameter('announce_url') . '?passkey=' . $user->getPasskey();
@@ -320,6 +349,8 @@ class TorrentController extends Controller
         
         if ($editForm->isValid()) {
             $em->flush();
+            
+            $this->get('session')->setFlash('notice', 'Ваши изменения успешно сохранены!');
             
             return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
         }

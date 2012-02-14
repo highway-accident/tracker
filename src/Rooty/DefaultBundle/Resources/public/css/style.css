@@ -29,8 +29,25 @@ html {
 }
 
 #header {
+    margin-bottom: 18px;
     width: auto;
 }
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.flash-notice {
+    width: 100%;
+    background: #D2FFAE;
+    border: #589306;
+}
+
+    .flash-notice .container {
+        padding: 5px 20px;
+        width: 920px;
+        text-align: center;
+    }
 
 #content {
     padding: 0 20px 30px 20px;
@@ -132,6 +149,21 @@ a.ajaxLink {
     text-transform: lowercase;
 }
 
+.torrent__check_status {
+    margin-bottom: 20px;
+    padding: 10px 5px;
+}
+
+.torrent__check_status.unchecked {
+    background: #FFE3AE;
+    border: 1px solid #FF9338;
+}
+
+.torrent__check_status.rejected {
+    background: #FFC0AE;
+    border: 1px solid #FE7952;
+}
+
 .torrent__description__row {
     margin-bottom: 10px;
 }
@@ -169,7 +201,7 @@ a.ajaxLink {
 .torrent__download {
     margin: 0 auto;
     padding: 10px 20px;
-    width: 200px;
+    min-width: 200px;
     background: #EEEEEE;
     border-radius: 20px;
     -moz-border-radius: 20px;

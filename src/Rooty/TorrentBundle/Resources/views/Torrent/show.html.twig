@@ -24,6 +24,15 @@
     </div>
 
     <div class="block__content">
+        {% if entity.torrent.checkStatus == 'unchecked' %}
+            <div class="torrent__check_status unchecked">
+                Ваша раздача ещё не успела пройти проверку. Это значит, что пока что её не видят другие пользователи. Как только её проверят вы получите уведомление личным сообщением.
+            </div>
+        {% elseif entity.torrent.checkStatus == 'rejected' %}
+            <div class="torrent__check_status rejected">
+                Ваша раздача не прошла проверку и была возвращена на доработку. Устраните, пожалуйста, все нарушения и <a href="{{ path('torrent_request_check', {'id': entity.torrent.id}) }}">подайте заявку на проверку ещё раз</a>.
+            </div>
+        {% endif %}
         <div class="torrent__description clearfix">
             <div class="torrent__poster">
                 <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
@@ -66,7 +75,11 @@
         </div>
 
         <div class="torrent__download">
-            <a href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
+            {% if entity.torrent.checkStatus == 'approved' %}
+                <a href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
+            {% elseif entity.torrent.checkStatus in ['unchecked', 'rejected'] %}
+                Извините, но эту раздачу скачать нельзя, так как она ещё не прошла проверку.
+            {% endif %}
         </div>
         <a class="user" href="#">User</a>
         <a class="super_user" href="#">Super User</a>
