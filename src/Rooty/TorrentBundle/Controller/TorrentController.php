@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
 use Rooty\TorrentBundle\Entity\Torrent;
 use Rooty\TorrentBundle\Entity\Game;
@@ -28,6 +29,7 @@ class TorrentController extends Controller
     * Lists all Torrent entities
     * @Route("/", name="torrents")
     * @Template()
+    * @Secure(roles="ROLE_USER")
     */
     public function indexAction()
     {
@@ -70,6 +72,7 @@ class TorrentController extends Controller
      * 
      * @Route("/{id}/show", name="torrent_show")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function showAction($id)
     {
@@ -100,6 +103,7 @@ class TorrentController extends Controller
     /**
      *
      * @Route("/{id}/adminUpdate", name="torrent_admin_update")
+     * @Secure(roles="ROLE_MODERATOR")
      */
     public function adminUpdateAction($id)
     {
@@ -129,6 +133,7 @@ class TorrentController extends Controller
     /**
      *
      * @Route("/{id}/requestCheck", name="torrent_request_check")
+     * @Secure(roles="ROLE_USER")
      */
     public function requestCheckAction($id)
     {
@@ -151,6 +156,7 @@ class TorrentController extends Controller
      * 
      * @Route("/{id}/download", name="torrent_download")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function downloadAction($id)
     {
@@ -173,6 +179,7 @@ class TorrentController extends Controller
     * Displays a form to select a new Torrent entity type
     * @Route("/chooseType", name="torrent_choose_type")
     * @Template()
+    * @Secure(roles="ROLE_UPLOADER")
     */
     public function chooseTypeAction()
     {
@@ -186,6 +193,7 @@ class TorrentController extends Controller
     * Displays a form to create a new Torrent entity.
     * @Route("/new", name="torrent_new")
     * @Template()
+    * @Secure(roles="ROLE_UPLOADER")
     */
     public function newAction()
     {
@@ -228,6 +236,7 @@ class TorrentController extends Controller
      * @Route("/create", name="torrent_create")
      * @Method("post")
      * @Template("RootyTorrentBundle:Torrent:new.html.twig")
+     * @Secure(roles="ROLE_UPLOADER")
      */
     public function createAction() {
         $em = $this->getDoctrine()->getEntityManager();
@@ -284,7 +293,8 @@ class TorrentController extends Controller
      * Displays a form to edit an existing Torrent entity
      * 
      * @Route("/{id}/edit", name="torrent_edit")
-     * @Template() 
+     * @Template()
+     * @Secure(roles="ROLE_UPLOADER")
      */
     public function editAction($id)
     {
@@ -321,6 +331,7 @@ class TorrentController extends Controller
      * @Route("/{id}/update", name="torrent_update")
      * @Method("post")
      * @Template("RootyTorrentBundle:Torrent:edit.html.twig")
+     * @Secure(roles="ROLE_UPLOADER")
      */
     public function updateAction($id)
     {
