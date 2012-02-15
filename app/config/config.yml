@@ -88,7 +88,12 @@ services:
     tags:
       - {name: twig.extension }
   
-  Rooty.twig.extension2:    
+  Rooty.twig.extension2:
     class: Rooty\DefaultBundle\Extension\UserlinkExtension
+    tags:
+      - {name: twig.extension }
+      
+  Rooty.twig.extension3:
+    class: Rooty\DefaultBundle\Extension\NumeralExtension
     tags:
       - {name: twig.extension }

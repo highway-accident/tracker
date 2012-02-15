@@ -33,15 +33,71 @@
                 Ваша раздача не прошла проверку и была возвращена на доработку. Устраните, пожалуйста, все нарушения и <a href="{{ path('torrent_request_check', {'id': entity.torrent.id}) }}">подайте заявку на проверку ещё раз</a>.
             </div>
         {% endif %}
+
         <div class="torrent__description clearfix">
             <div class="torrent__poster">
                 <img src="{{ entity.torrent.posterWebPath | apply_filter('poster')}}" />
             </div>
 
-        {#
+            <div class="torrent__rating clearfix">
+                {% if votes.likes+votes.dislikes != 0 %}
+                    {% set likeWidth = votes.likes/(votes.likes+votes.dislikes)*100 %}
+                    {% set dislikeWidth = votes.dislikes/(votes.likes+votes.dislikes)*100 %}
+                    <div class="torrent__rating__bar">
+                        {% spaceless %}
+                            <div class="like" style="width: {{ likeWidth }}%"></div>
+                            {#<div class="dislike" style="width: {{ dislikeWidth }}%"></div>#}
+                        {% endspaceless %}
+                    </div>
+                {% else %}
+                    <div class="torrent__rating__bar">
+                        {% spaceless %}
+                            <div class="like" style="width: 50%"></div>
+                            {#<div class="dislike" style="width: 0%"></div>#}
+                        {% endspaceless %}
+                    </div>
+                {% endif %}
+                
+                {% if user_vote == 'like' %}
+                    {% if votes.likes == 1 %}
+                        {% set likeContent = 'только вы' %}
+                    {% else %}
+                        {% set likeContent = (votes.likes-1) | numeral('человек', 'человека', 'человек') ~ ' и вы' %}
+                    {% endif %}
+                    
+                    {% set dislikeContent = votes.dislikes | numeral('человек', 'человека', 'человек') %}
+                {% elseif user_vote == 'dislike' %}
+                    {% if votes.dislikes == 1 %}
+                        {% set dislikeContent = 'только вы' %}
+                    {% else %}
+                        {% set dislikeContent = (votes.dislikes-1) | numeral('человек', 'человека', 'человек') ~ ' и вы' %}
+                    {% endif %}
+                    
+                    {% set likeContent = votes.likes | numeral('человек', 'человека', 'человек') %}
+                {% else %}
+                    {% set likeContent = votes.likes | numeral('человек', 'человека', 'человек') %}
+                    {% set dislikeContent = votes.dislikes | numeral('человек', 'человека', 'человек') %}
+                {% endif %}
+
+                {% spaceless %}
+                    <div class="torrent__rating__like_count">
+                        <a id="torrent__rating__like" class="btn btn-success torrent__rate" href="{{ path('torrent_rate', {'id': entity.torrent.id, 'type': 'like'}) }}">
+                            <img src="/tracker/bundles/rootydefault/images/thumb_up.png" /><span class="votes">{{ likeContent }}</span>
+                        </a>
+                    </div>
+                    <div class="torrent__rating__dislike_count">
+                        <a id="torrent__rating__dislike" class="btn btn-danger torrent__rate" href="{{ path('torrent_rate', {'id': entity.torrent.id, 'type': 'dislike'}) }}">
+                            <img src="/tracker/bundles/rootydefault/images/thumb_down.png" /><span class="votes">{{ dislikeContent }}</span>
+                        </a>
+                    </div>
+                {% endspaceless %}
+            </div>
+                 
+            
+            {#
             {{ _self.torrent__description__row('Название', entity.torrent.title) }}
             {{ _self.torrent__description__row('Оригинальное название', entity.torrent.titleOriginal) }}
-        #}
+            #}
 
             {% if entity.torrent.type.slug == 'games' %}
                 {% include "RootyTorrentBundle:Torrent:show/game_show.html.twig" %}
@@ -76,19 +132,11 @@
 
         <div class="torrent__download">
             {% if entity.torrent.checkStatus == 'approved' %}
-                <a href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
+                <a class="btn btn-large btn-primary" href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
             {% elseif entity.torrent.checkStatus in ['unchecked', 'rejected'] %}
-                Извините, но эту раздачу скачать нельзя, так как она ещё не прошла проверку.
+                Извините, но эту раздачу нельзя скачать, пока она не пройдёт проверку.
             {% endif %}
         </div>
-        <a class="user" href="#">User</a>
-        <a class="super_user" href="#">Super User</a>
-        <a class="uploader" href="#">Uploader</a>
-        <a class="super_uploader" href="#">Super Uploader</a>
-        <a class="gold" href="#">Gold</a>
-        <a class="moderator" href="#">Moderator</a>
-        <a class="super_moderator" href="#">Super Moderator</a>
-        <a class="administrator" href="#">Administrator</a>
     </div>
 </div>
 

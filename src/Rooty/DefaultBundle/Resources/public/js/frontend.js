@@ -107,6 +107,39 @@ $(function() {
     $(window).bind('hashchange', function() {
         $(".nav-tabs li a[href='#" + window.location.hash.substr(5) + "']").click();
     });
+    
+    /* Torrent rating AJAX */
+    $('.torrent__rate').click(function() {
+        $.get($(this).attr('href'), function(response) {
+            var obj = $.parseJSON(response);
+            obj.likes = parseInt(obj.likes);
+            obj.dislikes = parseInt(obj.dislikes);
+            
+            if (obj.type == 'like') {
+                if (obj.likes == 1) {
+                    likeContent = 'только вы';
+                } else {
+                    likeContent = obj.likes-1 + ' ' + declOfNum(obj.likes-1, ['человек', 'человека', 'человек']) + ' и вы';
+                }
+                dislikeContent = obj.dislikes + ' ' + declOfNum(obj.dislikes, ['человек', 'человека', 'человек']);
+            }
+            
+            if (obj.type == 'dislike') {
+                if (obj.dislikes == 1) {
+                    dislikeContent = 'только вы';
+                } else {
+                    dislikeContent = obj.dislikes-1 + ' ' + declOfNum(obj.dislikes-1, ['человек', 'человека', 'человек']) + ' и вы';
+                }
+                likeContent = obj.likes + ' ' + declOfNum(obj.likes, ['человек', 'человека', 'человек']);
+            }
+            
+            $('.torrent__rating__bar .like').animate({width: obj.likes/(obj.likes+obj.dislikes)*100 + '%'}, 400);
+                        
+            $('#torrent__rating__like .votes').html(likeContent);
+            $('#torrent__rating__dislike .votes').html(dislikeContent);
+        });
+        return false;
+    });
 });
 
 function calcFileSize(size) {
@@ -120,3 +153,9 @@ function calcFileSize(size) {
         size.toFixed(2) + ' ' + units[unitIndex] : 
         size.toFixed(0) + ' ' + units[unitIndex];
 }
+
+function declOfNum(number, titles)
+{  
+    cases = [2, 0, 1, 1, 1, 2];  
+    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
+} 

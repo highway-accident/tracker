@@ -174,7 +174,46 @@ a.ajaxLink {
 
 .torrent__poster {
     float: right;
+    margin: 0 0 5px 20px;
+}
+
+.torrent__rating {
+    float: right;
     margin: 0 0 20px 20px;
+    padding: 10px 20px;
+    background: #EEEEEE;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    font-size: 11px;
+    clear: both;
+}
+
+.torrent__rating__bar {
+    margin: 0 auto 5px auto;
+    width: 290px;
+    background: #ED0C0C;
+}
+
+.torrent__rating__bar .like {
+    display: block;
+    height: 5px;
+    background: #6ACD42;
+}
+
+.torrent__rating__like_count img, .torrent__rating__dislike_count img {
+   vertical-align: middle;
+   margin-right: 5px;
+}
+
+.torrent__rating__like_count {
+    display: inline;
+    float: left;
+}
+
+.torrent__rating__dislike_count {
+    display: inline;
+    float: right;
 }
 
 .torrent__extra {
@@ -201,12 +240,16 @@ a.ajaxLink {
 .torrent__download {
     margin: 0 auto;
     padding: 10px 20px;
-    min-width: 200px;
+    width: 200px;
     background: #EEEEEE;
     border-radius: 20px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     text-align: center;
+}
+
+.torrent__download__button {
+    font-size: 16px;
 }
 
 .torrent_admin {

@@ -8,9 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Rooty\TorrentBundle\Entity\Torrent;
 use Rooty\TorrentBundle\Entity\Game;
 use Rooty\TorrentBundle\Entity\Movie;
+use Rooty\TorrentBundle\Entity\Vote;
 use Rooty\TorrentBundle\Form\Type\TypeFormType;
 use Rooty\TorrentBundle\Form\Type\GameFormType;
 use Rooty\TorrentBundle\Form\Type\MovieFormType;
@@ -77,6 +79,7 @@ class TorrentController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->get('security.context')->getToken()->getUser();
         
         $type = $this->getTorrentType($id);
         switch ($type) {
@@ -94,8 +97,13 @@ class TorrentController extends Controller
         
         $quickAdminForm = $this->createForm(new QuickAdminFormType(), $entity->getTorrent());
         
+        $votes = $em->getRepository('RootyTorrentBundle:Torrent')->getVotes($id);
+        $userVote = $em->getRepository('RootyTorrentBundle:Torrent')->getUserVote($id, $user->getId());
+        
         return array(
             'entity' => $entity,
+            'votes' => $votes,
+            'user_vote' => $userVote['type'],
             'admin_form' => $quickAdminForm->createView(),
         );
     }
@@ -149,6 +157,57 @@ class TorrentController extends Controller
         $em->flush();
         
         return $this->redirect($this->generateUrl('torrent_show', array('id' => $id)));
+    }
+    
+    /**
+     *
+     * @Route("/{id}/rate/{type}", name="torrent_rate")
+     * @Secure(roles="ROLE_USER")
+     */
+    public function rateAction($id, $type) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        $query = $em->createQuery('SELECT v FROM Rooty\TorrentBundle\Entity\Vote v WHERE v.torrent = :torrent AND v.user = :user');
+        $query->setParameters(array(
+            'torrent' => $entity,
+            'user' => $user,
+        ));
+        $voteEntity = $query->getOneOrNullResult();
+        
+        if ($voteEntity) {
+            $voteEntity->setType($type);
+        } else {
+            $voteEntity = new Vote();
+
+            $voteEntity->setTorrent($entity);
+            $voteEntity->setUser($user);
+            $voteEntity->setType($type);
+            
+            $em->persist($voteEntity);
+        }
+        
+        $em->flush();
+        
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $votes = $em->getRepository('RootyTorrentBundle:Torrent')->getVotes($id);
+            $userVote = $em->getRepository('RootyTorrentBundle:Torrent')->getUserVote($id, $user->getId());
+            
+            return new Response(json_encode(array(
+                'status' => 'ok', 
+                'error' => array(), 
+                'likes' => $votes['likes'],
+                'dislikes' => $votes['dislikes'],
+                'type' => $userVote['type'],
+            )));
+        } else {
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $id)));
+        }
     }
     
     /**

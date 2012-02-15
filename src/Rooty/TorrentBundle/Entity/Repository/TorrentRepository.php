@@ -107,4 +107,38 @@ class TorrentRepository extends EntityRepository
         
         return $query;
     }
+    
+    public function getVotes($torrent_id)
+    {
+        $em = $this->getEntityManager();
+        
+        $rsm = new ResultSetMapping;
+        $rsm->addScalarResult('likes', 'likes');
+        $rsm->addScalarResult('dislikes', 'dislikes');
+        
+        $sql =  "SELECT * FROM 
+                (SELECT COUNT(*) AS likes FROM votes WHERE torrent_id = :torrent_id AND type='like') AS T1,
+                (SELECT COUNT(*) AS dislikes FROM votes WHERE torrent_id = :torrent_id AND type='dislike') AS T2";
+        
+        $query = $em->createNativeQuery($sql, $rsm);
+        $query->setParameter('torrent_id', $torrent_id);
+        
+        return $query->getSingleResult();
+    }
+    
+    public function getUserVote($torrent_id, $user_id)
+    {
+        $em = $this->getEntityManager();
+        
+        $rsm = new ResultSetMapping;
+        $rsm->addScalarResult('type', 'type');
+        
+        $sql =  "SELECT type FROM votes WHERE torrent_id = :torrent_id AND user_id = :user_id LIMIT 1";
+        
+        $query = $em->createNativeQuery($sql, $rsm);
+        $query->setParameter('torrent_id', $torrent_id);
+        $query->setParameter('user_id', $user_id);
+        
+        return $query->getOneOrNullResult();
+    }
 }
