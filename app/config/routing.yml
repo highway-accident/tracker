@@ -1,3 +1,21 @@
+RootyCommentBundle:
+    resource: "@RootyCommentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+RootyUserBundle:
+    resource: "@RootyUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+RootyDefaultBundle:
+    resource: "@RootyDefaultBundle/Resources/config/routing.yml"
+    prefix:   /
+
+RootyTorrentBundle:
+    resource: "@RootyTorrentBundle/Controller/"
+    type: annotation
+    prefix: /
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -20,19 +38,6 @@ fos_user_change_password:
 _imagine:
     resource: .
     type:     imagine
-
-RootyUserBundle:
-    resource: "@RootyUserBundle/Resources/config/routing.yml"
-    prefix:   /
-
-RootyDefaultBundle:
-    resource: "@RootyDefaultBundle/Resources/config/routing.yml"
-    prefix:   /
-
-RootyTorrentBundle:
-    resource: "@RootyTorrentBundle/Controller/"
-    type: annotation
-    prefix: /
 
 # Internal routing configuration to handle ESI
 #_internal:

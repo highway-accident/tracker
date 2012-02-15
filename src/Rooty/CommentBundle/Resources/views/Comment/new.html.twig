@@ -1,0 +1,16 @@
+{% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+<div class="comments">
+    {% if errors|length > 0 %}
+        <div class="block__content__errors">{{ form_errors(form) }}</div>
+    {% endif %}
+
+    <form action="{{ path('comment_create', {'torrent_id': torrent_id}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal torrent_new">
+        {{ form_rest(form) }}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Отправить</button>
+            <button type="reset" class="btn">Сброс</button>
+        </div>
+    </form>
+</div>

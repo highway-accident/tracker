@@ -1,0 +1,22 @@
+{% for comment in entity %}
+    <div class="torrent__comments__list__comment clearfix">
+        <div class="torrent__comments__list__comment__user">
+            <img src="{{ comment.addedBy.avatar }}" />
+            {{ comment.addedBy.username | userlink(path('torrent_show', {'id': comment.addedBy.id}), comment.addedBy.roles) | raw }}
+        </div>
+
+        <div class="torrent__comments__list__comment__text">
+            {{ comment.text }}
+            <div class="torrent__comments__list__comment__text__date-added">
+                {{ comment.dateAdded | date('j F Y в H:i') }}
+
+                <span class="actions">
+                    <a href="{{ path('comment_edit', {'id': comment.id}) }}" title="Редактировать"><img src="/tracker/bundles/rootydefault/images/comment_edit.png" /></a>
+                    <a href="{{ path('comment_delete', {'id': comment.id}) }}" title="Удалить"><img src="/tracker/bundles/rootydefault/images/comment_delete.png" /></a>
+                </span>
+            </div>
+        </div>
+    </div>
+{% else %}
+    Пока нет ни одного комментария.
+{% endfor %}

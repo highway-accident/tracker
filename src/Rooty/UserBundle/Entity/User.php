@@ -179,8 +179,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get gender
-     *
+     * Get gender     *
      * @return string 
      */
     public function getGender()

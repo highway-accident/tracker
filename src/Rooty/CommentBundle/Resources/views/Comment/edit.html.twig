@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form 'RootyDefaultBundle:Form:fields_bootstrap.html.twig' %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Редактирование комментария
+    </div>
+
+    <div class="block__content">
+        {% if errors|length > 0 %}
+            <div class="block__content__errors">{{ form_errors(form) }}</div>
+        {% endif %}
+
+        <form action="{{ path('comment_update', { 'id': entity.id }) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+            {{ form_rest(form) }}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="reset" class="btn">Сброс</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
