@@ -1,6 +1,7 @@
 {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
-<div class="comments">
+<h3>Добавить комментарий</h3>
+<div class="torrent__comments__form">
     {% if errors|length > 0 %}
         <div class="block__content__errors">{{ form_errors(form) }}</div>
     {% endif %}

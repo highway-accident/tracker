@@ -28,7 +28,10 @@ class CommentController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('RootyCommentBundle:Comment')->findByTorrent($torrent_id);
         
-        return array('entity' => $entity);
+        return array(
+            'torrent_id' => $torrent_id,
+            'entity' => $entity,
+        );
     }
     
     /**
@@ -73,7 +76,7 @@ class CommentController extends Controller
             $em->persist($entity);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('torrent_show', array('id' => $torrent_id)));
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $torrent_id)).'#'.$entity->getId());
         }
         return new Response('An error occured with form sumbission');
     }
@@ -115,7 +118,7 @@ class CommentController extends Controller
         if ($form->isValid()) {
             $em->flush();
             $this->get('session')->setFlash('notice', 'Комментарий успешно отредактирован!');
-            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
+            return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())).'#'.$entity->getId());
         }
         
         return array(
@@ -144,6 +147,6 @@ class CommentController extends Controller
         
         $this->get('session')->setFlash('notice', 'Комментарий успешно удалён!');
         
-        return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())));
+        return $this->redirect($this->generateUrl('torrent_show', array('id' => $entity->getTorrent()->getId())).'#comments');
     }
 }

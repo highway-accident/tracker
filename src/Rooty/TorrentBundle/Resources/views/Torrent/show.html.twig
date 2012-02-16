@@ -139,13 +139,8 @@
         </div>
 
         <div class="torrent__comments">
-            <div class="torrent__comments__list">
-                {% render "RootyCommentBundle:Comment:index" with {'torrent_id': entity.torrent.id} %}
-            </div>
-
-            <div class="torrent__comments__form">
-                {% render "RootyCommentBundle:Comment:new" with {'torrent_id': entity.torrent.id} %}
-            </div>
+            {% render "RootyCommentBundle:Comment:index" with {'torrent_id': entity.torrent.id} %}
+            {% render "RootyCommentBundle:Comment:new" with {'torrent_id': entity.torrent.id} %}
         </div>
     </div>
 </div>

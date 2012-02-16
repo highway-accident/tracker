@@ -1,22 +1,27 @@
-{% for comment in entity %}
-    <div class="torrent__comments__list__comment clearfix">
-        <div class="torrent__comments__list__comment__user">
-            <img src="{{ comment.addedBy.avatar }}" />
-            {{ comment.addedBy.username | userlink(path('torrent_show', {'id': comment.addedBy.id}), comment.addedBy.roles) | raw }}
-        </div>
+<h3 id="comments">Комментарии</h3>
 
-        <div class="torrent__comments__list__comment__text">
-            {{ comment.text }}
-            <div class="torrent__comments__list__comment__text__date-added">
-                {{ comment.dateAdded | date('j F Y в H:i') }}
+<div class="torrent__comments__list">
+    {% for comment in entity %}
+        <div class="torrent__comments__list__comment clearfix" id="{{ comment.id }}">
+            <div class="torrent__comments__list__comment__user">
+                <img src="{{ comment.addedBy.avatar }}" />
+                {{ comment.addedBy.username | userlink(path('torrent_show', {'id': comment.addedBy.id}), comment.addedBy.roles) | raw }}
+            </div>
 
-                <span class="actions">
-                    <a href="{{ path('comment_edit', {'id': comment.id}) }}" title="Редактировать"><img src="/tracker/bundles/rootydefault/images/comment_edit.png" /></a>
-                    <a href="{{ path('comment_delete', {'id': comment.id}) }}" title="Удалить"><img src="/tracker/bundles/rootydefault/images/comment_delete.png" /></a>
-                </span>
+            <div class="torrent__comments__list__comment__text">
+                {{ comment.text }}
+                <div class="torrent__comments__list__comment__text__date-added">
+                    {{ comment.dateAdded | date('j F Y в H:i') }}
+
+                    <span class="actions">
+                        <a href="{{ path('comment_edit', {'id': comment.id}) }}" title="Редактировать"><img src="/tracker/bundles/rootydefault/images/comment_edit.png" /></a>
+                        <a href="{{ path('comment_delete', {'id': comment.id}) }}" title="Удалить" class="confirm"><img src="/tracker/bundles/rootydefault/images/comment_delete.png" /></a>
+                        <a href="{{ path('torrent_show', {'id': torrent_id}) ~ '#' ~ comment.id }}" title="Ссылка на этот комментарий"><img src="/tracker/bundles/rootydefault/images/link.png" /></a>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-{% else %}
-    Пока нет ни одного комментария.
-{% endfor %}
+    {% else %}
+        Пока нет ни одного комментария.
+    {% endfor %}
+</div>

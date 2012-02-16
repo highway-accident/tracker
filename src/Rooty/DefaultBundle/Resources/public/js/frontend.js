@@ -140,6 +140,14 @@ $(function() {
         });
         return false;
     });
+    
+    $('a.confirm').click(function () {
+        if (confirm('Вы уверены?')) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 });
 
 function calcFileSize(size) {
@@ -158,4 +166,4 @@ function declOfNum(number, titles)
 {  
     cases = [2, 0, 1, 1, 1, 2];  
     return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
-} 
+}

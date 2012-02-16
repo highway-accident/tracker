@@ -61,6 +61,10 @@ html {
     background: black;
 }
 
+h3 {
+    margin-bottom: 10px;
+}
+
 form {
 /*    display: inline-block;
     text-align: right;*/
