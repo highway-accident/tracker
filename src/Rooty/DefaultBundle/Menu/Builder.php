@@ -8,7 +8,7 @@ class Builder extends ContainerAware {
     public function mainMenuAnonymous(FactoryInterface $factory) {
         $menu = $factory->createItem('root');
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
-        $menu->setAttribute('class', 'nav');
+        $menu->setChildrenAttribute('class', 'nav');
         
         $menu->addChild('Главная', array('route' => '_index'));
         $menu->addChild('Войти', array('route' => 'fos_user_security_login'));
@@ -20,7 +20,7 @@ class Builder extends ContainerAware {
     public function mainMenuUser(FactoryInterface $factory) {
         $menu = $factory->createItem('root');
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
-        $menu->setAttribute('class', 'nav');
+        $menu->setChildrenAttribute('class', 'nav');
         
         $menu->addChild('Главная', array('route' => '_index'));
         $menu->addChild('Профиль', array('route' => 'fos_user_profile_show'));
