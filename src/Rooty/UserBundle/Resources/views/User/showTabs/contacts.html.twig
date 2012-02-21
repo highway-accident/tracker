@@ -1,0 +1,9 @@
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
+
+{% if user.icq or user.skype or user.jabber %}
+    {{ user__description__row('Номер ICQ:', user.icq) }}
+    {{ user__description__row('Имя в Skype:', user.skype) }}
+    {{ user__description__row('Адрес Jabber:', user.jabber) }}
+{% else %}
+    Пользователь не оставил контактов.
+{% endif %}

@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Профиль пользователя {{ user.username }}
+    </div>
+
+    <div class="block__content clearfix">
+        <div class="tabbable">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#info" data-toggle="tab">Личная информация</a></li>
+                <li><a href="#stats" data-toggle="tab">Статистика</a></li>
+                <li><a href="#contacts" data-toggle="tab">Контакты</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="info">
+                    {% include "RootyUserBundle:User:showTabs/info.html.twig" %}
+                </div>
+                <div class="tab-pane" id="stats">
+                    {% include "RootyUserBundle:User:showTabs/stats.html.twig" %}
+                </div>
+                <div class="tab-pane" id="contacts">
+                    {% include "RootyUserBundle:User:showTabs/contacts.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

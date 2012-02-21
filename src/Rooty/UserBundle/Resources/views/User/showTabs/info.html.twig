@@ -1,0 +1,15 @@
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
+
+<div class="user__sidebar">
+    <div class="user__sidebar__avatar">
+        <img src="{{ user.avatarWebPath | apply_filter('avatar_profile')}}" />
+    </div>
+    <a class="btn" href="#">Отправить сообщение</a>
+</div>
+
+{{ user__description__row('Имя:', user.name | default('Не указано')) }}
+{{ user__description__row('Фамилия:', user.surname | default('Не указана')) }}
+{% if user.birthday == NULL %}{% set birthday = 'Не указана'%}{% else %}{% set birthday = user.birthday%}{% endif %}
+{{ user__description__row('День рождения:', birthday|date('j F') ~ ' (' ~ birthday|timeElapsed('now')|date('%y') ~ ' лет)') }}
+{{ user__description__row('Зарегистрирован:', user.dateAdded | date('j F Y в H:i')) }}
+{{ user__description__row('Последняя активность:', user.lastActivity | date('j F Y в H:i')) }}

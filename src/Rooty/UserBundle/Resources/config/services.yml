@@ -6,6 +6,12 @@ services:
 #        class: %rooty_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
 
+    activity_listener:
+        class: Rooty\UserBundle\Listener\Activity
+        arguments: ["@security.context", "@doctrine"]
+        tags:
+           - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+        
     rooty_user.registration.form.type:
         class: Rooty\UserBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]

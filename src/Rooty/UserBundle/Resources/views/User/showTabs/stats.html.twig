@@ -1,0 +1,52 @@
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
+
+<h3>Статистика</h3>
+{{ user__description__row('Раздал:', user.download|filesize()) }}
+{{ user__description__row('Скачал:', user.upload|filesize()) }}
+{% if user.download == 0 %}
+    {% set ratio = 'N/A' %}
+{% else %}
+    {% set ratio = user.upload/user.download %}
+{% endif %}
+{{ user__description__row('Рейтинг:', ratio) }}
+{{ user__description__row('Комментариев:', comment_count) }}
+
+<h3>Загрузил</h3>
+{% if torrents_uploaded|length %}
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Тип</th>
+            <th>Название</th>
+            <th>Дата загрузки</th>
+        </tr>
+
+        {% for torrent in torrents_uploaded %}
+            <tr>
+                <td>{{ torrent.type.title }}</td>
+                <td>{{ torrent.title }}</td>
+                <td>{{ torrent.dateAdded|date('j F Y') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    Этот пользователь пока не загрузил ни одной раздачи.
+{% endif %}
+
+<h3>Скачал</h3>
+{% if torrents_downloaded|length %}
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Тип</th>
+            <th>Название</th>
+        </tr>
+
+        {% for torrent in torrents_downloaded %}
+            <tr>
+                <td>{{ torrent.type.title }}</td>
+                <td>{{ torrent.torrent.title }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    Этот пользователь пока не скачал ни одной раздачи.
+{% endif %}

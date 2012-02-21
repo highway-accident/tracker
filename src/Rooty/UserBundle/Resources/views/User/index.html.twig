@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Список пользователей
+    </div>
+
+    <div class="block__content">
+        <table class="table table-stripped table-bordered">
+            <tr>
+                <th>Ник</th>
+                <th>Пол</th>
+                <th>Дата рождения</th>
+                <th>Зарегистрирован</th>
+            </tr>
+
+            {% for user in entity %}
+                <tr>
+                    <td>{{ user.username | userlink(path('user_show', {'id': user.id}), user.roles) | raw }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.birthday | date('j F Y в H:i')}}</td>
+                    <td>{{ user.dateAdded | date('j F Y в H:i') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock content %}

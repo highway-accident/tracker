@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+{% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Профиль
+    </div>
+
+    <div class="block__content">
+        {{ user__description__row('Имя пользователя:', user.username) }}
+        {{ user__description__row('E-mail:', user.email) }}
+        {{ user__description__row('Имя:', user.name | default('Не указано')) }}
+        {{ user__description__row('Фамилия:', user.surname | default('Не указана')) }}
+        {% if user.birthday == NULL %}{% set birthday = 'Не указана'%}{% else %}{% set birthday = user.birthday | date('j F Y в H:i')%}{% endif %}
+        {{ user__description__row('Дата рождения:', birthday) }}
+        {{ user__description__row('Последняя активность:', user.lastActivity | date('j F Y в H:i')) }}
+        {{ user__description__row('Зарегистрирован:', user.dateAdded | date('j F Y в H:i')) }}
+        {{ user__description__row('Пасскей:', user.passkey) }}
+        <a class="btn btn-warning">Сменить пасскей</a> Внимание! После смены пасскея вам придётся скачать все раздачи заново.
+    </div>
+</div>
+{% endblock %}

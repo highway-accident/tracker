@@ -4,7 +4,8 @@ RootyCommentBundle:
     prefix:   /
     
 RootyUserBundle:
-    resource: "@RootyUserBundle/Resources/config/routing.yml"
+    resource: "@RootyUserBundle/Controller/"
+    type:     annotation
     prefix:   /
 
 RootyDefaultBundle:

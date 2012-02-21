@@ -581,3 +581,14 @@ input[type="file"] {
     .administrator:hover {
         color: #8AA3F4;
     }
+
+/* User profile */
+
+.user__sidebar {
+    float: right;
+    text-align: center;
+}
+
+.user__sidebar__avatar {
+    margin-bottom: 5px;
+}
