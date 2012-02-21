@@ -19,6 +19,8 @@ class RegistrationFormHandler extends BaseHandler
     protected function onSuccess(UserInterface $user, $confirmation)
     {
         $user->setPasskey(md5(uniqid()));
+        $user->setDateAdded(new \DateTime('now'));
+        $user->setLastActivity(new \DateTime('now'));
         
         parent::onSuccess($user, $confirmation);
     }
