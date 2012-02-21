@@ -97,3 +97,8 @@ services:
     class: Rooty\DefaultBundle\Extension\NumeralExtension
     tags:
       - {name: twig.extension }
+
+  Rooty.twig.extension4:
+    class: Rooty\DefaultBundle\Extension\TimeElapsedExtension
+    tags:
+      - {name: twig.extension }
