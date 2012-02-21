@@ -1,4 +1,19 @@
 $(function() {
+    for(i=0; i<5; i++) {
+    noty({
+        "text":"Вы получили новое сообщение от пользователя test.",
+        "layout":"topLeft",
+        "type":"alert",
+        "textAlign":"left",
+        "easing":"swing",
+        "animateOpen":{"height":"toggle"},
+        "animateClose":{"height":"toggle"},
+        "speed":"500",
+        "timeout":false,
+        "closable":true,
+        "closeOnSelfClick":true
+    });
+}
     // Advanced search type fields loading
     $('.advanced_search__type_fields').hide();
     switch ($('#rooty_torrentbundle_torrentadvancedfiltertype_type').val()) {
