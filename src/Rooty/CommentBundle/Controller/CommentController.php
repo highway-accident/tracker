@@ -19,7 +19,7 @@ use Rooty\CommentBundle\Form\Type\CommentFormType;
 class CommentController extends Controller
 {
     /**
-    * Lists all Comment entities
+    * Lists all torrent comments
     * @Template()
     * @Secure(roles="ROLE_USER")
     */
@@ -31,6 +31,24 @@ class CommentController extends Controller
         return array(
             'torrent_id' => $torrent_id,
             'entity' => $entity,
+        );
+    }
+    
+    /**
+    * Lists all user comments
+    * @Route("/user/{user_id}", name="user_comments") 
+    * @Template()
+    * @Secure(roles="ROLE_USER")
+    */
+    public function userCommentsAction($user_id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyCommentBundle:Comment')->findBy(array('added_by' => $user_id));
+        $user = $em->getRepository('RootyUserBundle:User')->findOneById($user_id);
+        
+        return array(
+            'entity' => $entity,
+            'user' => $user,
         );
     }
     
