@@ -105,3 +105,8 @@ services:
     class: Rooty\DefaultBundle\Extension\TimeElapsedExtension
     tags:
       - {name: twig.extension }
+
+  Rooty.twig.extension5:
+    class: Rooty\DefaultBundle\Extension\DateRelativeExtension
+    tags:
+      - {name: twig.extension }
