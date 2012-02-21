@@ -1,0 +1,17 @@
+<div class="message-list">
+    {% for message in inbox %}
+        <div class="post message list clearfix">
+            <div class="post__user">
+                <img src="{{ message.sender.avatarWebPath | apply_filter('avatar_comment')}}" />
+                {{ message.sender.username }}
+            </div>
+
+            <div class="post__text">
+                <a href="{{ path('message_show', {'id': message.id}) }}">{{ message.text }}</a>
+                <div class="post__text__date-added">
+                    {{ message.dateAdded|dateRelative('j F Y в H:i') }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

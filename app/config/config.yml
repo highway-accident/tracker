@@ -84,6 +84,12 @@ avalanche_imagine:
         avatar_profile:
             type: thumbnail
             options: { size: [200, 400], mode: inset }
+        avatar_comment:
+            type: thumbnail
+            options: { size: [50, 50], mode: outline }
+        avatar_message:
+            type: thumbnail
+            options: { size: [100, 100], mode: outline }
 
 services:
   Rooty.twig.extension:
