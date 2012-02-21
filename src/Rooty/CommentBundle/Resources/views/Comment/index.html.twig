@@ -2,15 +2,15 @@
 
 <div class="torrent__comments__list">
     {% for comment in entity %}
-        <div class="torrent__comments__list__comment clearfix" id="{{ comment.id }}">
-            <div class="torrent__comments__list__comment__user">
-                <img src="{{ comment.addedBy.avatar }}" />
+        <div class="post comment list clearfix" id="{{ comment.id }}">
+            <div class="post__user">
+                <img src="{{ comment.addedBy.avatarWebPath }}" />
                 {{ comment.addedBy.username | userlink(path('torrent_show', {'id': comment.addedBy.id}), comment.addedBy.roles) | raw }}
             </div>
 
-            <div class="torrent__comments__list__comment__text">
+            <div class="post__text">
                 {{ comment.text }}
-                <div class="torrent__comments__list__comment__text__date-added">
+                <div class="post__text__date-added">
                     {{ comment.dateAdded | date('j F Y в H:i') }}
 
                     <span class="actions">
