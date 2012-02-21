@@ -24,6 +24,7 @@ class Builder extends ContainerAware {
         
         $menu->addChild('Главная', array('route' => '_index'));
         $menu->addChild('Профиль', array('route' => 'fos_user_profile_show'));
+        $menu->addChild('Сообщения', array('route' => 'im'));
         $menu->addChild('Скачать', array('route' => 'torrents'));
         $menu->addChild('Загрузить', array('route' => 'torrent_new'));
         $menu->addChild('Выйти', array('route' => 'fos_user_security_logout'));
