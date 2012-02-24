@@ -1,19 +1,4 @@
 $(function() {
-    for(i=0; i<5; i++) {
-    noty({
-        "text":"Вы получили новое сообщение от пользователя test.",
-        "layout":"topLeft",
-        "type":"alert",
-        "textAlign":"left",
-        "easing":"swing",
-        "animateOpen":{"height":"toggle"},
-        "animateClose":{"height":"toggle"},
-        "speed":"500",
-        "timeout":false,
-        "closable":true,
-        "closeOnSelfClick":true
-    });
-}
     // Advanced search type fields loading
     $('.advanced_search__type_fields').hide();
     switch ($('#rooty_torrentbundle_torrentadvancedfiltertype_type').val()) {
@@ -163,6 +148,11 @@ $(function() {
             return false;
         }
     });
+    
+    // Close notification on link click
+    $('body').on('click', 'a.showMessage', function() {
+        $(this).closest('.noty_message').find('.noty_close').click();
+    });
 });
 
 function calcFileSize(size) {
@@ -181,4 +171,30 @@ function declOfNum(number, titles)
 {  
     cases = [2, 0, 1, 1, 1, 2];  
     return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
+}
+
+function IMNotify() {
+    console.log('Checking for new messages..');
+    $.get('/tracker/app_dev.php/im/notify', function(response) {
+        var obj = $.parseJSON(response);
+        if (obj.status == 'ok') {
+            $.each(obj.messages, function(index, message) {
+                var text = '<a class="showMessage" href="'+message.path+'" target="_blank">Вы получили новое сообщение от пользователя '+message.username+'.</a>';
+                noty({
+                    "text":text,
+                    "layout":"topLeft",
+                    "type":"alert",
+                    "textAlign":"left",
+                    "easing":"swing",
+                    "animateOpen":{"opacity":"toggle"},
+                    "animateClose":{"opacity":"toggle"},
+                    "speed":"500",
+                    "timeout":false,
+                    "closable":true,
+                    "closeOnSelfClick":false
+                });
+            });
+        }
+    });
+    setTimeout(IMNotify, 15000);
 }

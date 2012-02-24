@@ -1,13 +1,13 @@
 <?php
 
-namespace Rooty\PMBundle\Entity;
+namespace Rooty\IMBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Rooty\PMBundle\Entity\Message
  *
- * @ORM\Table()
+ * @ORM\Table(name="messages")
  * @ORM\Entity
  */
 class Message
@@ -50,14 +50,28 @@ class Message
      *
      * @ORM\Column(name="unread", type="boolean")
      */
-    private $unread;
+    private $unread = true;
 
     /**
-     * @var boolean $deleted
+     * @var boolean $notified
      *
-     * @ORM\Column(name="deleted", type="boolean")
+     * @ORM\Column(name="notified", type="boolean")
      */
-    private $deleted;
+    private $notified = false;
+    
+    /**
+     * @var boolean $deletedBySender
+     *
+     * @ORM\Column(name="deletedBySender", type="boolean")
+     */
+    private $deletedBySender = false;
+    
+    /**
+     * @var boolean $deletedByRecepient
+     *
+     * @ORM\Column(name="deletedByRecepient", type="boolean")
+     */
+    private $deletedByRecepient = false;
 
 
     /**
@@ -131,22 +145,62 @@ class Message
     }
 
     /**
-     * Set deleted
+     * Set sender
      *
-     * @param boolean $deleted
+     * @param Rooty\UserBundle\Entity\User $sender
      */
-    public function setDeleted($deleted)
+    public function setSender(\Rooty\UserBundle\Entity\User $sender)
     {
-        $this->deleted = $deleted;
+        $this->sender = $sender;
     }
 
     /**
-     * Get deleted
+     * Get sender
+     *
+     * @return Rooty\UserBundle\Entity\User 
+     */
+    public function getSender()
+    {
+        return $this->sender;
+    }
+
+    /**
+     * Set recepient
+     *
+     * @param Rooty\UserBundle\Entity\User $recepient
+     */
+    public function setRecepient(\Rooty\UserBundle\Entity\User $recepient)
+    {
+        $this->recepient = $recepient;
+    }
+
+    /**
+     * Get recepient
+     *
+     * @return Rooty\UserBundle\Entity\User 
+     */
+    public function getRecepient()
+    {
+        return $this->recepient;
+    }
+
+    /**
+     * Set notified
+     *
+     * @param boolean $notified
+     */
+    public function setNotified($notified)
+    {
+        $this->notified = $notified;
+    }
+
+    /**
+     * Get notified
      *
      * @return boolean 
      */
-    public function getDeleted()
+    public function getNotified()
     {
-        return $this->deleted;
+        return $this->notified;
     }
 }

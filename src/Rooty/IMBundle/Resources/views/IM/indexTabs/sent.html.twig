@@ -10,6 +10,10 @@
                 <a href="{{ path('message_show', {'id': message.id}) }}">{{ message.text }}</a>
                 <div class="post__text__date-added">
                     {{ message.dateAdded|dateRelative('j F Y в H:i') }}
+                        
+                    <span class="actions">
+                        <a href="{{ path('message_delete', {'id': message.id}) }}" title="Удалить" class="confirm"><img src="/tracker/bundles/rootydefault/images/comment_delete.png" /></a>
+                    </span>
                 </div>
             </div>
         </div>

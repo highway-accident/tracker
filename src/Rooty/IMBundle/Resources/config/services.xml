@@ -6,7 +6,7 @@
 
     <!--
     <parameters>
-        <parameter key="rooty_pm.example.class">Rooty\IMBundle\Example</parameter>
+        <parameter key="rooty_im.example.class">Rooty\IMBundle\Example</parameter>
     </parameters>
 
     <services>

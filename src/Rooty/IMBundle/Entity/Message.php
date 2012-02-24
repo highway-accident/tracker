@@ -53,11 +53,25 @@ class Message
     private $unread = true;
 
     /**
-     * @var boolean $deleted
+     * @var boolean $notified
      *
-     * @ORM\Column(name="deleted", type="boolean")
+     * @ORM\Column(name="notified", type="boolean")
      */
-    private $deleted = false;
+    private $notified = false;
+    
+    /**
+     * @var boolean $deletedBySender
+     *
+     * @ORM\Column(name="deletedBySender", type="boolean")
+     */
+    private $deletedBySender = false;
+    
+    /**
+     * @var boolean $deletedByRecepient
+     *
+     * @ORM\Column(name="deletedByRecepient", type="boolean")
+     */
+    private $deletedByRecepient = false;
 
 
     /**
@@ -131,26 +145,6 @@ class Message
     }
 
     /**
-     * Set deleted
-     *
-     * @param boolean $deleted
-     */
-    public function setDeleted($deleted)
-    {
-        $this->deleted = $deleted;
-    }
-
-    /**
-     * Get deleted
-     *
-     * @return boolean 
-     */
-    public function getDeleted()
-    {
-        return $this->deleted;
-    }
-
-    /**
      * Set sender
      *
      * @param Rooty\UserBundle\Entity\User $sender
@@ -188,5 +182,65 @@ class Message
     public function getRecepient()
     {
         return $this->recepient;
+    }
+
+    /**
+     * Set notified
+     *
+     * @param boolean $notified
+     */
+    public function setNotified($notified)
+    {
+        $this->notified = $notified;
+    }
+
+    /**
+     * Get notified
+     *
+     * @return boolean 
+     */
+    public function getNotified()
+    {
+        return $this->notified;
+    }
+
+    /**
+     * Set deletedBySender
+     *
+     * @param boolean $deletedBySender
+     */
+    public function setDeletedBySender($deletedBySender)
+    {
+        $this->deletedBySender = $deletedBySender;
+    }
+
+    /**
+     * Get deletedBySender
+     *
+     * @return boolean 
+     */
+    public function getDeletedBySender()
+    {
+        return $this->deletedBySender;
+    }
+
+    /**
+     * Set deletedByRecepient
+     *
+     * @param boolean $deletedByRecepient
+     */
+    public function setDeletedByRecepient($deletedByRecepient)
+    {
+        $this->deletedByRecepient = $deletedByRecepient;
+    }
+
+    /**
+     * Get deletedByRecepient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecepient()
+    {
+        return $this->deletedByRecepient;
     }
 }

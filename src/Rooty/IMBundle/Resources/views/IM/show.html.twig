@@ -7,8 +7,10 @@
     <div class="block__head">
         {% if app.user == message.recepient %}
             Сообщение от пользователя {{ message.sender.username }}
-        {% else %}
+        {% elseif app.user == message.sender %}
             Сообщение для пользователя {{ message.recepient.username }}
+        {% else %}
+            Сообщение от пользователя {{ message.sender.username }} для пользователя {{ message.recepient.username }}
         {% endif %}
     </div>
 
@@ -23,16 +25,22 @@
                 {{ message.text }}
                 <div class="post__text__date-added">
                     {{ message.dateAdded|dateRelative('j F Y в H:i') }}
+                        
+                    <span class="actions">
+                        <a href="{{ path('message_delete', {'id': message.id}) }}" title="Удалить" class="confirm"><img src="/tracker/bundles/rootydefault/images/comment_delete.png" /></a>
+                    </span>
                 </div>
             </div>
         </div>
 
         {% if app.user == message.recepient %}
             <h3>Быстрый ответ</h3>
+            <form action="{{ path('message_create', {'recepient_id': message.sender.id}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal message-new">
         {% else %}
             <h3>Ещё одно</h3>
+            <form action="{{ path('message_create', {'recepient_id': message.recepient.id}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal message-new">
         {% endif %}
-        <form action="{{ path('message_create', {'recepient_id': message.sender.id}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal message-new">
+        
             {{ form_rest(form) }}
 
             <div class="form-actions">

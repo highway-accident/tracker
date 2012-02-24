@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Rooty\IMBundle\Entity\Message;
 use Rooty\IMBundle\Form\Type\MessageFormType;
 
@@ -61,6 +63,43 @@ class IMController extends Controller
     }
     
     /**
+     * Send JSON-encoded info about new messages for AJAX notification system
+     * @Route("/notify", name="message_notify")
+     * @Template()
+     * @Secure(roles="ROLE_USER")
+     */
+    public function notifyAction()
+    {
+        //if ($this->getRequest()->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $entity = $em->getRepository('Rooty\IMBundle\Entity\Message')->findBy(array('recepient' => $user->getId(), 'notified' => false), array('dateAdded' => 'DESC'));
+
+            if($entity) {
+                foreach ($entity as $message) {
+                    $message->setNotified(true);
+                    $messages[] = array(
+                        'username' => $message->getSender()->getUsername(),
+                        'path' => $this->generateUrl('message_show', array('id' => $message->getId())),
+                    );
+                }
+
+                $em->flush();
+
+                return new Response(json_encode(array(
+                    'status' => 'ok', 
+                    'error' => array(), 
+                    'messages' => $messages,
+                )));
+            }
+            
+            return new Response(json_encode(array(
+                'status' => 'none',
+            )));
+        //}
+    }
+    
+    /**
      * Displays a form to create a new Message entity.
      * @Route("/{recepient_id}/new", name="message_new")
      * @Template()
@@ -108,5 +147,27 @@ class IMController extends Controller
             return $this->redirect($this->generateUrl('im').'#tab#sent');
         }
         return;
+    }
+    
+    /**
+     * Delete an existing Comment entity.
+     * @Route("/{id}/delete", name="message_delete")
+     * @Secure(roles="ROLE_USER")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyIMBundle:Message')->findOneById($id);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Message entity');
+        }
+        
+        $em->remove($entity);
+        $em->flush();
+        
+        $this->get('session')->setFlash('notice', 'Сообщение успешно удалено!');
+        
+        return $this->redirect($this->generateUrl('im'));
     }
 }
