@@ -145,6 +145,14 @@ class Torrent
      * @ORM\ManyToOne(targetEntity="\Rooty\UserBundle\Entity\User")
      */
     private $checked_by;
+    
+    
+    /**
+     * @var string $moderator_comment
+     *
+     * @ORM\Column(name="moderator_comment", type="string", length=255)
+     */
+    private $moderator_comment;
 
     public function __construct()
     {
@@ -390,27 +398,21 @@ class Torrent
      */
     public function upload()
     {
-        if (null === $this->torrent_file) {
-            return;
+        if (null !== $this->torrent_file) {
+            // if there is an error when moving the file, an exception will
+            // be automatically thrown by move(). This will properly prevent
+            // the entity from being persisted to the database on error
+            $this->torrent_file->move($this->getTorrentUploadRootDir(), $this->torrent_url);
+            unset($this->torrent_file);
         }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->torrent_file->move($this->getTorrentUploadRootDir(), $this->torrent_url);
         
-        unset($this->torrent_file);
-        
-        if (null === $this->poster_file) {
-            return;
+        if (null !== $this->poster_file) {
+            // if there is an error when moving the file, an exception will
+            // be automatically thrown by move(). This will properly prevent
+            // the entity from being persisted to the database on error
+            $this->poster_file->move($this->getPosterUploadRootDir(), $this->poster_url);
+            unset($this->poster_file);
         }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->poster_file->move($this->getPosterUploadRootDir(), $this->poster_url);
-        
-        unset($this->poster_file);
     }
 
     /**
@@ -671,5 +673,25 @@ class Torrent
     public function getInfoHash()
     {
         return $this->info_hash;
+    }
+
+    /**
+     * Set moderator_comment
+     *
+     * @param string $moderatorComment
+     */
+    public function setModeratorComment($moderatorComment)
+    {
+        $this->moderator_comment = $moderatorComment;
+    }
+
+    /**
+     * Get moderator_comment
+     *
+     * @return string 
+     */
+    public function getModeratorComment()
+    {
+        return $this->moderator_comment;
     }
 }
