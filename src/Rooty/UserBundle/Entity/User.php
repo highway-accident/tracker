@@ -46,12 +46,12 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="integer")
      */
-    protected $upload = 0;
+    protected $uploaded = 0;
     
     /**
      * @ORM\Column(type="integer")
      */
-    protected $download = 0;
+    protected $downloaded = 0;
     
     /**
      * @var string $avatar_url
@@ -423,42 +423,42 @@ class User extends BaseUser
     }
 
     /**
-     * Set upload
+     * Set uploaded
      *
-     * @param integer $upload
+     * @param integer $uploaded
      */
-    public function setUpload($upload)
+    public function setUploaded($uploaded)
     {
-        $this->upload = $upload;
+        $this->uploaded = $uploaded;
     }
 
     /**
-     * Get upload
+     * Get uploaded
      *
      * @return integer 
      */
-    public function getUpload()
+    public function getUploaded()
     {
-        return $this->upload;
+        return $this->uploaded;
     }
 
     /**
-     * Set download
+     * Set downloaded
      *
-     * @param integer $download
+     * @param integer $downloaded
      */
-    public function setDownload($download)
+    public function setDownloaded($downloaded)
     {
-        $this->download = $download;
+        $this->downloaded = $downloaded;
     }
 
     /**
-     * Get download
+     * Get downloaded
      *
      * @return integer 
      */
-    public function getDownload()
+    public function getDownloaded()
     {
-        return $this->download;
+        return $this->downloaded;
     }
 }

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @ORM\HasLifecycleCallbacks
  */
 class User extends BaseUser
 {
@@ -43,9 +44,23 @@ class User extends BaseUser
     protected $passkey;
     
     /**
-     * @ORM\Column(type="string", length="100", nullable="true")
+     * @ORM\Column(type="integer")
      */
-    protected $avatar;
+    protected $uploaded = 0;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $downloaded = 0;
+    
+    /**
+     * @var string $avatar_url
+     *
+     * @ORM\Column(name="avatar_url", type="string", length=255, nullable="true")
+     */
+    private $avatar_url;
+    
+    private $avatar_file;
     
     /**
      * @ORM\Column(type="string", length="100", nullable="true")
@@ -61,6 +76,16 @@ class User extends BaseUser
      * @ORM\Column(type="string", length="100", nullable="true")
      */
     protected $jabber;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $date_added;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $last_activity;
     
     public function __construct()
     {
@@ -179,8 +204,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get gender
-     *
+     * Get gender     *
      * @return string 
      */
     public function getGender()
@@ -189,23 +213,43 @@ class User extends BaseUser
     }
     
     /**
-     * Set avatar
+     * Set avatar_url
      *
-     * @param string $avatar
+     * @param string $avatarUrl
      */
-    public function setAvatar($avatar)
+    public function setAvatarUrl($avatarUrl)
     {
-        $this->avatar = $avatar;
+        $this->avatar_url = $avatarUrl;
     }
 
     /**
-     * Get avatar
+     * Get avatar_url
      *
      * @return string 
      */
-    public function getAvatar()
+    public function getAvatarUrl()
     {
-        return $this->avatar;
+        return $this->avatar_url;
+    }
+
+    public function getAvatarAbsolutePath()
+    {
+        return null === $this->avatar_url ? null : $this->getAvatarUploadRootDir().'/'.$this->avatar_url;
+    }
+
+    public function getAvatarWebPath()
+    {
+        return null === $this->avatar_url ? null : $this->getAvatarUploadDir().'/'.$this->avatar_url;
+    }
+
+    protected function getAvatarUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getAvatarUploadDir();
+    }
+
+    protected function getAvatarUploadDir()
+    {
+        return 'uploads/avatars';
     }
     
     /**
@@ -265,6 +309,116 @@ class User extends BaseUser
      */
     public function getJabber()
     {
-        return $this->jaber;
+        return $this->jabber;
+    }
+
+    /**
+     * Set passkey
+     *
+     * @param string $passkey
+     */
+    public function setPasskey($passkey)
+    {
+        $this->passkey = $passkey;
+    }
+
+    /**
+     * Get passkey
+     *
+     * @return string 
+     */
+    public function getPasskey()
+    {
+        return $this->passkey;
+    }
+
+    /**
+     * Set date_added
+     *
+     * @param datetime $dateAdded
+     */
+    public function setDateAdded($dateAdded)
+    {
+        $this->date_added = $dateAdded;
+    }
+
+    /**
+     * Get date_added
+     *
+     * @return datetime 
+     */
+    public function getDateAdded()
+    {
+        return $this->date_added;
+    }
+
+    /**
+     * Set last_activity
+     *
+     * @param datetime $lastActivity
+     */
+    public function setLastActivity($lastActivity)
+    {
+        $this->last_activity = $lastActivity;
+    }
+
+    /**
+     * Get last_activity
+     *
+     * @return datetime 
+     */
+    public function getLastActivity()
+    {
+        return $this->last_activity;
+    }
+    
+    /**
+    /* @ORM\PrePersist()
+    /* @ORM\PreUpdate()
+    */
+    public function preUpload()
+    {
+        if (null !== $this->avatar_file) {
+            $this->avatar_url = uniqid().'.'.$this->avatar_file->guessExtension();
+            
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->avatar_file) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->avatar_file->move($this->getAvatarUploadRootDir(), $this->avatar_url);
+        
+        unset($this->avatar_file);
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($avatar_file = $this->getAvatarAbsolutePath()) {
+            unlink($avatar_file);
+        }
+    }
+    
+    public function setAvatarFile($avatarFile)
+    {
+        $this->avatar_file = $avatarFile;
+    }
+    
+    public function getAvatarFile()
+    {
+        return $this->avatar_file;
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Rooty\TorrentBundle\Entity\TorrentUserStats
  *
- * @ORM\Table(name="user_torrents", indexes={@ORM\Index(name="search_idx", columns={"torrent_id", "user_id"})})
+ * @ORM\Table(name="user_torrents")
  * @ORM\Entity
  */
 class TorrentUserStats
@@ -141,25 +141,5 @@ class TorrentUserStats
     public function getDownloaded()
     {
         return $this->downloaded;
-    }
-
-    /**
-     * Set finished
-     *
-     * @param boolean $finished
-     */
-    public function setFinished($finished)
-    {
-        $this->finished = $finished;
-    }
-
-    /**
-     * Get finished
-     *
-     * @return boolean 
-     */
-    public function getFinished()
-    {
-        return $this->finished;
     }
 }

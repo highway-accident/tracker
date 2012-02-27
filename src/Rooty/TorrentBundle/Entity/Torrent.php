@@ -24,6 +24,13 @@ class Torrent
     private $id;
 
     /**
+     * @var string $info_hash
+     *
+     * @ORM\Column(name="info_hash", type="string", length=255)
+     */
+    private $info_hash;
+    
+    /**
      * @var string $title
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -367,6 +374,8 @@ class Torrent
             
             // set torrent file size
             $this->size = filesize($this->torrent_file);
+            $torrent = new \Torrent_Torrent($this->torrent_file);
+            $this->info_hash = $torrent->hash_info();
         }
         
         if (null !== $this->poster_file) {
@@ -642,5 +651,25 @@ class Torrent
     public function getCheckStatus()
     {
         return $this->check_status;
+    }
+
+    /**
+     * Set info_hash
+     *
+     * @param string $infoHash
+     */
+    public function setInfoHash($infoHash)
+    {
+        $this->info_hash = $infoHash;
+    }
+
+    /**
+     * Get info_hash
+     *
+     * @return string 
+     */
+    public function getInfoHash()
+    {
+        return $this->info_hash;
     }
 }
