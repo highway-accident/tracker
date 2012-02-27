@@ -57,6 +57,9 @@ class TorrentController extends Controller
             $query = $em->getRepository('RootyTorrentBundle:Torrent')->getListQuery(array('order_by' => $orderBy, 'order_direction' => $orderDirection));
         }
         $entity = $query->getScalarResult();
+        foreach ($entity as $row => &$value) {
+            $value['user'] = $em->getRepository('RootyUserBundle:User')->findOneById($value['author_id']);
+        }
         
         //var_dump($entity);
         

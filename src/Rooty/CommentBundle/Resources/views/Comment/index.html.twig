@@ -5,7 +5,7 @@
         <div class="post comment list clearfix" id="{{ comment.id }}">
             <div class="post__user">
                 <img src="{{ comment.addedBy.avatarWebPath }}" />
-                {{ comment.addedBy.username | userlink(path('torrent_show', {'id': comment.addedBy.id}), comment.addedBy.roles) | raw }}
+                {{ comment.addedBy | userlink | raw }}
             </div>
 
             <div class="post__text">

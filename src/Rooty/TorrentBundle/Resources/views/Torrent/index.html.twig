@@ -172,7 +172,7 @@
             <td>{{ torrent['size']|filesize }}</td>
             <td>{{ torrent['seeders'] }}</td>
             <td>{{ torrent['leechers'] }}</td>
-            <td><a href="#">{{ torrent['author_username'] }}</a></td>
+            <td><a href="#">{{ torrent['user'] | userlink | raw }}</a></td>
         </tr>
     {% endfor %}
     </table>

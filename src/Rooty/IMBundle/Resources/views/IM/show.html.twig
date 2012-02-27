@@ -6,11 +6,11 @@
 <div class="block">
     <div class="block__head">
         {% if app.user == message.recepient %}
-            Сообщение от пользователя {{ message.sender.username }}
+            Сообщение от пользователя {{ message.sender | userlink }}
         {% elseif app.user == message.sender %}
-            Сообщение для пользователя {{ message.recepient.username }}
+            Сообщение для пользователя {{ message.recepient | userlink }}
         {% else %}
-            Сообщение от пользователя {{ message.sender.username }} для пользователя {{ message.recepient.username }}
+            Сообщение от пользователя {{ message.sender | userlink}} для пользователя {{ message.recepient | userlink }}
         {% endif %}
     </div>
 
@@ -18,7 +18,7 @@
         <div class="post message show clearfix">
             <div class="post__user">
                 <img src="{{ message.sender.avatarWebPath | apply_filter('avatar_message')}}" />
-                {{ message.sender.username }}
+                {{ message.sender | userlink }}
             </div>
 
             <div class="post__text">

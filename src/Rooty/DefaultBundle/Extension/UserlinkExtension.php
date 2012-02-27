@@ -1,18 +1,28 @@
 <?php
 namespace Rooty\DefaultBundle\Extension;
 
-use Symfony\Component\Routing\Generator\UrlGenerator;
-
 class UserlinkExtension extends \Twig_Extension {
-
+    protected $containter;
+    
+    public function __construct($container) {
+        $this->container = $container;
+    }
+    
+    public function getContainer() {
+        return $this->container;     
+    }
+    
     public function getFilters() {
         return array(
             'userlink'  => new \Twig_Filter_Method($this, 'userlinkFilter'),
         );
     }
 
-    public function userlinkFilter($sentence, $path, $roles) {
+    public function userlinkFilter($sentence) {
         $class = 'user';
+        $username = $sentence->getUsername();
+        $roles = $sentence->getRoles();
+        $path = $this->container->get('router')->generate('user_show', array('id' => $sentence->getId()));
         
         if (in_array('ROLE_ADMIN', $roles)) {
             $class = 'admin';
@@ -29,7 +39,7 @@ class UserlinkExtension extends \Twig_Extension {
         } elseif (in_array('ROLE_SUPERUSER', $roles)) {
             $class = 'super_user';
         }
-        return '<a href="'.$path.'" class="'.$class.'">'.$sentence.'</a>';
+        return '<a href="'.$path.'" class="'.$class.'">'.$username.'</a>';
     }
 
     public function getName()

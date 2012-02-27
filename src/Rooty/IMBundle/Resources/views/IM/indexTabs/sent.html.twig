@@ -3,7 +3,7 @@
         <div class="post message list clearfix">
             <div class="post__user">
                 <img src="{{ message.recepient.avatarWebPath | apply_filter('avatar_comment')}}" />
-                {{ message.recepient.username }}
+                {{ message.recepient | userlink | raw}}
             </div>
 
             <div class="post__text">

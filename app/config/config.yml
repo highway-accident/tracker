@@ -99,6 +99,7 @@ services:
   
   Rooty.twig.extension2:
     class: Rooty\DefaultBundle\Extension\UserlinkExtension
+    arguments: [@service_container]
     tags:
       - {name: twig.extension }
       

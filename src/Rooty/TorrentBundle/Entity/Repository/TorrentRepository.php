@@ -23,11 +23,10 @@ class TorrentRepository extends EntityRepository
         $rsm->addScalarResult('title_original', 'title_original');
         $rsm->addScalarResult('size', 'size');
         $rsm->addScalarResult('author_id', 'author_id');
-        $rsm->addScalarResult('author_username', 'author_username');
         $rsm->addScalarResult('seeders', 'seeders');
         $rsm->addScalarResult('leechers', 'leechers');
         
-        $sql = "SELECT t.id, t.title, t.title_original, t.size, u.id AS author_id, u.username AS author_username, 0 AS seeders, 0 AS leechers 
+        $sql = "SELECT t.id, t.title, t.title_original, t.size, u.id AS author_id, 0 AS seeders, 0 AS leechers 
                 FROM torrents AS t";
         $parameters = array();
         $whereClauses = array();

@@ -122,7 +122,7 @@
             <div class="torrent__tech_info">
                 {{ _self.torrent__tech_info__row('Тип:', entity.torrent.type.title) }}
                 {{ _self.torrent__tech_info__row('Размер:', entity.torrent.size | filesize) }}
-                {{ _self.torrent__tech_info__row('Автор:', entity.torrent.addedBy.username | userlink(path('torrent_show', {'id': entity.torrent.addedBy.id}), entity.torrent.addedBy.roles) | raw) }}
+                {{ _self.torrent__tech_info__row('Автор:', entity.torrent.addedBy | userlink) }}
                 {{ _self.torrent__tech_info__row('Добавлен:', entity.torrent.dateAdded | date('j F Y в H:i')) }}
                 {{ _self.torrent__tech_info__row('Просмотров:', entity.torrent.views) }}
                 {{ _self.torrent__tech_info__row('Скачиваний:', entity.torrent.downloads) }}
