@@ -19,7 +19,7 @@
     <div class="block__head">
         {{ entity.torrent.title }} ({{ entity.torrent.titleOriginal }})
         <a href="{{ path('torrent_edit', {'id': entity.torrent.id}) }}" title="Редактировать"><i class="icon-pencil"></i></a>
-        <a href="{{ path('torrent_edit', {'id': entity.torrent.id}) }}" title="Удалить"><i class="icon-trash"></i></a>
+        <a href="{{ path('torrent_delete', {'id': entity.torrent.id}) }}" title="Удалить"><i class="icon-trash"></i></a>
         <a href="#torrent_admin" class="colorbox inline" title="Администрирование"><i class="icon-eye-open"></i></a>
     </div>
 

@@ -448,6 +448,66 @@ class TorrentController extends Controller
         return $result['slug'];
     }
     
+    /**
+     * Delete an existing torrent entity
+     * 
+     * @Route("/{id}/delete", name="torrent_delete")
+     * @Secure(roles="ROLE_USER")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $torrent = $em->getRepository('RootyTorrentBundle:Torrent')->find($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        if (!$torrent) {
+            throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        $entity = $em->getRepository('RootyTorrentBundle:TorrentUserStats')->findByTorrent($id);
+        foreach ($entity as $row) {
+            $em->remove($row);
+        }
+        $entity = $em->getRepository('RootyTorrentBundle:Peer')->findBy(array('info_hash' => $torrent->getInfoHash()));
+        foreach ($entity as $row) {
+            $em->remove($row);
+        }
+        $entity = $em->getRepository('RootyCommentBundle:Comment')->findByTorrent($id);
+        foreach ($entity as $row) {
+            $em->remove($row);
+        }
+        $entity = $em->getRepository('RootyTorrentBundle:Vote')->findByTorrent($id);
+        foreach ($entity as $row) {
+            $em->remove($row);
+        }
+        
+        /* Screenshots are deleted via persistent cascade */
+        //$entity = $em->getRepository('RootyTorrentBundle:Screenshot')->findByTorrent($id);
+        //echo count($entity);
+        //foreach ($entity as $row) {
+        //    $em->remove($row);
+        //}
+        
+        $type = $this->getTorrentType($id);
+        switch ($type) {
+            case 'games':
+                $entity = $em->getRepository('RootyTorrentBundle:Game')->findOneByTorrent($id);
+                $em->remove($entity);
+                break;
+            case 'movies':
+                $entity = $em->getRepository('RootyTorrentBundle:Movie')->findOneByTorrent($id);
+                $em->remove($entity);
+                break;
+        }
+        
+        $em->remove($torrent);
+        $em->flush();
+        
+        $this->get('session')->setFlash('notice', 'Раздача успешно удалена!');
+        
+        return $this->redirect($this->generateUrl('torrents'));
+    }
+    
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))

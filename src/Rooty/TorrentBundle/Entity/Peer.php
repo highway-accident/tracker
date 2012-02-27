@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Rooty\TorrentBundle\Entity\Peer
  *
- * @ORM\Table()
+ * @ORM\Table(name="peers")
  * @ORM\Entity
  */
 class Peer
