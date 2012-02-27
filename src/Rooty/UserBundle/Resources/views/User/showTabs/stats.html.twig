@@ -1,12 +1,12 @@
 {% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
 
 <h3>Статистика</h3>
-{{ user__description__row('Раздал:', user.download|filesize()) }}
-{{ user__description__row('Скачал:', user.upload|filesize()) }}
-{% if user.download == 0 %}
+{{ user__description__row('Раздал:', user.downloaded|filesize()) }}
+{{ user__description__row('Скачал:', user.uploaded|filesize()) }}
+{% if user.downloaded == 0 %}
     {% set ratio = 'N/A' %}
 {% else %}
-    {% set ratio = user.upload/user.download %}
+    {% set ratio = user.uploaded/user.downloaded %}
 {% endif %}
 {{ user__description__row('Рейтинг:', ratio) }}
 {{ user__description__row('Комментариев:', comment_count) }}
@@ -42,8 +42,8 @@
 
         {% for torrent in torrents_downloaded %}
             <tr>
-                <td>{{ torrent.type.title }}</td>
-                <td>{{ torrent.torrent.title }}</td>
+                <td>{{ torrent.type }}</td>
+                <td>{{ torrent.title }}</td>
             </tr>
         {% endfor %}
     </table>
