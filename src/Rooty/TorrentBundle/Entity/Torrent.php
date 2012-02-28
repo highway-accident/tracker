@@ -150,7 +150,7 @@ class Torrent
     /**
      * @var string $moderator_comment
      *
-     * @ORM\Column(name="moderator_comment", type="string", length=255)
+     * @ORM\Column(name="moderator_comment", type="string", length=255, nullable="true")
      */
     private $moderator_comment;
 
@@ -381,9 +381,9 @@ class Torrent
             $this->torrent_url = uniqid().'.torrent';
             
             // set torrent file size
-            $this->size = filesize($this->torrent_file);
             $torrent = new \Torrent_Torrent($this->torrent_file);
             $this->info_hash = $torrent->hash_info();
+            $this->size = $torrent->size();
         }
         
         if (null !== $this->poster_file) {
