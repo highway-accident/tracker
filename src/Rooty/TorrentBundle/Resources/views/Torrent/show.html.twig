@@ -30,7 +30,9 @@
             </div>
         {% elseif entity.torrent.checkStatus == 'rejected' %}
             <div class="torrent__check_status rejected">
-                Ваша раздача не прошла проверку и была возвращена на доработку. Устраните, пожалуйста, все нарушения и <a href="{{ path('torrent_request_check', {'id': entity.torrent.id}) }}">подайте заявку на проверку ещё раз</a>.
+                Ваша раздача не прошла проверку и была возвращена на доработку. Вот как {{ entity.torrent.checkedBy | userlink | raw }} прокомментировал причину блокировки:<br>
+                &laquo;{{entity.torrent.moderatorComment }}&raquo;<br>
+                Устраните, пожалуйста, все нарушения и <a href="{{ path('torrent_request_check', {'id': entity.torrent.id}) }}">подайте заявку на проверку ещё раз</a>.
             </div>
         {% endif %}
 

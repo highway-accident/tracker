@@ -8,7 +8,7 @@
         <div class="controls">
             {{ form_widget(admin_form.check_status) }}
             <span class="help-inline">{% if entity.torrent.checkStatus != 'unchecked' %}({{ entity.torrent.checkedBy | userlink | raw }}){% endif %}</span>
-            <p class="help-block">Проверка гарантирует качество оформления раздачи</p>
+            {#<p class="help-block">Проверка гарантирует качество оформления раздачи</p>#}
         </div>
     </div>
 

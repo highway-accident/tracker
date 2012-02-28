@@ -13,17 +13,21 @@ class QuickAdminFormType extends AbstractType
     {
         $builder
             ->add('check_status', 'choice', array (
-                'help_block' => 'Ололо-ололо',
-                'choices' => array( 'unchecked' => 'Непроверенный', 
-                                    'approved' => 'Проверенный', 
-                                    'rejected' => 'В доработке', 
-                                    'blocked' => 'Запрещён', 
+                'choices' => array( 'unchecked' => 'Непроверенная', 
+                                    'approved' => 'Проверенная', 
+                                    'rejected' => 'Отправлена на доработку', 
+                                    'blocked' => 'Запрещена', 
                             ),
                 'empty_value' => false,
                 'required' => false,
             ))
+            ->add('moderator_comment', null, array(
+                'label' => 'Комментарий:',
+                'help_block' => 'Причина отправки на доработку или блокировки раздачи',
+                'required' => false,
+              ))
             ->add('is_sticky', null, array(
-                'label' => 'Прикреплён:',
+                'label' => 'Прикреплена:',
                 'help_block' => 'Прикреплённые раздачи всегда находятся наверху списка',
                 'required' => false,
             ))
