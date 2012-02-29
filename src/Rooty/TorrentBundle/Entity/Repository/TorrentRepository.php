@@ -26,7 +26,7 @@ class TorrentRepository extends EntityRepository
         $rsm->addScalarResult('seeders', 'seeders');
         $rsm->addScalarResult('leechers', 'leechers');
         
-        $sql = "SELECT t.id, t.title, t.title_original, t.size, u.id AS author_id, 0 AS seeders, 0 AS leechers 
+        $sql = "SELECT t.id, t.title, t.title_original, t.size, u.id AS author_id, IFNULL(seedcount, 0) AS seeders, IFNULL(leechcount, 0) AS leechers 
                 FROM torrents AS t";
         $parameters = array();
         $whereClauses = array();
@@ -79,6 +79,18 @@ class TorrentRepository extends EntityRepository
         
         $sql .= " JOIN users AS u ON u.id = t.added_by_id";
         
+        $sql .= " LEFT JOIN
+                (SELECT info_hash, COUNT(*) AS seedCount FROM peers 
+                WHERE complete = 1
+                GROUP BY info_hash) AS seeders
+                ON seeders.info_hash = t.info_hash";
+        
+        $sql .= " LEFT JOIN
+                (SELECT info_hash, COUNT(*) AS leechCount FROM peers 
+                WHERE complete = 0
+                GROUP BY info_hash) AS leechers
+                ON leechers.info_hash = t.info_hash";
+        
         // Add where clauses
         if (count($whereClauses)) {
             $sql .= " WHERE " . implode(" AND ", $whereClauses);
@@ -88,7 +100,7 @@ class TorrentRepository extends EntityRepository
         $sql .= " ORDER BY t.is_sticky DESC";
         
         if (isset($filterData['order_by'])) {
-            $validColumns = '/t.title|t.size|t.seeders|t.leechers/';
+            $validColumns = '/t.title|t.size|seeders|leechers/';
             $validDirections = '/ASC|DESC/';
 
             if (
