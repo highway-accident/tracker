@@ -48,9 +48,16 @@ class IMController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         $entity = $em->getRepository('RootyIMBundle:Message')->findOneById($id);
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Message entity.');
+        }
+        
+        if ($entity->getSender() != $user && $entity->getRecepient() != $user) {
+            throw new AccessDeniedException();
         }
         
         $reply = new Message();
@@ -157,10 +164,16 @@ class IMController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         $entity = $em->getRepository('RootyIMBundle:Message')->findOneById($id);
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Message entity');
+        }
+        
+        if ($entity->getSender() != $user && $entity->getRecepient() != $user) {
+            throw new AccessDeniedException();
         }
         
         $em->remove($entity);

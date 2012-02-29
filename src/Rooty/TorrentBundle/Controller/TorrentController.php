@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Rooty\TorrentBundle\Entity\Torrent;
 use Rooty\TorrentBundle\Entity\Game;
 use Rooty\TorrentBundle\Entity\Movie;
@@ -361,6 +362,7 @@ class TorrentController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
         
         $type = $this->getTorrentType($id);
         switch ($type) {
@@ -376,6 +378,10 @@ class TorrentController extends Controller
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        if ($entity->getTorrent()->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+            throw new AccessDeniedException();
         }
         
         $deleteForm = $this->createDeleteForm($id);
@@ -398,6 +404,7 @@ class TorrentController extends Controller
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
         
         $type = $this->getTorrentType($id);
         switch ($type) {
@@ -413,6 +420,10 @@ class TorrentController extends Controller
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        if ($entity->getTorrent()->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+            throw new AccessDeniedException();
         }
         
         $deleteForm = $this->createDeleteForm($id);
@@ -462,6 +473,10 @@ class TorrentController extends Controller
         
         if (!$torrent) {
             throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        if ($torrent->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+            throw new AccessDeniedException();
         }
         
         $entity = $em->getRepository('RootyTorrentBundle:TorrentUserStats')->findByTorrent($id);

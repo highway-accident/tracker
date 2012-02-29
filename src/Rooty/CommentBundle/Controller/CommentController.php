@@ -108,7 +108,17 @@ class CommentController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         $entity = $em->getRepository('RootyCommentBundle:Comment')->findOneById($id);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Comment entity');
+        }
+        
+        if ($entity->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+            throw new AccessDeniedException();
+        }
         
         $form = $this->createForm(new CommentFormType(), $entity);
         
@@ -128,7 +138,17 @@ class CommentController extends Controller
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         $entity = $em->getRepository('RootyCommentBundle:Comment')->findOneById($id);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Comment entity');
+        }
+        
+        if ($entity->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+            throw new AccessDeniedException();
+        }
         
         $form = $this->createForm(new CommentFormType(), $entity);
         
@@ -154,10 +174,16 @@ class CommentController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         $entity = $em->getRepository('RootyCommentBundle:Comment')->findOneById($id);
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Comment entity');
+        }
+        
+        if ($entity->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+            throw new AccessDeniedException();
         }
         
         $em->remove($entity);
