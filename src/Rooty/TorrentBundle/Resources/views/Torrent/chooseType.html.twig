@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% form_theme form 'RootyUserBundle:Form:fields.html.twig' %}
+{% form_theme form 'RootyDefaultBundle:Form:fields_bootstrap.html.twig' %}
 
 {% block content %}
 <div class="block">
@@ -9,15 +9,12 @@
     </div>
 
     <div class="block__content">
-        <form action="{{ path('torrent_new') }}" {{ form_enctype(form) }} method="POST" class="torrent_new">
-            <table class="form_holder">
-                {{ form_row(form.type, { 'label': 'Тип:' }) }}
-            </table>
-
+        <form action="{{ path('torrent_new') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal torrent_new">
+            {{ form_row(form.type, { 'label': 'Тип:' }) }}
             {{ form_widget(form._token) }}
 
-            <div>
-                <input type="submit" value="Продолжить" />
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Продолжить</button>
             </div>
         </form>
     </div>
