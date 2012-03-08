@@ -57,14 +57,14 @@ class Game
     /**
      * @var string $crack
      *
-     * @ORM\Column(name="crack", type="string", length=255)
+     * @ORM\Column(name="crack", type="string", length=255, nullable=true)
      */
     private $crack;
 
     /**
      * @var text $how_to_run
      *
-     * @ORM\Column(name="how_to_run", type="text")
+     * @ORM\Column(name="how_to_run", type="text", nullable=true)
      */
     private $how_to_run;
 

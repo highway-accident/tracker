@@ -73,14 +73,14 @@ class Movie
     /**
      * @var string $imdb_id
      *
-     * @ORM\Column(name="imdb_id", type="string", length=255)
+     * @ORM\Column(name="imdb_id", type="string", length=255, nullable=true)
      */
     private $imdb_id;
 
     /**
      * @var string $kinopoisk_id
      *
-     * @ORM\Column(name="kinopoisk_id", type="string", length=255)
+     * @ORM\Column(name="kinopoisk_id", type="string", length=255, nullable=true)
      */
     private $kinopoisk_id;
 
@@ -92,7 +92,7 @@ class Movie
     /**
      * @var string $subtitles
      *
-     * @ORM\Column(name="subtitles", type="string", length=255)
+     * @ORM\Column(name="subtitles", type="string", length=255, nullable=true)
      */
     private $subtitles;
 
