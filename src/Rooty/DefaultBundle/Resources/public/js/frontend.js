@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
     // Advanced search type fields loading
     $('.advanced_search__type_fields').hide();
     switch ($('#rooty_torrentbundle_torrentadvancedfiltertype_type').val()) {
@@ -153,6 +153,19 @@ $(function() {
     $('body').on('click', 'a.showMessage', function() {
         $(this).closest('.noty_message').find('.noty_close').click();
     });
+    
+    // AJAX chat message post
+    $('.chat-message-create').ajaxForm({
+        beforeSubmit: function(arr, form) {
+            $(form).find('button').attr('disabled', 'true').text('Отправка...');
+        },
+        success: function(responseText, statusText, xhr, form) {
+            $(form).find('input[type=text]').val('');
+            $(form).find('button').removeAttr('disabled').text('Отправить');
+            clearTimeout(chatTimeout);
+            refreshChat();
+        }
+    });
 });
 
 function calcFileSize(size) {
@@ -197,4 +210,21 @@ function IMNotify() {
         }
     });
     setTimeout(IMNotify, 15000);
+}
+
+var chatTimeout;
+
+function refreshChat() {
+    console.log('refreshing chat');
+    $.get('/tracker/app_dev.php/chat/', function(response) {
+        var obj = $.parseJSON(response, true);
+        var result = new Array();
+        if (obj.status == 'ok') {
+            $.each(obj.messages, function(index, message) {
+                result.push('<div class="chat__messages__message">['+message.dateAdded+'] '+message.path+': '+message.text+'</div>');
+            });
+            $('.chat__messages').html(result.join(''));
+        }
+    });
+    chatTimeout = setTimeout(refreshChat, 5000);
 }

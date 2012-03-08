@@ -50,21 +50,32 @@
         {% block javascripts %}
             {% javascripts
                'bundles/rootydefault/js/jquery-1.7.1.min.js'
+               'bundles/rootydefault/js/jquery-ui-1.8.17.custom.js'
                'bundles/rootydefault/js/jquery.colorbox-min.js'
                'bundles/rootydefault/js/jquery.jcarousel.min.js'
                'bundles/rootydefault/js/jquery.livequery.js'
                'bundles/rootydefault/js/bootstrap.js'
-               'bundles/rootydefault/js/jquery-ui-1.8.17.custom.js'
-               'bundles/rootydefault/js/selectToUISlider.jQuery.js'
                'bundles/rootydefault/js/jquery.noty.js'
+               'bundles/rootydefault/js/jquery.form.js'
                'bundles/rootydefault/js/frontend.js'
             %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            {#<script src="/tracker/bundles/rootydefault/js/jquery-1.7.1.min.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/jquery-ui-1.8.17.custom.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/jquery.colorbox-min.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/jquery.jcarousel.min.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/jquery.livequery.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/bootstrap.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/selectToUISlider.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/jquery.noty.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/jquery.form.js"></script>
+            <script src="/tracker/bundles/rootydefault/js/frontend.js"></script>#}
             
             {% if app.user %}
                 <script type="text/javascript">
                     IMNotify();
+                    refreshChat();
                 </script>
             {% endif %}
         {% endblock %}

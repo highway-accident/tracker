@@ -8,7 +8,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  **/
-(function($) {
+!(function($) {
 	$.noty = function(options) {
 		// To avoid scope issues, use 'base' instead of 'this'
 		// to reference this class from internal events and functions.
