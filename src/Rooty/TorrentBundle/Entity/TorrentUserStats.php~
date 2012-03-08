@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Rooty\TorrentBundle\Entity\TorrentUserStats
  *
- * @ORM\Table(name="user_torrents")
+ * @ORM\Table(name="user_torrents", indexes={@ORM\Index(name="search_idx", columns={"torrent_id", "user_id"})})
  * @ORM\Entity
  */
 class TorrentUserStats
@@ -61,26 +61,6 @@ class TorrentUserStats
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set torrent
-     *
-     * @param Rooty\TorrentBundle\Entity\User $torrent
-     */
-    public function setTorrent(\Rooty\TorrentBundle\Entity\User $torrent)
-    {
-        $this->torrent = $torrent;
-    }
-
-    /**
-     * Get torrent
-     *
-     * @return Rooty\TorrentBundle\Entity\User 
-     */
-    public function getTorrent()
-    {
-        return $this->torrent;
     }
 
     /**
@@ -141,5 +121,25 @@ class TorrentUserStats
     public function getDownloaded()
     {
         return $this->downloaded;
+    }
+
+    /**
+     * Set finished
+     *
+     * @param boolean $finished
+     */
+    public function setFinished($finished)
+    {
+        $this->finished = $finished;
+    }
+
+    /**
+     * Get finished
+     *
+     * @return boolean 
+     */
+    public function getFinished()
+    {
+        return $this->finished;
     }
 }

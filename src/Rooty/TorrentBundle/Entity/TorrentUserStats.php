@@ -64,26 +64,6 @@ class TorrentUserStats
     }
 
     /**
-     * Set torrent
-     *
-     * @param Rooty\TorrentBundle\Entity\User $torrent
-     */
-    public function setTorrent(\Rooty\TorrentBundle\Entity\User $torrent)
-    {
-        $this->torrent = $torrent;
-    }
-
-    /**
-     * Get torrent
-     *
-     * @return Rooty\TorrentBundle\Entity\User 
-     */
-    public function getTorrent()
-    {
-        return $this->torrent;
-    }
-
-    /**
      * Set user
      *
      * @param Rooty\UserBundle\Entity\User $user
@@ -161,5 +141,25 @@ class TorrentUserStats
     public function getFinished()
     {
         return $this->finished;
+    }
+
+    /**
+     * Set torrent
+     *
+     * @param Rooty\TorrentBundle\Entity\Torrent $torrent
+     */
+    public function setTorrent(\Rooty\TorrentBundle\Entity\Torrent $torrent)
+    {
+        $this->torrent = $torrent;
+    }
+
+    /**
+     * Get torrent
+     *
+     * @return Rooty\TorrentBundle\Entity\Torrent 
+     */
+    public function getTorrent()
+    {
+        return $this->torrent;
     }
 }
