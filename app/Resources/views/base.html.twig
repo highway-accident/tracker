@@ -74,8 +74,8 @@
             
             {% if app.user %}
                 <script type="text/javascript">
-                    IMNotify();
-                    refreshChat();
+                    IMNotify("{{ path('message_notify') }}");
+                    refreshChat("{{ path('chat') }}");
                 </script>
             {% endif %}
         {% endblock %}

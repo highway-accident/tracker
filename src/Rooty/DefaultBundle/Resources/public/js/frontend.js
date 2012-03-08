@@ -186,9 +186,9 @@ function declOfNum(number, titles)
     return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
 }
 
-function IMNotify() {
+function IMNotify(url) {
     console.log('Checking for new messages..');
-    $.get('/tracker/app_dev.php/im/notify', function(response) {
+    $.get(url, function(response) {
         var obj = $.parseJSON(response);
         if (obj.status == 'ok') {
             $.each(obj.messages, function(index, message) {
@@ -209,14 +209,14 @@ function IMNotify() {
             });
         }
     });
-    setTimeout(IMNotify, 15000);
+    setTimeout(IMNotify, 15000, url);
 }
 
 var chatTimeout;
 
-function refreshChat() {
+function refreshChat(url) {
     console.log('refreshing chat');
-    $.get('/tracker/app_dev.php/chat/', function(response) {
+    $.get(url, function(response) {
         var obj = $.parseJSON(response, true);
         var result = new Array();
         if (obj.status == 'ok') {
@@ -226,5 +226,5 @@ function refreshChat() {
             $('.chat__messages').html(result.join(''));
         }
     });
-    chatTimeout = setTimeout(refreshChat, 5000);
+    chatTimeout = setTimeout(refreshChat, 5000, url);
 }
