@@ -634,3 +634,36 @@ input[type="file"] {
     .post.message.show .post__text__date-added {
             width: 755px;
     }
+
+/* Chat */
+.chat__messages {
+    float: left;
+    padding: 10px;
+    height: 400px;
+    width: 680px;
+    overflow-y: auto;
+    background: #FAFAFA;
+}
+
+.chat__messages__message {
+    margin-bottom: 3px;
+}
+
+.chat__users {
+    float: right;
+    padding: 10px;
+    height: 400px;
+    width: 180px;
+    overflow-y: auto;
+    background: #EEEEEE;
+}
+
+.chat__new-message {
+    margin-top: 5px;
+    padding: 10px 10px 1px 10px;
+    background: #FAFAFA;
+}
+
+.chat__new-message input[type="text"] {
+    width: 590px;
+}
