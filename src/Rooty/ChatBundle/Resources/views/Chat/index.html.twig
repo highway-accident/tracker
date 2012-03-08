@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+<div class="block">
+    <div class="block__head">
+        Чат
+    </div>
+
+    <div class="block__content">
+        <div class="clearfix">
+            <div class="chat__messages">
+                {% for message in messages %}
+                    <div class="chat__messages__message">
+                        [{{ message.dateAdded | date('H:i') }}]
+                        {{ message.addedBy | userlink | raw }}:
+                        {{ message.text }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="chat__users">
+            </div>
+        </div>
+            
+        <div class="chat__new-message">
+            <form action="{{ path('chat_message_create') }}" {{ form_enctype(form) }} method="POST" class="form-inline chat-message-create">
+                {{ form_widget(form.text) }}
+                {{ form_rest(form) }}
+                    
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

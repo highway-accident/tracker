@@ -1,3 +1,8 @@
+RootyChatBundle:
+    resource: "@RootyChatBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 RootyIMBundle:
     resource: "@RootyIMBundle/Controller/"
     type:     annotation
