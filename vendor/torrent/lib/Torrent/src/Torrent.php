@@ -638,7 +638,7 @@ class Torrent {
      */
     public function size ( $precision = null ) {
         $size = 0;
-        if ( is_array( $this->info['files'] ) )
+        if ( isset($this->info['files']) && is_array( $this->info['files'] ) )
             foreach ( $this->info['files'] as $file )
                 $size += $file['length'];
         elseif ( isset( $this->info['name'] ) )
