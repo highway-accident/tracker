@@ -42,6 +42,11 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $user = $em->getRepository('RootyUserBundle:User')->findOneById($id);
+        
+        if (!$user) {
+            throw $this->createNotFoundException('Пользователь не найден.');
+        }
+        
         $torrentsUploaded = $em->getRepository('RootyTorrentBundle:Torrent')->findBy(array('added_by' => $id));
         //$torrentsDownloaded = $em->getRepository('RootyTorrentBundle:TorrentUserStats')->findBy(array('user' => $id, 'finished' => 'yes'));
         
