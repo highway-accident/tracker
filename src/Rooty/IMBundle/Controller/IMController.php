@@ -144,6 +144,10 @@ class IMController extends Controller
             $sender = $this->container->get('security.context')->getToken()->getUser();
             $recepient = $em->getRepository('RootyUserBundle:User')->findOneById($recepient_id);
             
+            if ($sender == $recepient) {
+                throw new \Exception('Нельзя отправлять сообщения самому себе.');
+            }
+            
             $entity->setSender($sender);
             $entity->setRecepient($recepient);
             $entity->setDateAdded(new \DateTime('now'));

@@ -4,7 +4,9 @@
     <div class="user__sidebar__avatar">
         <img src="{{ user.avatarWebPath | apply_filter('avatar_profile')}}" />
     </div>
-    <a class="btn" href="{{ path('message_new', {'recepient_id': user.id}) }}">Отправить сообщение</a>
+    {% if app.user != user %}
+        <a class="btn" href="{{ path('message_new', {'recepient_id': user.id}) }}">Отправить сообщение</a>
+    {% endif %}
 </div>
 
 {{ user__description__row('Имя:', user.name | default('Не указано')) }}
