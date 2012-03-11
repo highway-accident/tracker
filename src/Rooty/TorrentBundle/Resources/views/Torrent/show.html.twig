@@ -141,7 +141,7 @@
         </div>
 
         <div class="torrent__download">
-            {% if entity.torrent.checkStatus == 'approved' %}
+            {% if entity.torrent.checkStatus == 'approved' or entity.torrent.addedBy == app.user or is_granted('ROLE_MODERATOR') %}
                 <a class="btn btn-large btn-primary" href="{{ path('torrent_download', {'id': entity.torrent.id}) }}">Скачать</a>
             {% elseif entity.torrent.checkStatus in ['unchecked', 'rejected'] %}
                 Извините, но эту раздачу нельзя скачать, пока она не пройдёт проверку.
