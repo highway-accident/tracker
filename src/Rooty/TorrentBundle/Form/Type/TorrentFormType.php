@@ -19,6 +19,7 @@ class TorrentFormType extends AbstractType
         $builder
             ->add('title')
             ->add('title_original')
+            ->add('year')
             ->add('description', null, array('label' => 'Описание:'))
             ->add('torrent_file', null, array('required' => false))
             ->add('poster_file', null, array('required' => false))

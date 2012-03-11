@@ -55,7 +55,7 @@ Rooty\TorrentBundle\Entity\Movie:
       - MaxLength: {limit: 255, groups: [new, edit]}
     sample_file:
       - File:
-          maxSize: 1M
+          maxSize: 20M
 
 Rooty\TorrentBundle\Entity\Torrent:
   properties:
@@ -64,7 +64,9 @@ Rooty\TorrentBundle\Entity\Torrent:
       - MaxLength: {limit: 255, groups: [new, edit]}
       
     title_original:
-      - NotBlank: {groups: [new, edit]}
+      - MaxLength: {limit: 255, groups: [new, edit]}
+      
+    year:
       - MaxLength: {limit: 255, groups: [new, edit]}
       
     description:

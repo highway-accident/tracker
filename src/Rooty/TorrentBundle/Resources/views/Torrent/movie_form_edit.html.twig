@@ -1,0 +1,32 @@
+{{ form_row(form.genre) }}
+{{ form_row(form.director) }}
+{{ form_row(form.cast) }}
+{{ form_row(form.country) }}
+{{ form_row(form.studio) }}
+{{ form_row(form.length) }}
+{{ form_row(form.imdb_id) }}
+{{ form_row(form.kinopoisk_id) }}
+{{ form_row(form.torrent.description) }}
+{{ form_row(form.translation) }}
+{{ form_row(form.subtitles) }}
+{{ form_row(form.format) }}
+{{ form_row(form.quality) }}
+{{ form_row(form.video) }}
+{{ form_row(form.audio) }}
+
+<div class="control-group">
+    <label class="control-label required" for="rooty_torrentbundle_typeformtype_sample_file">Семпл:</label>
+    <div class="controls">
+        <div class="file_update">
+            <a class="update_file ajaxLink" href="#">обновить файл</a>
+        </div>
+        <div class="file_input">
+            {{ form_widget(form.sample_file) }}
+            <span class="help-inline"></span>
+            <a class="update_file_undo ajaxLink" href="#">отменить обновление</a>
+        </div>
+    </div>
+</div>
+
+
+{{ form_row(form.release_group) }}

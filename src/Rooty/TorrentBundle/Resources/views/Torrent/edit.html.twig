@@ -45,10 +45,12 @@
                 </div>
             </div>
 
+            {{ form_row(form.torrent.year, { 'label': 'Год:' }) }}
+                
             {% if entity.torrent.type.slug == 'games' %}
                 {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}
             {% elseif entity.torrent.type.slug == 'movies' %}
-                {% include "RootyTorrentBundle:Torrent:movie_form.html.twig" %}
+                {% include "RootyTorrentBundle:Torrent:movie_form_edit.html.twig" %}
             {% endif %}
 
             {% form_theme form 'RootyUserBundle:Form:screenshots.html.twig' %}

@@ -43,6 +43,13 @@ class Torrent
      * @ORM\Column(name="title_original", type="string", length=255, nullable=true)
      */
     private $title_original;
+    
+    /**
+     * @var string $year
+     *
+     * @ORM\Column(name="year", type="string", length=255)
+     */
+    private $year;
 
     /**
      * @var text $description
@@ -693,5 +700,25 @@ class Torrent
     public function getModeratorComment()
     {
         return $this->moderator_comment;
+    }
+
+    /**
+     * Set year
+     *
+     * @param string $year
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+    }
+
+    /**
+     * Get year
+     *
+     * @return string 
+     */
+    public function getYear()
+    {
+        return $this->year;
     }
 }

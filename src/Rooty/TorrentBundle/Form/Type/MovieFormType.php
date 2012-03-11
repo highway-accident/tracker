@@ -51,6 +51,8 @@ class MovieFormType extends AbstractType
                 'label' => 'Релиз-группа:',
                 'class' => 'RootyTorrentBundle:MovieReleaseGroup',
                 'property' => 'title',
+                'empty_value' => 'Нет',
+                'required' => false,
             ));
     }
     

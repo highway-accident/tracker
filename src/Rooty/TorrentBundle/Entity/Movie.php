@@ -128,7 +128,7 @@ class Movie
     /**
      * @var string $sample_url
      *
-     * @ORM\Column(name="sample_url", type="string", length=255)
+     * @ORM\Column(name="sample_url", type="string", length=255, nullable=true)
      */
     private $sample_url;
 
@@ -553,7 +553,7 @@ class Movie
      *
      * @param Rooty\TorrentBundle\Entity\MovieReleaseGroup $releaseGroup
      */
-    public function setReleaseGroup(\Rooty\TorrentBundle\Entity\MovieReleaseGroup $releaseGroup)
+    public function setReleaseGroup(\Rooty\TorrentBundle\Entity\MovieReleaseGroup $releaseGroup = NULL)
     {
         $this->release_group = $releaseGroup;
     }

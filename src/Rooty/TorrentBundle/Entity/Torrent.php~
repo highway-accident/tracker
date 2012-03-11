@@ -43,6 +43,13 @@ class Torrent
      * @ORM\Column(name="title_original", type="string", length=255, nullable=true)
      */
     private $title_original;
+    
+    /**
+     * @var string $year
+     *
+     * @ORM\Column(name="year", type="string", length=255)
+     */
+    private $year;
 
     /**
      * @var text $description
@@ -150,7 +157,7 @@ class Torrent
     /**
      * @var string $moderator_comment
      *
-     * @ORM\Column(name="moderator_comment", type="string", length=255)
+     * @ORM\Column(name="moderator_comment", type="string", length=255, nullable="true")
      */
     private $moderator_comment;
 
@@ -381,9 +388,9 @@ class Torrent
             $this->torrent_url = uniqid().'.torrent';
             
             // set torrent file size
-            $this->size = filesize($this->torrent_file);
             $torrent = new \Torrent_Torrent($this->torrent_file);
             $this->info_hash = $torrent->hash_info();
+            $this->size = $torrent->size();
         }
         
         if (null !== $this->poster_file) {
@@ -398,27 +405,21 @@ class Torrent
      */
     public function upload()
     {
-        if (null === $this->torrent_file) {
-            return;
+        if (null !== $this->torrent_file) {
+            // if there is an error when moving the file, an exception will
+            // be automatically thrown by move(). This will properly prevent
+            // the entity from being persisted to the database on error
+            $this->torrent_file->move($this->getTorrentUploadRootDir(), $this->torrent_url);
+            unset($this->torrent_file);
         }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->torrent_file->move($this->getTorrentUploadRootDir(), $this->torrent_url);
         
-        unset($this->torrent_file);
-        
-        if (null === $this->poster_file) {
-            return;
+        if (null !== $this->poster_file) {
+            // if there is an error when moving the file, an exception will
+            // be automatically thrown by move(). This will properly prevent
+            // the entity from being persisted to the database on error
+            $this->poster_file->move($this->getPosterUploadRootDir(), $this->poster_url);
+            unset($this->poster_file);
         }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->poster_file->move($this->getPosterUploadRootDir(), $this->poster_url);
-        
-        unset($this->poster_file);
     }
 
     /**
@@ -679,5 +680,25 @@ class Torrent
     public function getInfoHash()
     {
         return $this->info_hash;
+    }
+
+    /**
+     * Set moderator_comment
+     *
+     * @param string $moderatorComment
+     */
+    public function setModeratorComment($moderatorComment)
+    {
+        $this->moderator_comment = $moderatorComment;
+    }
+
+    /**
+     * Get moderator_comment
+     *
+     * @return string 
+     */
+    public function getModeratorComment()
+    {
+        return $this->moderator_comment;
     }
 }

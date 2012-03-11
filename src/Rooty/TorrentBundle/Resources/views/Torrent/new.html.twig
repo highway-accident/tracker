@@ -18,6 +18,7 @@
             {{ form_row(form.torrent.title_original, { 'label': 'Оригинальное название:' }) }}
             {{ form_row(form.torrent.torrent_file, { 'label': 'Торрент-файл:' }) }}
             {{ form_row(form.torrent.poster_file, { 'label': 'Постер:' }) }}
+            {{ form_row(form.torrent.year, { 'label': 'Год:' }) }}
 
             {% if entity.torrent.type.slug == 'games' %}
                 {% include "RootyTorrentBundle:Torrent:game_form.html.twig" %}

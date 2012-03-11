@@ -100,6 +100,8 @@
             {{ _self.torrent__description__row('Название', entity.torrent.title) }}
             {{ _self.torrent__description__row('Оригинальное название', entity.torrent.titleOriginal) }}
             #}
+                
+            {{ _self.torrent__description__row('Год:', entity.torrent.year) }}
 
             {% if entity.torrent.type.slug == 'games' %}
                 {% include "RootyTorrentBundle:Torrent:show/game_show.html.twig" %}
