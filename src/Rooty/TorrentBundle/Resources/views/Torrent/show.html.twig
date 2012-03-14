@@ -30,16 +30,18 @@
     </div>
 
     <div class="block__content">
-        {% if entity.torrent.checkStatus == 'unchecked' %}
-            <div class="torrent__check_status unchecked">
-                Ваша раздача ещё не успела пройти проверку. Это значит, что пока что её не видят другие пользователи. Как только её проверят вы получите уведомление личным сообщением.
-            </div>
-        {% elseif entity.torrent.checkStatus == 'rejected' %}
-            <div class="torrent__check_status rejected">
-                Ваша раздача не прошла проверку и была возвращена на доработку. Вот как {{ entity.torrent.checkedBy | userlink | raw }} прокомментировал причину блокировки:<br>
-                &laquo;{{entity.torrent.moderatorComment }}&raquo;<br>
-                Устраните, пожалуйста, все нарушения и <a href="{{ path('torrent_request_check', {'id': entity.torrent.id}) }}">подайте заявку на проверку ещё раз</a>.
-            </div>
+        {% if app.user == entity.torrent.addedBy %}
+            {% if entity.torrent.checkStatus == 'unchecked' %}
+                <div class="torrent__check_status unchecked">
+                    Ваша раздача ещё не успела пройти проверку. Это значит, что пока что её не видят другие пользователи. Как только её проверят вы получите уведомление личным сообщением.
+                </div>
+            {% elseif entity.torrent.checkStatus == 'rejected' %}
+                <div class="torrent__check_status rejected">
+                    Ваша раздача не прошла проверку и была возвращена на доработку. Вот как {{ entity.torrent.checkedBy | userlink | raw }} прокомментировал причину блокировки:<br>
+                    &laquo;{{entity.torrent.moderatorComment }}&raquo;<br>
+                    Устраните, пожалуйста, все нарушения и <a href="{{ path('torrent_request_check', {'id': entity.torrent.id}) }}">подайте заявку на проверку ещё раз</a>.
+                </div>
+            {% endif %}
         {% endif %}
 
         <div class="torrent__description clearfix">
