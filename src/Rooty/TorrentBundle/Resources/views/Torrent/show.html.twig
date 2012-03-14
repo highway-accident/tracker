@@ -24,7 +24,7 @@
             <a href="{{ path('torrent_delete', {'id': entity.torrent.id}) }}" title="Удалить"><i class="icon-trash"></i></a>
         {% endif %}
         
-        {% if is_granted('ROLE_MODERATOR') %}
+        {% if is_granted('ROLE_SUPERMODERATOR') or is_granted('ROLE_MODERATOR_' ~ entity.torrent.type.slug | upper) %}
             <a href="#torrent_admin" class="colorbox inline" title="Администрирование"><i class="icon-eye-open"></i></a>
         {% endif %}
     </div>

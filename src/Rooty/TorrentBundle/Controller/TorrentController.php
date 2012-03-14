@@ -115,7 +115,6 @@ class TorrentController extends Controller
     /**
      *
      * @Route("/{id}/adminUpdate", name="torrent_admin_update")
-     * @Secure(roles="ROLE_MODERATOR")
      */
     public function adminUpdateAction($id)
     {
@@ -125,6 +124,10 @@ class TorrentController extends Controller
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        if (!($user->hasRole('ROLE_SUPERMODERATOR') || $user->hasRole('ROLE_MODERATOR_'.$entity->getTorrent()->getType()->getSlug()))) {
+            throw new AccessDeniedException();
         }
         
         $form = $this->createForm(new QuickAdminFormType(), $entity);
@@ -154,6 +157,10 @@ class TorrentController extends Controller
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Torrent entity');
+        }
+        
+        if (!($user == $entity->getTorrent()->getAddedBy())){
+            throw new AccessDeniedException();
         }
         
         $entity->setCheckStatus('unchecked');
@@ -357,7 +364,6 @@ class TorrentController extends Controller
      * 
      * @Route("/{id}/edit", name="torrent_edit")
      * @Template()
-     * @Secure(roles="ROLE_UPLOADER")
      */
     public function editAction($id)
     {
@@ -380,7 +386,7 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
         
-        if ($entity->getTorrent()->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+        if (!($user == $entity->getTorrent()->getAddedBy() || $user->hasRole('ROLE_SUPERMODERATOR') || $user->hasRole('ROLE_MODERATOR_'.$entity->getTorrent()->getType()->getSlug()))) {
             throw new AccessDeniedException();
         }
         
@@ -399,7 +405,6 @@ class TorrentController extends Controller
      * @Route("/{id}/update", name="torrent_update")
      * @Method("post")
      * @Template("RootyTorrentBundle:Torrent:edit.html.twig")
-     * @Secure(roles="ROLE_UPLOADER")
      */
     public function updateAction($id)
     {
@@ -422,7 +427,7 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
         
-        if ($entity->getTorrent()->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+        if (!($user == $entity->getTorrent()->getAddedBy() || $user->hasRole('ROLE_SUPERMODERATOR') || $user->hasRole('ROLE_MODERATOR_'.$entity->getTorrent()->getType()->getSlug()))) {
             throw new AccessDeniedException();
         }
         
@@ -463,7 +468,6 @@ class TorrentController extends Controller
      * Delete an existing torrent entity
      * 
      * @Route("/{id}/delete", name="torrent_delete")
-     * @Secure(roles="ROLE_USER")
      */
     public function deleteAction($id)
     {
@@ -475,7 +479,7 @@ class TorrentController extends Controller
             throw $this->createNotFoundException('Unable to find Torrent entity');
         }
         
-        if ($torrent->getAddedBy() != $user && !$user->hasRole('ROLE_MODERATOR')) {
+        if (!($user == $entity->getTorrent()->getAddedBy() || $user->hasRole('ROLE_SUPERMODERATOR') || $user->hasRole('ROLE_MODERATOR_'.$entity->getTorrent()->getType()->getSlug()))) {
             throw new AccessDeniedException();
         }
         

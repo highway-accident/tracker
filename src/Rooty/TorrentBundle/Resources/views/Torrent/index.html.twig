@@ -166,7 +166,7 @@
 
             <td>
                 <a href="{{ path('torrent_show', {'id': torrent['id']}) }}">{{ torrent['title'] }} / {{ torrent['title_original'] }}</a>
-                {% if app.user == torrent['user'] or is_granted('ROLE_MODERATOR') %}
+                {% if app.user == torrent['user'] or is_granted('ROLE_SUPERMODERATOR') or is_granted('ROLE_MODERATOR_' ~ torrent['type_slug'] | upper) %}
                     <a href="{{ path('torrent_edit', {'id': torrent['id']}) }}" title="Редактировать"><i class="icon-pencil"></i></a>
                 {% endif %}
             </td>

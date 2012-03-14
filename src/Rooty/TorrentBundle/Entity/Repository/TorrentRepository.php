@@ -25,8 +25,11 @@ class TorrentRepository extends EntityRepository
         $rsm->addScalarResult('author_id', 'author_id');
         $rsm->addScalarResult('seeders', 'seeders');
         $rsm->addScalarResult('leechers', 'leechers');
+        $rsm->addScalarResult('type_slug', 'type_slug');
+        $rsm->addScalarResult('type_name', 'type_name');
+        $rsm->addScalarResult('type_image', 'type_image');
         
-        $sql = "SELECT t.id, t.title, t.title_original, t.size, u.id AS author_id, IFNULL(seedcount, 0) AS seeders, IFNULL(leechcount, 0) AS leechers 
+        $sql = "SELECT t.id, t.title, t.title_original, t.size, u.id AS author_id, ty.slug AS type_slug, ty.title AS type_name, ty.image_url AS type_image, IFNULL(seedcount, 0) AS seeders, IFNULL(leechcount, 0) AS leechers 
                 FROM torrents AS t";
         $parameters = array();
         $whereClauses = array();
@@ -78,6 +81,8 @@ class TorrentRepository extends EntityRepository
         }
         
         $sql .= " JOIN users AS u ON u.id = t.added_by_id";
+        
+        $sql .= " JOIN torrent_types AS ty ON ty.id = t.type_id";
         
         $sql .= " LEFT JOIN
                 (SELECT info_hash, COUNT(*) AS seedCount FROM peers 

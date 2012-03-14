@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Rooty\TorrentBundle\Entity\Type
  *
- * @ORM\Table()
+ * @ORM\Table(name="torrent_types")
  * @ORM\Entity
  */
 class Type
