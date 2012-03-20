@@ -37,7 +37,7 @@ class User extends BaseUser
      * @ORM\Column(type="date", nullable="true")
      */
     protected $birthday;
-
+    
     /**
      * @ORM\Column(type="string", length="32")
      */
@@ -86,6 +86,11 @@ class User extends BaseUser
      * @ORM\Column(type="datetime")
      */
     protected $last_activity;
+    
+    /**
+     * @ORM\Column(type="boolean") 
+     */
+    protected $is_gold;
     
     public function __construct()
     {
@@ -460,5 +465,25 @@ class User extends BaseUser
     public function getDownloaded()
     {
         return $this->downloaded;
+    }
+
+    /**
+     * Set is_gold
+     *
+     * @param boolean $isGold
+     */
+    public function setIsGold($isGold)
+    {
+        $this->is_gold = $isGold;
+    }
+
+    /**
+     * Get is_gold
+     *
+     * @return boolean 
+     */
+    public function getIsGold()
+    {
+        return $this->is_gold;
     }
 }

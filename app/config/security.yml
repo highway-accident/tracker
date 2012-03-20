@@ -7,8 +7,7 @@ security:
         ROLE_SUPERUSER: ROLE_USER
         ROLE_UPLOADER: ROLE_USER
         ROLE_SUPERUPLOADER: ROLE_UPLOADER
-        ROLE_GOLD: ROLE_SUPERUPLOADER
-        ROLE_MODERATOR: ROLE_UPLOADER
+        ROLE_MODERATOR: ROLE_SUPERUPLOADER
         ROLE_MODERATOR_GAMES: ROLE_MODERATOR
         ROLE_MODERATOR_MOVIES: ROLE_MODERATOR
         ROLE_SUPERMODERATOR: [ROLE_MODERATOR_GAMES, ROLE_MODERATOR_MOVIES]
@@ -33,26 +32,6 @@ security:
                 default_target_path: _index
             logout:       true
             anonymous:    true
-
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/demo/secured/
-            form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
-            logout:
-                path:   /demo/secured/logout
-                target: /demo/
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
