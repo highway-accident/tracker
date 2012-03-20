@@ -117,3 +117,9 @@ services:
     class: Rooty\DefaultBundle\Extension\DateRelativeExtension
     tags:
       - {name: twig.extension }
+      
+  Rooty.twig.extension6:
+    class: Rooty\DefaultBundle\Extension\RolenameExtension
+    arguments: [@service_container]
+    tags:
+      - {name: twig.extension }
