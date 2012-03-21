@@ -281,15 +281,15 @@ a.ajaxLink {
             vertical-align: middle;
         }
 
-.torrent_admin {
+.quick-admin {
     margin: 0 !important;
 }
 
-.torrent_admin .block__content {    
+.quick-admin .block__content {    
     padding-bottom: 0 !important;
 }
 
-.torrent_admin_form .control-group {
+.quick-admin__form .control-group {
     margin-bottom: 10px;
 }
 

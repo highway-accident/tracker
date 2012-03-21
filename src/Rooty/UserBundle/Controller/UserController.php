@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Rooty\UserBundle\Form\Type\QuickAdminFormType;
 
 /**
 * Users controller
@@ -30,6 +31,37 @@ class UserController extends Controller
         return array(
             'entity' => $entity,
         );
+    }
+    
+    /**
+     *
+     * @Route("/{id}/adminUpdate", name="user_admin_update")
+     */
+    public function adminUpdateAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('RootyUserBundle:User')->find($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity');
+        }
+        
+        if (!($user->hasRole('ROLE_ADMIN'))) {
+            throw new AccessDeniedException();
+        }
+        
+        $form = $this->createForm(new QuickAdminFormType(), $entity);
+        $request = $this->getRequest();
+        $form->bindRequest($request);
+        
+        if ($form->isValid()) {
+            $em->flush();
+            
+            $this->get('session')->setFlash('notice', 'Ваши изменения успешно сохранены!');
+            
+            return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
+        }
     }
     
     /**
@@ -64,11 +96,14 @@ class UserController extends Controller
         $query = $em->createQuery('SELECT COUNT(c.id) FROM Rooty\CommentBundle\Entity\Comment c');
         $commentCount = $query->getSingleScalarResult();
         
+        $quickAdminForm = $this->createForm(new QuickAdminFormType(), $user);
+        
         return array(
             'user' => $user,
             'comment_count' => $commentCount,
             'torrents_uploaded' => $torrentsUploaded,
             'torrents_downloaded' => $torrentsDownloaded,
+            'admin_form' => $quickAdminForm->createView(),
         );
     }
 }

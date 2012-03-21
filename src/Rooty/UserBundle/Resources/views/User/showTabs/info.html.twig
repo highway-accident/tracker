@@ -11,6 +11,12 @@
 
 {{ user__description__row('Имя:', user.name | default('Не указано')) }}
 {{ user__description__row('Фамилия:', user.surname | default('Не указана')) }}
+
+<div class="torrent__description__row"> {# Because of raw #}
+    <span class="torrent__description__row__key">Класс:</span>
+    <span class="torrent__description__row__value">{{ user | rolename | raw }}</span>
+</div>
+
 {% if user.birthday == NULL %}{% set birthday = 'Не указан'%}{% else %}{% set birthday = user.birthday|date('j F') ~ ' (' ~ user.birthday|timeElapsed('now')|date('%y') ~ ' лет)' %}{% endif %}
 {{ user__description__row('День рождения:', birthday) }}
 {{ user__description__row('Зарегистрирован:', user.dateAdded | date('j F Y в H:i')) }}

@@ -5,6 +5,9 @@
 <div class="block">
     <div class="block__head">
         Профиль пользователя {{ user.username }}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="#user_admin" class="colorbox inline" title="Администрирование"><i class="icon-eye-open"></i></a>
+        {% endif %}
     </div>
 
     <div class="block__content clearfix">
@@ -26,6 +29,16 @@
                     {% include "RootyUserBundle:User:showTabs/contacts.html.twig" %}
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div class="block quick-admin" id="user_admin">
+        <div class="block__head">Администрирование</div>
+
+        <div class="block__content">
+            {% include "RootyUserBundle:User:quick_admin.html.twig" %}
         </div>
     </div>
 </div>
