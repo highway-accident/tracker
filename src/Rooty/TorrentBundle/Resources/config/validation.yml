@@ -77,14 +77,16 @@ Rooty\TorrentBundle\Entity\Torrent:
       - NotBlank: {groups: [new]}
       - File:
           maxSize: 1M
-#          mimeTypes: [application/x-bittorrent]
+          mimeTypes: [application/x-bittorrent]
           mimeTypesMessage: Пожалуйста, укажите корректный torrent-файл
+          groups: [new, edit]
       
     poster_file:
       - NotBlank: {groups: [new]}
       - Image:
           maxSize: 5M
-          
+          groups: [new, edit]
+
     screenshots:
       - Collection:
           fields:

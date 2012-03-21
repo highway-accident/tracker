@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% form_theme form 'RootyDefaultBundle:Form:fields_bootstrap.html.twig' %}
+{% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
 {% block content %}
 <div class="block">
@@ -26,6 +26,8 @@
                 {% include "RootyTorrentBundle:Torrent:movie_form.html.twig" %}
             {% endif %}
 
+            {% form_theme form 'RootyDefaultBundle:Form:fields_bootstrap.html.twig' %}
+                
             {{ form_row(form.torrent.screenshots, { 'label': 'Скриншоты:' }) }}
 
             {{ form_widget(form.type) }}
