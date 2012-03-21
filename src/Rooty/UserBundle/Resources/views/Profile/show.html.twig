@@ -8,16 +8,23 @@
     </div>
 
     <div class="block__content">
-        {{ user__description__row('Имя пользователя:', user.username) }}
-        {{ user__description__row('E-mail:', user.email) }}
-        {{ user__description__row('Имя:', user.name | default('Не указано')) }}
-        {{ user__description__row('Фамилия:', user.surname | default('Не указана')) }}
-        {% if user.birthday == NULL %}{% set birthday = 'Не указана'%}{% else %}{% set birthday = user.birthday | date('j F Y в H:i')%}{% endif %}
-        {{ user__description__row('Дата рождения:', birthday) }}
-        {{ user__description__row('Последняя активность:', user.lastActivity | date('j F Y в H:i')) }}
-        {{ user__description__row('Зарегистрирован:', user.dateAdded | date('j F Y в H:i')) }}
-        {{ user__description__row('Пасскей:', user.passkey) }}
-        <a class="btn btn-warning">Сменить пасскей</a> Внимание! После смены пасскея вам придётся скачать все раздачи заново.
+        <h3>Личные данные</h3>
+        <p><a href="{{ path('profile_edit') }}">Редактировать личные данные</a></p>
+        <hr>
+        
+        <h3>Пасскей</h3>
+        <p>
+            Ваш пасскей: {{ user.passkey }}
+        </p>
+        <p>
+            <a class="btn btn-warning">Сменить пасскей</a>
+            Внимание! После смены пасскея вам придётся скачать все раздачи заново.
+        </p>
+        <hr>
+        
+        <h3>Смена пароля</h3>
+        <p><a href="#">Сменить пароль</a></p>
+        
     </div>
 </div>
 {% endblock %}

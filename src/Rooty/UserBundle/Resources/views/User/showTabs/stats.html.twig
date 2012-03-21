@@ -1,6 +1,6 @@
 {% from 'RootyTorrentBundle:Torrent:show.html.twig' import torrent__description__row as user__description__row %}
 
-<h3>Статистика</h3>
+<p>
 {{ user__description__row('Раздал:', user.downloaded|filesize()) }}
 {{ user__description__row('Скачал:', user.uploaded|filesize()) }}
 {% if user.downloaded == 0 %}
@@ -10,8 +10,11 @@
 {% endif %}
 {{ user__description__row('Рейтинг:', ratio) }}
 {{ user__description__row('Комментариев:', comment_count) }}
+</p>
+<hr>
 
 <h3>Загрузил</h3>
+<p>
 {% if torrents_uploaded|length %}
     <table class="table table-bordered table-striped">
         <tr>
@@ -31,6 +34,7 @@
 {% else %}
     Этот пользователь пока не загрузил ни одной раздачи.
 {% endif %}
+</p>
 
 <h3>Скачал</h3>
 {% if torrents_downloaded|length %}
