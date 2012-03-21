@@ -1,0 +1,10 @@
+<form action="{{ path('user_admin_update', {'id': user.id}) }}" method="post" {{ form_enctype(admin_form) }} class="form-horizontal quick-admin__form">
+{% form_theme admin_form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+    {{ form_row(admin_form.roles) }}
+    {{ form_rest(admin_form) }}
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="reset" class="btn">Сброс</button>
+    </div>
+</form>
