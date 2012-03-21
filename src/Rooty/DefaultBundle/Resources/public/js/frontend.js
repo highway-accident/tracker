@@ -1,22 +1,22 @@
 $(document).ready(function() {
     // Advanced search type fields loading
     $('.advanced_search__type_fields').hide();
-    switch ($('#rooty_torrentbundle_torrentadvancedfiltertype_type').val()) {
-        case '3':
+    switch ($('#search_advanced_type').val()) {
+        case '1':
             $('#advanced_search__game_fields').fadeIn();
             break;
-        case '4':
+        case '2':
             $('#advanced_search__movie_fields').fadeIn();
             break;
     }
     $('.advanced_search__type_fields:hidden').val('');
 
-    $('#rooty_torrentbundle_torrentadvancedfiltertype_type').change(function() {
+    $('#search_advanced_type').change(function() {
         switch($(this).val()) {
-            case '3':
+            case '1':
                 $('.advanced_search__type_fields:visible').fadeOut(function() {$('#advanced_search__game_fields').fadeIn()});
                 break;
-            case '4':
+            case '2':
                 $('.advanced_search__type_fields:visible').fadeOut(function() {$('#advanced_search__movie_fields').fadeIn()});
                 break;
         }
