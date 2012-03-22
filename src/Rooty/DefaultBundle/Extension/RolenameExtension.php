@@ -19,20 +19,21 @@ class RolenameExtension extends \Twig_Extension {
     }
 
     public function rolenameFilter($user) {
+        $roles = $user->getRoles();
         $role = 'Пользователь';
         $class = 'user';
         $context = $this->container->get('security.context');
         
-        if ($context->isGranted('ROLE_SUPER_ADMIN')) {
+        if (in_array('ROLE_SUPER_ADMIN', $roles)) {
             $role = 'СисОп';
             $class = 'admin';
-        } elseif ($context->isGranted('ROLE_ADMIN')) {
+        } elseif (in_array('ROLE_ADMIN', $roles)) {
             $role = 'Администратор';
             $class = 'admin';
-        } elseif ($context->isGranted('ROLE_SUPER_MODERATOR')) {
+        } elseif (in_array('ROLE_SUPER_MODERATOR', $roles)) {
             $role = 'Супермодератор';
             $class = 'super_moderator';
-        } elseif ($context->isGranted('ROLE_MODERATOR')) {
+        } elseif (in_array('ROLE_MODERATOR', $roles)) {
             $names = array();
             $categories = array('GAMES' => 'Игры', 'MOVIES' => 'Кино');
             
@@ -43,13 +44,13 @@ class RolenameExtension extends \Twig_Extension {
             }
             $role = 'Модератор разделов: ' . implode($names, ', ');
             $class = 'moderator';
-        } elseif ($context->isGranted('ROLE_SUPER_UPLOADER')) {
+        } elseif (in_array('ROLE_SUPER_UPLOADER', $roles)) {
             $role = 'Супераплоадер';
             $class = 'super_uploader';
-        } elseif ($context->isGranted('ROLE_UPLOADER')) {
+        } elseif (in_array('ROLE_UPLOADER', $roles)) {
             $role = 'Аплоадер';
             $class = 'uploader';
-        } elseif ($context->isGranted('ROLE_SUPERUSER')) {
+        } elseif (in_array('ROLE_SUPERUSER', $roles)) {
             $role = 'Суперпользователь';
             $class = 'super_user';
         }
