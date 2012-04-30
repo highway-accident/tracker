@@ -90,7 +90,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="boolean") 
      */
-    protected $is_gold;
+    protected $is_gold = false;
     
     public function __construct()
     {
