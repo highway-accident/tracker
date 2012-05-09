@@ -87,7 +87,7 @@ class UserController extends Controller
         $rsm->addScalarResult('type', 'type');
         $rsm->addScalarResult('title', 'title');
         
-        $sql = 'SELECT Type.title AS type, t.title AS title FROM user_torrents AS ut JOIN torrents AS t ON t.id = ut.torrent_id JOIN Type ON Type.id = t.type_id WHERE ut.user_id = :user_id AND ut.finished = 1 AND t.added_by_id != ut.user_id';
+        $sql = 'SELECT Type.title AS type, t.title AS title FROM user_torrents AS ut JOIN torrents AS t ON t.id = ut.torrent_id JOIN torrent_types AS Type ON Type.id = t.type_id WHERE ut.user_id = :user_id AND ut.finished = 1 AND t.added_by_id != ut.user_id';
         $query = $em->createNativeQuery($sql, $rsm);
         $query->setParameter('user_id', $user->getId());
         $torrentsDownloaded = $query->getScalarResult();
