@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Rooty\UserBundle\Form\Type\QuickAdminFormType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
 * Users controller
@@ -36,6 +37,7 @@ class UserController extends Controller
     /**
      *
      * @Route("/{id}/adminUpdate", name="user_admin_update")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function adminUpdateAction($id)
     {
@@ -47,9 +49,10 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity');
         }
         
-        if (!($user->hasRole('ROLE_ADMIN'))) {
-            throw new AccessDeniedException();
-        }
+        //if (!($user->hasRole('ROLE_ADMIN')))
+	//if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        //    throw new AccessDeniedException();
+        //}
         
         $form = $this->createForm(new QuickAdminFormType(), $entity);
         $request = $this->getRequest();
