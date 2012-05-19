@@ -17,9 +17,9 @@
 
             {% for user in entity %}
                 <tr>
-                    <td>{{ user.username | userlink(path('user_show', {'id': user.id}), user.roles) | raw }}</td>
-                    <td>{{ user.gender }}</td>
-                    <td>{{ user.birthday | date('j F Y в H:i')}}</td>
+                    <td>{{ user | userlink | raw}}</td>
+                    <td>{{ user.gender |  default('Не указан') }}</td>
+                    <td>{% if user.birthday == NULL %}{{ 'Не указан' }}{% else %}{{ user.birthday|date('j F') ~ ' (' ~ user.birthday|timeElapsed('now')|date('%y') ~ ' лет)' }}{% endif %}</td>
                     <td>{{ user.dateAdded | date('j F Y в H:i') }}</td>
                 </tr>
             {% endfor %}
