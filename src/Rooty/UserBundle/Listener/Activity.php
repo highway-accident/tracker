@@ -35,6 +35,9 @@ class Activity
             $user->setLastActivity(new DateTime());
             $this->em->persist($user);
             $this->em->flush($user);
+
+            //force authentication to reload current roles
+            $this->context->getToken()->setAuthenticated(false);
         }
     }
 }
